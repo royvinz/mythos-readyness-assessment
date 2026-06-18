@@ -90,6 +90,9 @@ const I18N = {
     footer_refs:    "Référentiels : CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
     footer_version: "v1.0 · Wavestone · 2026",
 
+    // Questions language notice
+    q_lang_notice: "📖 Questions et descripteurs affichés en anglais (langue source de l'instrument)",
+
     // Scored counter suffix
     scored_of: "notées sur 40",
 
@@ -225,6 +228,9 @@ const I18N = {
     // Footer
     footer_refs:    "References: CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
     footer_version: "v1.0 · Wavestone · 2026",
+
+    // Questions language notice
+    q_lang_notice: "📖 Questions and descriptors displayed in English (instrument source language)",
 
     // Scored counter suffix
     scored_of: "scored out of 40",
