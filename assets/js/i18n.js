@@ -5,6 +5,8 @@ const I18N = {
   fr: {
     // Nav
     nav_dashboard: "Tableau de bord",
+    nav_ingest:    "Ingest plan",
+    nav_config:    "Configuration",
     nav_reset:     "Réinitialiser",
     nav_lang:      "EN",
 
@@ -100,11 +102,47 @@ const I18N = {
     export_enc_btn:     "Exporter chiffré (AES-256)",
     export_encrypting:  "Chiffrement…",
     export_cancel:      "Annuler",
+
+    // Configuration
+    config_title: "Configuration LLM",
+    config_intro: "La clé API est stockée localement dans ce navigateur. Sur GitHub Pages, elle est utilisée côté client pour appeler le fournisseur choisi.",
+    config_provider: "Fournisseur",
+    config_api_key: "Clé API",
+    config_model: "Modèle",
+    config_endpoint: "Endpoint Azure",
+    config_deployment: "Déploiement Azure",
+    config_api_version: "Version API Azure",
+    config_save: "Enregistrer",
+    config_saved: "Configuration enregistrée localement.",
+    config_missing: "Configurez d'abord une clé API et un modèle.",
+
+    // Ingest plan
+    ingest_title: "Ingest plan",
+    ingest_intro: "Importez un plan existant client au format XLSX, PPTX ou PDF. Le LLM identifie les mesures déjà prévues, les manques et peut préremplir le questionnaire.",
+    ingest_file_label: "Fichier à analyser",
+    ingest_run: "Analyser avec le LLM",
+    ingest_apply: "Préremplir le questionnaire",
+    ingest_summary: "Synthèse",
+    ingest_planned: "Ce qui est prévu",
+    ingest_missing: "Ce qui n'est pas prévu",
+    ingest_prefill: "Questions proposées",
+    ingest_no_result: "Aucun résultat d'analyse pour le moment.",
+    ingest_reading: "Lecture du fichier…",
+    ingest_calling: "Analyse LLM en cours…",
+    ingest_done: "Analyse terminée.",
+    ingest_applied: "Questionnaire prérempli à partir de l'analyse.",
+    ingest_error: "Erreur d'analyse : ",
+    ingest_empty_file: "Le fichier ne contient pas de texte exploitable.",
+    ingest_supported: "Formats acceptés : .xlsx, .pptx, .pdf",
+    ingest_confidence: "Confiance",
+    ingest_evidence: "Preuve",
   },
 
   en: {
     // Nav
     nav_dashboard: "Dashboard",
+    nav_ingest:    "Ingest plan",
+    nav_config:    "Configuration",
     nav_reset:     "Reset",
     nav_lang:      "FR",
 
@@ -200,6 +238,40 @@ const I18N = {
     export_enc_btn:     "Export encrypted (AES-256)",
     export_encrypting:  "Encrypting…",
     export_cancel:      "Cancel",
+
+    // Configuration
+    config_title: "LLM configuration",
+    config_intro: "The API key is stored locally in this browser. On GitHub Pages, it is used client-side to call the selected provider.",
+    config_provider: "Provider",
+    config_api_key: "API key",
+    config_model: "Model",
+    config_endpoint: "Azure endpoint",
+    config_deployment: "Azure deployment",
+    config_api_version: "Azure API version",
+    config_save: "Save",
+    config_saved: "Configuration saved locally.",
+    config_missing: "Configure an API key and model first.",
+
+    // Ingest plan
+    ingest_title: "Ingest plan",
+    ingest_intro: "Upload an existing client plan as XLSX, PPTX or PDF. The LLM identifies planned measures, gaps and can pre-fill the questionnaire.",
+    ingest_file_label: "File to analyze",
+    ingest_run: "Analyze with LLM",
+    ingest_apply: "Pre-fill questionnaire",
+    ingest_summary: "Summary",
+    ingest_planned: "What is planned",
+    ingest_missing: "What is not planned",
+    ingest_prefill: "Suggested answers",
+    ingest_no_result: "No analysis result yet.",
+    ingest_reading: "Reading file…",
+    ingest_calling: "LLM analysis in progress…",
+    ingest_done: "Analysis complete.",
+    ingest_applied: "Questionnaire pre-filled from the analysis.",
+    ingest_error: "Analysis error: ",
+    ingest_empty_file: "The file does not contain usable text.",
+    ingest_supported: "Accepted formats: .xlsx, .pptx, .pdf",
+    ingest_confidence: "Confidence",
+    ingest_evidence: "Evidence",
   }
 };
 
