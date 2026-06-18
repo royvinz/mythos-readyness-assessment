@@ -166,8 +166,8 @@ python3 -m http.server 8080
 2. Select a score 0–3 using the behavioral descriptors. Scores persist automatically in your browser (`localStorage`).
 3. Use the optional **note / evidence** field to record supporting observations.
 4. The **Dashboard** updates in real time as you score questions — no need to complete all 40.
-5. Use **Configuration** to select an LLM provider and store an API key locally in your browser.
-6. Use **Ingest plan** to upload an existing XLSX, PPTX or PDF client plan. The LLM maps the plan to the 40 questions, highlights what is already planned and what is missing, and can pre-fill scores and evidence notes.
+5. Use **Configuration** to select an LLM provider/model and store an API key locally in your browser. Saving the configuration also runs a small API validity test.
+6. Use **Ingest plan** to upload an existing XLSX, PPTX or PDF client plan. The LLM maps the plan to the 40 questions, highlights what is already planned and what is missing, and can pre-fill scores and evidence notes. A collapsed debug panel shows the last API request/response with sensitive headers masked.
 7. Use **Export CSV** to produce a structured output for reporting or archival.
 8. Use **Print / PDF** for a printable ExCom-ready summary.
 

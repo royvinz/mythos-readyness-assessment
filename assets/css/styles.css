@@ -786,6 +786,16 @@ a:hover { text-decoration: underline; }
   color: var(--ws-muted);
 }
 
+.status-ok {
+  color: var(--ws-success);
+  font-weight: 600;
+}
+
+.status-error {
+  color: var(--ws-danger);
+  font-weight: 600;
+}
+
 .hidden {
   display: none !important;
 }
@@ -898,6 +908,37 @@ a:hover { text-decoration: underline; }
   flex-direction: column;
   align-items: flex-end;
   gap: var(--gap-sm);
+}
+
+.api-debug {
+  margin-top: var(--gap-lg);
+  border: 1px solid var(--ws-line);
+  border-radius: var(--radius);
+  background: var(--ws-bg);
+  overflow: hidden;
+}
+
+.api-debug summary {
+  cursor: pointer;
+  padding: var(--gap-md);
+  color: var(--ws-deep);
+  font-size: var(--ws-text-sm);
+  font-weight: 700;
+}
+
+.api-debug pre {
+  max-height: 420px;
+  overflow: auto;
+  margin: 0;
+  padding: var(--gap-md);
+  border-top: 1px solid var(--ws-line);
+  background: #16121F;
+  color: #F5F4F9;
+  font-family: var(--ws-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* ─── Modal ──────────────────────────────────────────────────────────────── */
