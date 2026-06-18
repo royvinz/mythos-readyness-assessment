@@ -647,9 +647,6 @@ function renderPillar(pillarId) {
     <div class="pillar-progress-label">${scoredCount} / ${qs.length} ${t("sub_progress")}</div>
   </div>`;
 
-  if (LANG === "fr") {
-    html += `<div class="lang-notice">${t("q_lang_notice")}</div>`;
-  }
   Object.keys(pillar.subs).forEach(sc => {
     const subQs = qs.filter(q => q.sub === sc);
     const subScored = subQs.filter(q => SCORES[q.id] !== undefined && SCORES[q.id] !== null).length;
@@ -668,7 +665,7 @@ function renderPillar(pillarId) {
 function renderQuestionCard(q, pillar) {
   const score = SCORES[q.id] !== undefined ? SCORES[q.id] : null;
   const note  = NOTES[q.id] || "";
-  const lang  = q.en; // question text is EN only; UI chrome is bilingual
+  const lang  = LANG === "fr" ? q.fr : q.en;
 
   const csaBadge = buildCSABadge(q.refs.csa);
   const nistBadge = q.refs.nist && q.refs.nist !== "—"
@@ -1298,7 +1295,8 @@ function generateCSV() {
     const note   = NOTES[q.id] || "";
     const subLbl = pillar ? subName(pillar, q.sub) : q.sub;
     const axLbl  = pillar ? axisName(pillar.axis, DATA.axes) : "";
-    rows.push([q.id, q.pillar, axLbl, subLbl, q.en.q, score !== "" ? score : "", lvl, note]);
+    const qText  = LANG === "fr" ? q.fr.q : q.en.q;
+    rows.push([q.id, q.pillar, axLbl, subLbl, qText, score !== "" ? score : "", lvl, note]);
   });
   return rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
 }
