@@ -484,6 +484,21 @@ a:hover { text-decoration: underline; }
   margin-top: 4px;
 }
 
+/* ─── Questions language notice (FR mode) ──────────────────────────────── */
+.lang-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ws-muted);
+  background: var(--ws-bg);
+  border: 0.5px solid var(--ws-line);
+  border-left: 3px solid var(--ws-color-secondary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: var(--gap-md);
+}
+
 /* Sub-theme section */
 .sub-section { margin-bottom: var(--gap-xl); }
 
@@ -793,15 +808,8 @@ a:hover { text-decoration: underline; }
   color: var(--ws-muted);
 }
 
-.status-ok {
-  color: var(--ws-success);
-  font-weight: 600;
-}
-
-.status-error {
-  color: var(--ws-danger);
-  font-weight: 600;
-}
+.status-ok { color: #639922; font-weight: 600; }
+.status-error { color: #E24B4A; font-weight: 600; }
 
 .hidden {
   display: none !important;
@@ -1201,7 +1209,7 @@ a:hover { text-decoration: underline; }
 
 /* ─── Print ───────────────────────────────────────────────────────────────── */
 @media print {
-  #header, #footer, .btn-export, .score-btn, .desc-toggle, .q-note { display: none !important; }
+  #header, #footer, .btn-export, .score-btn, .desc-toggle, .q-note, .lang-notice { display: none !important; }
   #main { padding: 0; max-width: 100%; }
   .panel { display: block !important; }
   .dash-section, .q-card, .metric-card {
