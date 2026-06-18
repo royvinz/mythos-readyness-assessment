@@ -281,8 +281,8 @@ const I18N = {
   }
 };
 
-// Active language state
-let LANG = "fr";
+// Active language state — default EN (questions are EN only)
+let LANG = "en";
 
 function t(key) {
   return (I18N[LANG] && I18N[LANG][key]) || (I18N["en"][key]) || key;
