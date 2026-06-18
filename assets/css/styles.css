@@ -774,6 +774,13 @@ a:hover { text-decoration: underline; }
   padding: 9px var(--gap-md);
 }
 
+.selected-file {
+  color: var(--ws-muted);
+  font-size: var(--ws-text-xs);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
 .tool-actions {
   display: flex;
   align-items: center;
@@ -784,6 +791,16 @@ a:hover { text-decoration: underline; }
 .status-inline {
   font-size: var(--ws-text-sm);
   color: var(--ws-muted);
+}
+
+.status-ok {
+  color: var(--ws-success);
+  font-weight: 600;
+}
+
+.status-error {
+  color: var(--ws-danger);
+  font-weight: 600;
 }
 
 .hidden {
@@ -799,6 +816,25 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--ws-line);
   border-radius: var(--radius);
   margin-bottom: var(--gap-lg);
+}
+
+.ingest-progress {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+.ingest-progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  color: var(--ws-muted);
+  font-size: var(--ws-text-xs);
+  font-weight: 600;
+}
+
+.ingest-progress-top strong {
+  color: var(--ws-deep);
 }
 
 .empty-state {
@@ -898,6 +934,37 @@ a:hover { text-decoration: underline; }
   flex-direction: column;
   align-items: flex-end;
   gap: var(--gap-sm);
+}
+
+.api-debug {
+  margin-top: var(--gap-lg);
+  border: 1px solid var(--ws-line);
+  border-radius: var(--radius);
+  background: var(--ws-bg);
+  overflow: hidden;
+}
+
+.api-debug summary {
+  cursor: pointer;
+  padding: var(--gap-md);
+  color: var(--ws-deep);
+  font-size: var(--ws-text-sm);
+  font-weight: 700;
+}
+
+.api-debug pre {
+  max-height: 420px;
+  overflow: auto;
+  margin: 0;
+  padding: var(--gap-md);
+  border-top: 1px solid var(--ws-line);
+  background: #16121F;
+  color: #F5F4F9;
+  font-family: var(--ws-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* ─── Modal ──────────────────────────────────────────────────────────────── */

@@ -4,6 +4,9 @@
 const STORAGE_KEY = "mythos_readiness_v1";
 const CONFIG_KEY = "mythos_llm_config_v1";
 const MAX_INGEST_CHARS = 24000;
+const DEBUG_TEXT_LIMIT = 16000;
+const API_TIMEOUT_MS = 90000;
+const INGEST_OUTPUT_TOKENS = 16000;
 
 // ─── State ──────────────────────────────────────────────────────────────────
 let DATA = null;          // loaded from questions.json
@@ -12,6 +15,10 @@ let NOTES  = {};          // { Q1: "text", … }
 let CONFIG = defaultConfig();
 let INGEST_RESULT = null;
 let INGEST_STATUS = "";
+let INGEST_FILE = null;
+let INGEST_BUSY = false;
+let INGEST_PROGRESS = 0;
+let API_DEBUG = null;
 let ACTIVE_PANEL = "dash";
 let radarChart = null;
 
@@ -61,7 +68,7 @@ function defaultConfig() {
   return {
     provider: "openai",
     apiKey: "",
-    model: "gpt-4o-mini",
+    model: "gpt-5.5",
     endpoint: "",
     deployment: "",
     apiVersion: "2024-02-15-preview"
@@ -77,7 +84,7 @@ function loadConfig() {
   }
 }
 
-function saveConfig() {
+async function saveConfig() {
   const provider = document.getElementById("config-provider")?.value || "openai";
   CONFIG = {
     provider,
@@ -89,16 +96,67 @@ function saveConfig() {
   };
   localStorage.setItem(CONFIG_KEY, JSON.stringify(CONFIG));
   const msg = document.getElementById("config-save-status");
-  if (msg) msg.textContent = t("config_saved");
+  const btn = document.getElementById("config-save-btn");
+  if (msg) msg.textContent = t("config_testing");
+  if (btn) btn.disabled = true;
+
+  try {
+    assertConfigReady();
+    await validateConfig();
+    if (msg) {
+      msg.textContent = t("config_valid");
+      msg.className = "status-inline status-ok";
+    }
+  } catch (err) {
+    if (msg) {
+      msg.textContent = `${t("config_invalid")} ${err.message || err}`;
+      msg.className = "status-inline status-error";
+    }
+  } finally {
+    if (btn) btn.disabled = false;
+  }
 }
 
 function defaultModelFor(provider) {
   return {
-    openai: "gpt-4o-mini",
-    azure: "gpt-4o-mini",
-    claude: "claude-3-5-sonnet-latest",
+    openai: "gpt-5.5",
+    azure: "gpt-5.5",
+    claude: "claude-opus-4-8",
     mistral: "mistral-small-latest"
-  }[provider] || "gpt-4o-mini";
+  }[provider] || "gpt-5.5";
+}
+
+function modelOptionsFor(provider) {
+  return {
+    openai: [
+      ["gpt-5.5", "GPT-5.5"],
+      ["gpt-5.4", "GPT-5.4"],
+      ["gpt-5.4-mini", "GPT-5.4 mini"],
+      ["gpt-5.4-nano", "GPT-5.4 nano"],
+      ["gpt-4o", "GPT-4o"],
+      ["gpt-4o-mini", "GPT-4o mini"]
+    ],
+    azure: [
+      ["gpt-5.5", "GPT-5.5 deployment"],
+      ["gpt-5.4", "GPT-5.4 deployment"],
+      ["gpt-4o", "GPT-4o deployment"],
+      ["gpt-4o-mini", "GPT-4o mini deployment"]
+    ],
+    claude: [
+      ["claude-opus-4-8", "Claude Opus 4.8"],
+      ["claude-sonnet-4-6", "Claude Sonnet 4.6"],
+      ["claude-sonnet-4-5-20250929", "Claude Sonnet 4.5"],
+      ["claude-haiku-4-5", "Claude Haiku 4.5"],
+      ["claude-3-5-sonnet-latest", "Claude 3.5 Sonnet latest"],
+      ["claude-3-5-haiku-latest", "Claude 3.5 Haiku latest"]
+    ],
+    mistral: [
+      ["mistral-large-latest", "Mistral Large latest"],
+      ["mistral-small-latest", "Mistral Small latest"],
+      ["ministral-8b-latest", "Ministral 8B latest"],
+      ["open-mistral-nemo", "Open Mistral Nemo"]
+    ]
+  }[provider] || [];
 }
 
 function setupPdfWorker() {
@@ -194,6 +252,13 @@ function renderConfig() {
 
         <label class="field">
           <span>${esc(t("config_model"))}</span>
+          <select id="config-model-select" class="field-control" onchange="onModelSelectChange()">
+            ${modelOptions(CONFIG.provider, CONFIG.model)}
+          </select>
+        </label>
+
+        <label class="field custom-model-field">
+          <span>${esc(t("config_custom_model"))}</span>
           <input id="config-model" class="field-control" type="text" value="${esc(CONFIG.model || defaultModelFor(CONFIG.provider))}">
         </label>
 
@@ -214,25 +279,47 @@ function renderConfig() {
       </div>
 
       <div class="tool-actions">
-        <button class="btn-export primary" onclick="saveConfig()">${esc(t("config_save"))}</button>
-        <span id="config-save-status" class="status-inline"></span>
+        <button id="config-save-btn" class="btn-export primary" onclick="saveConfig()">${esc(t("config_save"))}</button>
+        <span id="config-save-status" class="status-inline">${esc(t("config_saved"))}</span>
       </div>
     </section>
   `;
   refreshProviderFields();
+  refreshModelFields();
 }
 
 function providerOption(value, label) {
   return `<option value="${esc(value)}"${CONFIG.provider === value ? " selected" : ""}>${esc(label)}</option>`;
 }
 
+function modelOptions(provider, selectedModel) {
+  const options = modelOptionsFor(provider);
+  const values = new Set(options.map(([value]) => value));
+  const selected = selectedModel || defaultModelFor(provider);
+  const customSelected = selected && !values.has(selected);
+  return options.map(([value, label]) =>
+    `<option value="${esc(value)}"${selected === value ? " selected" : ""}>${esc(label)}</option>`
+  ).join("") + `<option value="custom"${customSelected ? " selected" : ""}>${esc(t("config_custom_model"))}</option>`;
+}
+
 function onProviderChange() {
   const provider = document.getElementById("config-provider")?.value || "openai";
   const model = document.getElementById("config-model");
-  if (model && (!model.value || model.value === CONFIG.model)) {
-    model.value = defaultModelFor(provider);
+  const select = document.getElementById("config-model-select");
+  const nextDefault = defaultModelFor(provider);
+  if (model && select) {
+    model.value = nextDefault;
+    select.innerHTML = modelOptions(provider, nextDefault);
   }
   refreshProviderFields();
+  refreshModelFields();
+}
+
+function onModelSelectChange() {
+  const select = document.getElementById("config-model-select");
+  const model = document.getElementById("config-model");
+  if (select && model && select.value !== "custom") model.value = select.value;
+  refreshModelFields();
 }
 
 function refreshProviderFields() {
@@ -240,6 +327,12 @@ function refreshProviderFields() {
   document.querySelectorAll(".azure-field").forEach(el => {
     el.classList.toggle("hidden", provider !== "azure");
   });
+}
+
+function refreshModelFields() {
+  const select = document.getElementById("config-model-select");
+  const custom = document.querySelector(".custom-model-field");
+  if (custom) custom.classList.toggle("hidden", select?.value !== "custom");
 }
 
 // ─── Ingest plan ─────────────────────────────────────────────────────────────
@@ -258,19 +351,50 @@ function renderIngest() {
       <div class="ingest-upload">
         <label class="field">
           <span>${esc(t("ingest_file_label"))}</span>
-          <input id="ingest-file" class="field-control file-control" type="file" accept=".xlsx,.pptx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+          <input id="ingest-file" class="field-control file-control" type="file" onchange="setIngestFile(this.files[0])" accept=".xlsx,.pptx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+          <small id="ingest-selected-file" class="selected-file">${esc(selectedIngestFileLabel())}</small>
         </label>
         <div class="tool-actions">
-          <button class="btn-export primary" onclick="runIngest()">${esc(t("ingest_run"))}</button>
+          <button class="btn-export primary" onclick="runIngest()" ${INGEST_BUSY ? "disabled" : ""}>${esc(INGEST_BUSY ? t("ingest_running") : t("ingest_run"))}</button>
           <span class="status-inline">${esc(INGEST_STATUS || t("ingest_supported"))}</span>
         </div>
+        ${renderIngestProgress()}
       </div>
 
       <div id="ingest-result">
         ${renderIngestResult()}
       </div>
+
+      ${renderApiDebug()}
     </section>
   `;
+}
+
+function renderIngestProgress() {
+  if (!INGEST_BUSY && INGEST_PROGRESS === 0) return "";
+  return `<div class="ingest-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${INGEST_PROGRESS}">
+    <div class="ingest-progress-top">
+      <span>${esc(t("ingest_progress"))}</span>
+      <strong>${INGEST_PROGRESS}%</strong>
+    </div>
+    <div class="bar-track"><div class="bar-fill" style="width:${INGEST_PROGRESS}%;background:var(--ws-purple)"></div></div>
+  </div>`;
+}
+
+function setIngestFile(file) {
+  INGEST_FILE = file || null;
+  INGEST_STATUS = INGEST_FILE ? t("ingest_file_ready") : t("ingest_supported");
+  INGEST_PROGRESS = 0;
+  const label = document.getElementById("ingest-selected-file");
+  if (label) label.textContent = selectedIngestFileLabel();
+  const status = document.querySelector("#panel-ingest .status-inline");
+  if (status) status.textContent = INGEST_STATUS;
+}
+
+function selectedIngestFileLabel() {
+  if (!INGEST_FILE) return t("ingest_no_file");
+  const size = INGEST_FILE.size ? ` · ${Math.ceil(INGEST_FILE.size / 1024)} KB` : "";
+  return `${INGEST_FILE.name}${size}`;
 }
 
 function renderIngestResult() {
@@ -334,6 +458,16 @@ function renderAnswerRow(answer) {
       <small>${esc(t("ingest_confidence"))}: ${esc(confidence)}</small>
     </div>
   </article>`;
+}
+
+function renderApiDebug() {
+  const payload = API_DEBUG
+    ? JSON.stringify(API_DEBUG, null, 2)
+    : t("ingest_debug_empty");
+  return `<details class="api-debug">
+    <summary>${esc(t("ingest_debug_title"))}</summary>
+    <pre>${esc(payload)}</pre>
+  </details>`;
 }
 
 // ─── Dashboard ───────────────────────────────────────────────────────────────
@@ -687,26 +821,44 @@ function updatePillarProgress(pillarId) {
 
 // ─── Ingest logic ────────────────────────────────────────────────────────────
 async function runIngest() {
-  const file = document.getElementById("ingest-file")?.files?.[0];
-  if (!file) return;
+  const file = INGEST_FILE || document.getElementById("ingest-file")?.files?.[0];
+  if (!file) {
+    INGEST_STATUS = t("ingest_select_file");
+    renderIngest();
+    return;
+  }
+  INGEST_FILE = file;
 
   try {
+    INGEST_BUSY = true;
+    INGEST_PROGRESS = 5;
+    API_DEBUG = null;
     INGEST_STATUS = t("ingest_reading");
     renderIngest();
     const text = await extractFileText(file);
     if (!text.trim()) throw new Error(t("ingest_empty_file"));
 
+    INGEST_PROGRESS = 35;
     assertConfigReady();
     INGEST_STATUS = t("ingest_calling");
     renderIngest();
 
     const prompt = buildIngestPrompt(text);
-    const responseText = await callLLM(prompt);
+    INGEST_PROGRESS = 55;
+    const responseText = await callLLM(prompt, { maxTokens: INGEST_OUTPUT_TOKENS });
+    INGEST_PROGRESS = 85;
+    INGEST_STATUS = t("ingest_parsing");
+    renderIngest();
     INGEST_RESULT = normalizeIngestResult(parseLLMJson(responseText));
+    INGEST_PROGRESS = 100;
     INGEST_STATUS = t("ingest_done");
     renderIngest();
   } catch (err) {
+    INGEST_PROGRESS = 0;
     INGEST_STATUS = t("ingest_error") + (err.message || err);
+    renderIngest();
+  } finally {
+    INGEST_BUSY = false;
     renderIngest();
   }
 }
@@ -765,6 +917,15 @@ function assertConfigReady() {
   }
 }
 
+async function validateConfig() {
+  const responseText = await callLLM(
+    'Return exactly this JSON object and nothing else: {"ok":true}',
+    { debug: false, maxTokens: 64 }
+  );
+  const parsed = parseLLMJson(responseText);
+  if (parsed.ok !== true) throw new Error(t("config_invalid_shape"));
+}
+
 function buildIngestPrompt(planText) {
   const questions = DATA.questions.map(q => ({
     id: q.id,
@@ -805,16 +966,16 @@ Client plan text:
 ${planText}`;
 }
 
-async function callLLM(prompt) {
+async function callLLM(prompt, options = {}) {
   const provider = CONFIG.provider;
-  if (provider === "openai") return callOpenAI(prompt);
-  if (provider === "azure") return callAzureOpenAI(prompt);
-  if (provider === "claude") return callClaude(prompt);
-  if (provider === "mistral") return callMistral(prompt);
+  if (provider === "openai") return callOpenAI(prompt, options);
+  if (provider === "azure") return callAzureOpenAI(prompt, options);
+  if (provider === "claude") return callClaude(prompt, options);
+  if (provider === "mistral") return callMistral(prompt, options);
   throw new Error(`Unsupported provider: ${provider}`);
 }
 
-async function callOpenAI(prompt) {
+async function callOpenAI(prompt, options = {}) {
   const data = await postJson("https://api.openai.com/v1/chat/completions", {
     headers: { Authorization: `Bearer ${CONFIG.apiKey}` },
     body: {
@@ -825,12 +986,13 @@ async function callOpenAI(prompt) {
         { role: "system", content: "Return strict JSON only." },
         { role: "user", content: prompt }
       ]
-    }
+    },
+    debug: debugOptions(options)
   });
   return data.choices?.[0]?.message?.content || "";
 }
 
-async function callAzureOpenAI(prompt) {
+async function callAzureOpenAI(prompt, options = {}) {
   const url = `${CONFIG.endpoint}/openai/deployments/${encodeURIComponent(CONFIG.deployment)}/chat/completions?api-version=${encodeURIComponent(CONFIG.apiVersion)}`;
   const data = await postJson(url, {
     headers: { "api-key": CONFIG.apiKey },
@@ -841,12 +1003,13 @@ async function callAzureOpenAI(prompt) {
         { role: "system", content: "Return strict JSON only." },
         { role: "user", content: prompt }
       ]
-    }
+    },
+    debug: debugOptions(options)
   });
   return data.choices?.[0]?.message?.content || "";
 }
 
-async function callClaude(prompt) {
+async function callClaude(prompt, options = {}) {
   const data = await postJson("https://api.anthropic.com/v1/messages", {
     headers: {
       "x-api-key": CONFIG.apiKey,
@@ -855,15 +1018,18 @@ async function callClaude(prompt) {
     },
     body: {
       model: CONFIG.model,
-      max_tokens: 6000,
-      temperature: 0.1,
+      max_tokens: options.maxTokens || INGEST_OUTPUT_TOKENS,
       messages: [{ role: "user", content: prompt }]
-    }
+    },
+    debug: debugOptions(options)
   });
+  if (data.stop_reason === "max_tokens") {
+    throw new Error(t("ingest_response_truncated"));
+  }
   return (data.content || []).map(part => part.text || "").join("\n");
 }
 
-async function callMistral(prompt) {
+async function callMistral(prompt, options = {}) {
   const data = await postJson("https://api.mistral.ai/v1/chat/completions", {
     headers: { Authorization: `Bearer ${CONFIG.apiKey}` },
     body: {
@@ -874,23 +1040,106 @@ async function callMistral(prompt) {
         { role: "system", content: "Return strict JSON only." },
         { role: "user", content: prompt }
       ]
-    }
+    },
+    debug: debugOptions(options)
   });
   return data.choices?.[0]?.message?.content || "";
 }
 
 async function postJson(url, options) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers
-    },
-    body: JSON.stringify(options.body)
-  });
+  const debug = options.debug;
+  const headers = {
+    "Content-Type": "application/json",
+    ...options.headers
+  };
+  const requestBody = JSON.stringify(options.body);
+  let response;
+  let timeoutId = null;
+  const controller = new AbortController();
+  if (debug) {
+    API_DEBUG = {
+      at: new Date().toISOString(),
+      provider: CONFIG.provider,
+      model: CONFIG.model,
+      url,
+      status: "pending",
+      ok: false,
+      requestHeaders: sanitizeHeaders(headers),
+      requestBody: truncateDebug(requestBody),
+      responseBody: t("api_pending")
+    };
+    if (ACTIVE_PANEL === "ingest") renderIngest();
+  }
+
+  try {
+    timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: requestBody,
+      signal: controller.signal
+    });
+  } catch (err) {
+    const message = err.name === "AbortError"
+      ? `${t("api_timeout")} ${Math.round(API_TIMEOUT_MS / 1000)}s`
+      : `${t("api_network_failed")} ${err.message || err}`;
+    if (debug) {
+      API_DEBUG = {
+        at: new Date().toISOString(),
+        provider: CONFIG.provider,
+        model: CONFIG.model,
+        url,
+        status: "network-error",
+        ok: false,
+        requestHeaders: sanitizeHeaders(headers),
+        requestBody: truncateDebug(requestBody),
+        responseBody: "",
+        error: message
+      };
+      if (ACTIVE_PANEL === "ingest") renderIngest();
+    }
+    throw new Error(message);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
   const text = await response.text();
+
+  if (debug) {
+    API_DEBUG = {
+      at: new Date().toISOString(),
+      provider: CONFIG.provider,
+      model: CONFIG.model,
+      url,
+      status: response.status,
+      ok: response.ok,
+      requestHeaders: sanitizeHeaders(headers),
+      requestBody: truncateDebug(requestBody),
+      responseBody: truncateDebug(text)
+    };
+    if (ACTIVE_PANEL === "ingest") renderIngest();
+  }
+
   if (!response.ok) throw new Error(text || response.statusText);
   return JSON.parse(text);
+}
+
+function debugOptions(options) {
+  return options.debug === false ? null : true;
+}
+
+function sanitizeHeaders(headers) {
+  const out = {};
+  Object.keys(headers || {}).forEach(key => {
+    const lower = key.toLowerCase();
+    out[key] = ["authorization", "api-key", "x-api-key"].includes(lower) ? "***" : headers[key];
+  });
+  return out;
+}
+
+function truncateDebug(value) {
+  const text = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+  if (text.length <= DEBUG_TEXT_LIMIT) return text;
+  return text.slice(0, DEBUG_TEXT_LIMIT) + `\n… truncated ${text.length - DEBUG_TEXT_LIMIT} chars`;
 }
 
 function parseLLMJson(text) {
@@ -899,8 +1148,13 @@ function parseLLMJson(text) {
   const raw = fenced ? fenced[1].trim() : trimmed;
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
-  if (start === -1 || end === -1) throw new Error("The LLM did not return JSON.");
-  return JSON.parse(raw.slice(start, end + 1));
+  if (start !== -1 && end === -1) throw new Error(t("ingest_response_truncated"));
+  if (start === -1 || end === -1) throw new Error(`${t("ingest_json_invalid")} ${t("ingest_no_json")}`);
+  try {
+    return JSON.parse(raw.slice(start, end + 1));
+  } catch (err) {
+    throw new Error(`${t("ingest_json_invalid")} ${err.message || err}`);
+  }
 }
 
 function normalizeIngestResult(result) {
