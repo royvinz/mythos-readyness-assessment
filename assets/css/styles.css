@@ -633,7 +633,7 @@ a:hover { text-decoration: underline; }
   background: var(--ws-surface);
   border-radius: var(--radius);
   padding: var(--gap-xl);
-  max-width: 380px;
+  max-width: 420px;
   width: 90%;
   box-shadow: 0 8px 32px rgba(0,0,0,.18);
 }
@@ -643,8 +643,8 @@ a:hover { text-decoration: underline; }
   color: var(--ws-deep);
   margin-bottom: var(--gap-sm);
 }
-.modal-body { font-size: 13.5px; color: var(--ws-muted); margin-bottom: var(--gap-lg); }
-.modal-actions { display: flex; gap: var(--gap-sm); justify-content: flex-end; }
+.modal-body { font-size: 13px; color: var(--ws-muted); margin-bottom: var(--gap-md); line-height: 1.6; }
+.modal-actions { display: flex; gap: var(--gap-sm); justify-content: flex-end; margin-top: var(--gap-md); }
 
 .btn-cancel {
   padding: 8px 18px;
@@ -666,7 +666,54 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  transition: background .15s, opacity .15s;
 }
+.btn-confirm:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ─── Export modal · passphrase field ───────────────────────────────────────── */
+.export-pp-field {
+  margin: var(--gap-sm) 0 0;
+}
+
+.passphrase-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passphrase-input {
+  width: 100%;
+  padding: 8px 38px 8px 10px;
+  border: 0.5px solid var(--ws-line);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ws-ink);
+  background: var(--ws-surface);
+  height: 38px;
+  transition: border-color .15s;
+}
+
+.passphrase-input:focus {
+  outline: none;
+  border-color: var(--ws-purple);
+}
+
+.btn-passphrase-toggle {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px;
+  line-height: 1;
+  color: var(--ws-muted);
+  transition: color .15s;
+  user-select: none;
+}
+
+.btn-passphrase-toggle:hover { color: var(--ws-ink); }
 
 /* ─── Footer ─────────────────────────────────────────────────────────────── */
 #footer {

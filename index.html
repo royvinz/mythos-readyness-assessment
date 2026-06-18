@@ -90,6 +90,38 @@ document.getElementById("modal-reset").addEventListener("click", function(e) {
 });
 </script>
 
+<!-- ═══════════════════════════════════════════════════════════ EXPORT MODAL -->
+<div id="modal-export" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-export-title">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-export-title">Export</div>
+    <div class="modal-body" id="modal-export-notice"></div>
+    <div class="export-pp-field">
+      <label class="q-note-label" for="export-passphrase" id="modal-export-pp-label">Passphrase</label>
+      <div class="passphrase-wrap">
+        <input type="password" id="export-passphrase" class="passphrase-input"
+               autocomplete="new-password"
+               oninput="updateExportConfirmBtn()">
+        <button type="button" id="btn-passphrase-toggle"
+                class="btn-passphrase-toggle"
+                onclick="togglePassphrase()"
+                aria-label="Show passphrase">👁</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeExportModal()" id="modal-export-cancel">Annuler</button>
+      <button class="btn-confirm" onclick="doExport()" id="modal-export-confirm"
+              style="background:var(--l2-color)">Export CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- Close export modal on overlay click -->
+<script>
+document.getElementById("modal-export").addEventListener("click", function(e) {
+  if (e.target === this) closeExportModal();
+});
+</script>
+
 <!-- App scripts -->
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/app.js"></script>
