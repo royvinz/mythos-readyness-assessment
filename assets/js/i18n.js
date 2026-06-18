@@ -1,1 +1,225 @@
-Ly8gaTE4bi5qcyDigJQgVUkgY2hyb21lIGJpbGluZ3VhbCBkaWN0aW9uYXJ5Ci8vIENvdmVycyBhbGwgc3RhdGljIGxhYmVsczsgcXVlc3Rpb24gY29udGVudCBjb21lcyBmcm9tIHF1ZXN0aW9ucy5qc29uCgpjb25zdCBJMThOID0gewogIGZyOiB7CiAgICBuYXZfZGFzaGJvYXJkOiAiVGFibGVhdSBkZSBib3JkIiwgbmF2X3Jlc2V0OiAiUsOpaW5pdGlhbGlzZXIiLCBuYXZfbGFuZzogIkVOIiwKICAgIGF4aXNfQTogIkFkYXB0ZXIgbGEgZm9uY3Rpb24gY3liZXIiLCBheGlzX0I6ICJBSTRDeWJlciIsIGF4aXNfQzogIkN5YmVyNEFJIiwKICAgIGRhc2hfZ2xvYmFsX3Njb3JlOiAiU2NvcmUgZ2xvYmFsIiwgZGFzaF9xdWVzdGlvbnM6ICJRdWVzdGlvbnMgbm90w6llcyIsIGRhc2hfcHJvZ3Jlc3M6ICJQcm9ncmVzc2lvbiIsIGRhc2hfcHJpb3JpdHk6ICJQaWxpZXIgcHJpb3JpdGFpcmUiLCBkYXNoX3BpbGxhcl9zY29yZXM6ICJTY29yZSBwYXIgcGlsaWVyIiwgZGFzaF9yYWRhcjogIlJhZGFyIGRlIG1hdHVyaXTDqSIsIGRhc2hfc3VidG9waWNzOiAiRMOpdGFpbCBwYXIgc291cy10aMOobWUiLCBkYXNoX2FjdGlvbnM6ICJFeHBvcnRlciIsIGRhc2hfZXhwb3J0X2NzdjogIkV4cG9ydGVyIENTViIsIGRhc2hfcHJpbnQ6ICJJbXByaW1lciAvIFBERiIsIGRhc2hfZW1wdHk6ICJDb21wbMOpdGV6IGxlcyBwaWxpZXJzIFQx4oCTVDUgcG91ciB2b2lyIHZvcyByw6lzdWx0YXRzIGVuIHRlbXBzIHLDqWVsLiIsCiAgICBsZXZlbF8wOiAiQWJzZW50IiwgbGV2ZWxfMTogIkFkIGhvYyIsIGxldmVsXzI6ICJEw6lmaW5pIiwgbGV2ZWxfMzogIk9ww6lyw6kiLAogICAgbGV2ZWxfMF9mdWxsOiAiQWJzZW50IOKAlCBub24gYWRyZXNzw6kiLCBsZXZlbF8xX2Z1bGw6ICJBZCBob2MgLyBwaWxvdGUiLCBsZXZlbF8yX2Z1bGw6ICJEw6lmaW5pICYgZW4gcGxhY2UiLCBsZXZlbF8zX2Z1bGw6ICJPcMOpcsOpcywgbWVzdXLDqSAmIGVuIGFtw6lsaW9yYXRpb24iLAogICAgbWF0X2Fic2VudDogIkFic2VudCIsIG1hdF9hZGhvYzogIkFkIGhvYyIsIG1hdF9kZWZpbmVkOiAiRMOpZmluaSIsIG1hdF9vcGVyYXRlZDogIk9ww6lyw6kiLAogICAgcV9kZXNjcmlwdG9yczogIlZvaXIgbGVzIGRlc2NyaXB0ZXVycyAw4oCTMyIsIHFfaGlkZV9kZXNjOiAiTWFzcXVlciBsZXMgZGVzY3JpcHRldXJzIiwgcV9ub3RlX2xhYmVsOiAiTm90ZSAvIHByZXV2ZSAoZmFjdWx0YXRpZikiLCBxX25vdGVfcGg6ICJFbnRyZXogdm9zIG9ic2VydmF0aW9uc+KApiIsIHFfbm90X3Njb3JlZDogIk5vbiBub3TDqSIsIHFfc2NvcmVkOiAibm90w6kiLCBxX29mOiAiLyIsCiAgICBzdWJfcHJvZ3Jlc3M6ICJub3TDqWVzIiwKICAgIHJlc2V0X3RpdGxlOiAiUsOpaW5pdGlhbGlzZXIgbCfDqXZhbHVhdGlvbiA/IiwgcmVzZXRfYm9keTogIlRvdXMgbGVzIHNjb3JlcyBldCBub3RlcyBzZXJvbnQgZWZmYWPDqXMuIENldHRlIGFjdGlvbiBlc3QgaXJyw6l2ZXJzaWJsZS4iLCByZXNldF9jb25maXJtOiAiT3VpcywgcsOpaW5pdGlhbGlzZXIiLCByZXNldF9jYW5jZWw6ICJBbm51bGVyIiwKICAgIHJlZnNfb3RoZXI6ICJBdXRyZXMgcsOpZsOpcmVudGllbHMiLAogICAgY3N2X2lkOiAiSUQiLCBjc3ZfcGlsbGFyOiAiUGlsaWVyIiwgY3N2X2F4aXM6ICJBeGUiLCBjc3Zfc3ViOiAiU291cy10aMOobWUiLCBjc3ZfcTogIlF1ZXN0aW9uIiwgY3N2X3Njb3JlOiAiU2NvcmUiLCBjc3ZfbGV2ZWw6ICJOaXZlYXUiLCBjc3Zfbm90ZTogIk5vdGUiLAogICAgY2FzY2FkZV9sYWJlbDogIkNhc2NhZGUiLCBwcmlvcml0eV9sYWJlbDogIlBpbGllciBwcmlvcml0YWlyZSIsIHByaW9yaXR5X25vbmU6ICLigJQiLAogICAgZm9vdGVyX3JlZnM6ICJSw6lmw6lyZW50aWVscyA6IENTQSBBSSBWdWxuZXJhYmlsaXR5IFN0b3JtIHYwLjkgwrcgTklTVCBDU0YgMi4wIMK3IE1JVFJFIEFUTEFTIMK3IE9XQVNQIExMTSAmIEFnZW50aWMgVG9wIDEwIMK3IENJU0EgQk9EIDI2LTA0IiwgZm9vdGVyX3ZlcnNpb246ICJ2MS4wIMK3IFdhdmVzdG9uZSDCtyAyMDI2Iiwgc2NvcmVkX29mOiAibm90w6llcyBzdXIgNDAiCiAgfSwKCiAgZW46IHsKICAgIG5hdl9kYXNoYm9hcmQ6ICJEYXNoYm9hcmQiLCBuYXZfcmVzZXQ6ICJSZXNldCIsIG5hdl9sYW5nOiAiRlIiLAogICAgYXhpc19BOiAiQWRhcHQgdGhlIGN5YmVyIGZ1bmN0aW9uIiwgYXhpc19COiAiQUk0Q3liZXIiLCBheGlzX0M6ICJDeWJlcjRBSSIsCiAgICBkYXNoX2dsb2JhbF9zY29yZTogIkdsb2JhbCBzY29yZSIsIGRhc2hfcXVlc3Rpb25zOiAiUXVlc3Rpb25zIHNjb3JlZCIsIGRhc2hfcHJvZ3Jlc3M6ICJQcm9ncmVzcyIsIGRhc2hfcHJpb3JpdHk6ICJQcmlvcml0eSBwaWxsYXIiLCBkYXNoX3BpbGxhcl9zY29yZXM6ICJTY29yZSBieSBwaWxsYXIiLCBkYXNoX3JhZGFyOiAiTWF0dXJpdHkgcmFkYXIiLCBkYXNoX3N1YnRvcGljczogIlN1Yi10aGVtZSBkZXRhaWwiLCBkYXNoX2FjdGlvbnM6ICJFeHBvcnQiLCBkYXNoX2V4cG9ydF9jc3Y6ICJFeHBvcnQgQ1NWIiwgZGFzaF9wcmludDogIlByaW50IC8gUERGIiwgZGFzaF9lbXB0eTogIkNvbXBsZXRlIHBpbGxhcnMgVDHigJNUNSB0byBzZWUgeW91ciByZXN1bHRzIGluIHJlYWwgdGltZS4iLAogICAgbGV2ZWxfMDogIkFic2VudCIsIGxldmVsXzE6ICJBZCBIT2MiLCBsZXZlbF8yOiAiRGVmaW5lZCIsIGxldmVsXzM6ICJPcGVyYXRlZCIsCiAgICBsZXZlbF8wX2Z1bGw6ICJBYnNlbnQg4oCUIG5vdCBhZGRyZXNzZWQiLCBsZXZlbF8xX2Z1bGw6ICJBZCBIT2MgLyBwaWxvdCIsIGxldmVsXzJfZnVsbDogIkRlZmluZWQgJiBpbiBwbGFjZSIsIGxldmVsXzNfZnVsbDogIk9wZXJhdGVkLCBtZWFzdXJlZCAmIGltcHJvdmluZyIsCiAgICBtYXRfYWJzZW50OiAiQWJzZW50IiwgbWF0X2FkaG9jOiAiQWQgaG9jIiwgbWF0X2RlZmluZWQ6ICJEZWZpbmVkIiwgbWF0X29wZXJhdGVkOiAiT3BlcmF0ZWQiLAogICAgcV9kZXNjcmlwdG9yczogIlNob3cgbGV2ZWwgZGVzY3JpcHRvcnMgMOKAkzMiLCBxX2hpZGVfZGVzYzogIkhpZGUgZGVzY3JpcHRvcnMiLCBxX25vdGVfbGFiZWw6ICJOb3RlIC8gZXZpZGVuY2UgKG9wdGlvbmFsKSIsIHFfbm90ZV9waDogIkVudGVyIHlvdXIgb2JzZXJ2YXRpb25z4oCmIiwgcV9ub3Rfc2NvcmVkOiAiTm90IHNjb3JlZCIsIHFfc2NvcmVkOiAic2NvcmVkIiwgcV9vZjogIi8iLAogICAgc3ViX3Byb2dyZXNzOiAic2NvcmVkIiwKICAgIHJlc2V0X3RpdGxlOiAiUmVzZXQgYXNzZXNzbWVudD8iLCByZXNldF9ib2R5OiAiQWxsIHNjb3JlcyBhbmQgbm90ZXMgd2lsbCBiZSBkZWxldGVkLiBUaGlzIGFjdGlvbiBjYW5ub3QgYmUgdW5kb25lLiIsIHJlc2V0X2NvbmZpcm06ICJZZXMsIHJlc2V0IiwgcmVzZXRfY2FuY2VsOiAiQ2FuY2VsIiwKICAgIHJlZnNfb3RoZXI6ICJPdGhlciBmcmFtZXdvcmtzIiwKICAgIGNzdl9pZDogIklEIiwgY3N2X3BpbGxhcjogIlBpbGxhciIsIGNzdl9heGlzOiAiQXhpcyIsIGNzdl9zdWI6ICJTdWItdGhlbWUiLCBjc3ZfcTogIlF1ZXN0aW9uIiwgY3N2X3Njb3JlOiAiU2NvcmUiLCBjc3ZfbGV2ZWw6ICJMZXZlbCIsIGNzdl9ub3RlOiAiTm90ZSIsCiAgICBjYXNjYWRlX2xhYmVsOiAiQ2FzY2FkZSIsIHByaW9yaXR5X2xhYmVsOiAiUHJpb3JpdHkgcGlsbGFyIiwgcHJpb3JpdHlfbm9uZTogIuKAlCIsCiAgICBmb290ZXJfcmVmczogIlJlZmVyZW5jZXM6IENTQSBBSSBWdWxuZXJhYmlsaXR5IFN0b3JtIHYwLjkgwrcgTklTVCBDU0YgMi4wIMK3IE1JVFJFIEFUTEFTIMK3IE9XQVNQIExMTSAmIEFnZW50aWMgVG9wIDEwIMK3IENJU0EgQk9EIDI2LTA0IiwgZm9vdGVyX3ZlcnNpb246ICJ2MS4wIMK3IFdhdmVzdG9uZSDCtyAyMDI2Iiwgc2NvcmVkX29mOiAic2NvcmVkIG91dCBvZiA0MCIKICB9Cn07CgpsZXQgTEFORyA9ICJmciI7CmZ1bmN0aW9uIHQoa2V5KSB7IHJldHVybiAoSTE4TltMQU5HXSAmJiBJMThOW0xBTkddW2tleV0pIHx8IChJMThOWyJlbiJdW2tleV0pIHx8IGtleTsgfQpmdW5jdGlvbiB0b2dnbGVMYW5nKCkgeyBMQU5HID0gTEFORyA9PT0gImZyIiA/ICJlbiIgOiAiZnIiOyBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc2V0QXR0cmlidXRlKCJsYW5nIiwgTEFORyk7IGlmICh0eXBlb2YgcmVuZGVyQWxsID09PSAiZnVuY3Rpb24iKSByZW5kZXJBbGwoKTsgfQpmdW5jdGlvbiBwaWxsYXJOYW1lKHApIHsgcmV0dXJuIExBTkcgPT09ICJmciIgPyBwLm5hbWVfZnIgOiBwLm5hbWVfZW47IH0KZnVuY3Rpb24gc3ViTmFtZShwLCBjKSB7IGNvbnN0IHMgPSBwLnN1YnNbY107IGlmICghcykgcmV0dXJuIGM7IHJldHVybiBMQU5HID09PSAiZnIiID8gcy5mciA6IHMuZW47IH0KZnVuY3Rpb24gYXhpc05hbWUoY29kZSwgYXhlcykgeyBjb25zdCBheCA9IGF4ZXNbY29kZV07IGlmICghYXgpIHJldHVybiBjb2RlOyByZXR1cm4gTEFORyA9PT0gImZyIiA/IGF4LmZyIDogYXguZW47IH0KZnVuY3Rpb24gbWF0dXJpdHlMYWJlbChzKSB7IGlmIChzID09PSBudWxsIHx8IHMgPT09IHVuZGVmaW5lZCkgcmV0dXJuICLigJQiOyBpZiAocyA8IDAuNzUpIHJldHVybiB0KCJtYXRfYWJzZW50Iik7IGlmIChzIDwgMS41MCkgcmV0dXJuIHQoIm1hdF9hZGhvYyIpOyBpZiAocyA8IDIuNTApIHJldHVybiB0KCJtYXRfZGVmaW5lZCIpOyByZXR1cm4gdCgibWF0X29wZXJhdGVkIik7IH0KZnVuY3Rpb24gbGV2ZWxOYW1lKG4pIHsgcmV0dXJuIHQoImxldmVsXyIrbik7IH0K
+// i18n.js — UI chrome bilingual dictionary
+// Covers all static labels; question content comes from questions.json
+
+const I18N = {
+  fr: {
+    // Nav
+    nav_dashboard: "Tableau de bord",
+    nav_reset:     "Réinitialiser",
+    nav_lang:      "EN",
+
+    // Axes
+    axis_A: "Adapter la fonction cyber",
+    axis_B: "AI4Cyber",
+    axis_C: "Cyber4AI",
+
+    // Dashboard section titles
+    dash_global_score:   "Score global",
+    dash_questions:      "Questions notées",
+    dash_progress:       "Progression",
+    dash_priority:       "Pilier prioritaire",
+    dash_pillar_scores:  "Score par pilier",
+    dash_radar:          "Radar de maturité",
+    dash_subtopics:      "Détail par sous-thème",
+    dash_actions:        "Exporter",
+    dash_export_csv:     "Exporter CSV",
+    dash_print:          "Imprimer / PDF",
+
+    // Dashboard empty state
+    dash_empty: "Complétez les piliers T1–T5 pour voir vos résultats en temps réel.",
+
+    // Score levels
+    level_0: "Absent",
+    level_1: "Ad hoc",
+    level_2: "Défini",
+    level_3: "Opéré",
+
+    // Level full names (for button tooltips)
+    level_0_full: "Absent — non adressé",
+    level_1_full: "Ad hoc / pilote",
+    level_2_full: "Défini & en place",
+    level_3_full: "Opéré, mesuré & en amélioration",
+
+    // Maturity bands
+    mat_absent:   "Absent",
+    mat_adhoc:    "Ad hoc",
+    mat_defined:  "Défini",
+    mat_operated: "Opéré",
+
+    // Question card
+    q_descriptors: "Voir les descripteurs 0–3",
+    q_hide_desc:   "Masquer les descripteurs",
+    q_note_label:  "Note / preuve (facultatif)",
+    q_note_ph:     "Entrez vos observations…",
+    q_not_scored:  "Non noté",
+    q_scored:      "noté",
+    q_of:          "/",
+
+    // Sub-theme header
+    sub_progress: "notées",
+
+    // Reset modal
+    reset_title:   "Réinitialiser l'évaluation ?",
+    reset_body:    "Tous les scores et notes seront effacés. Cette action est irréversible.",
+    reset_confirm: "Oui, réinitialiser",
+    reset_cancel:  "Annuler",
+
+    // Refs labels
+    refs_other: "Autres référentiels",
+
+    // CSV headers
+    csv_id:      "ID",
+    csv_pillar:  "Pilier",
+    csv_axis:    "Axe",
+    csv_sub:     "Sous-thème",
+    csv_q:       "Question",
+    csv_score:   "Score",
+    csv_level:   "Niveau",
+    csv_note:    "Note",
+
+    // Cascade chip label
+    cascade_label: "Cascade",
+
+    // Priority label
+    priority_label: "Pilier prioritaire",
+    priority_none:  "—",
+
+    // Footer
+    footer_refs:    "Référentiels : CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
+    footer_version: "v1.0 · Wavestone · 2026",
+
+    // Scored counter suffix
+    scored_of: "notées sur 40",
+  },
+
+  en: {
+    // Nav
+    nav_dashboard: "Dashboard",
+    nav_reset:     "Reset",
+    nav_lang:      "FR",
+
+    // Axes
+    axis_A: "Adapt the cyber function",
+    axis_B: "AI4Cyber",
+    axis_C: "Cyber4AI",
+
+    // Dashboard section titles
+    dash_global_score:   "Global score",
+    dash_questions:      "Questions scored",
+    dash_progress:       "Progress",
+    dash_priority:       "Priority pillar",
+    dash_pillar_scores:  "Score by pillar",
+    dash_radar:          "Maturity radar",
+    dash_subtopics:      "Sub-theme detail",
+    dash_actions:        "Export",
+    dash_export_csv:     "Export CSV",
+    dash_print:          "Print / PDF",
+
+    // Dashboard empty state
+    dash_empty: "Complete pillars T1–T5 to see your results in real time.",
+
+    // Score levels
+    level_0: "Absent",
+    level_1: "Ad hoc",
+    level_2: "Defined",
+    level_3: "Operated",
+
+    // Level full names
+    level_0_full: "Absent — not addressed",
+    level_1_full: "Ad hoc / pilot",
+    level_2_full: "Defined & in place",
+    level_3_full: "Operated, measured & improving",
+
+    // Maturity bands
+    mat_absent:   "Absent",
+    mat_adhoc:    "Ad hoc",
+    mat_defined:  "Defined",
+    mat_operated: "Operated",
+
+    // Question card
+    q_descriptors: "Show level descriptors 0–3",
+    q_hide_desc:   "Hide descriptors",
+    q_note_label:  "Note / evidence (optional)",
+    q_note_ph:     "Enter your observations…",
+    q_not_scored:  "Not scored",
+    q_scored:      "scored",
+    q_of:          "/",
+
+    // Sub-theme header
+    sub_progress: "scored",
+
+    // Reset modal
+    reset_title:   "Reset assessment?",
+    reset_body:    "All scores and notes will be deleted. This action cannot be undone.",
+    reset_confirm: "Yes, reset",
+    reset_cancel:  "Cancel",
+
+    // Refs labels
+    refs_other: "Other frameworks",
+
+    // CSV headers
+    csv_id:      "ID",
+    csv_pillar:  "Pillar",
+    csv_axis:    "Axis",
+    csv_sub:     "Sub-theme",
+    csv_q:       "Question",
+    csv_score:   "Score",
+    csv_level:   "Level",
+    csv_note:    "Note",
+
+    // Cascade chip label
+    cascade_label: "Cascade",
+
+    // Priority label
+    priority_label: "Priority pillar",
+    priority_none:  "—",
+
+    // Footer
+    footer_refs:    "References: CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
+    footer_version: "v1.0 · Wavestone · 2026",
+
+    // Scored counter suffix
+    scored_of: "scored out of 40",
+  }
+};
+
+// Active language state
+let LANG = "fr";
+
+function t(key) {
+  return (I18N[LANG] && I18N[LANG][key]) || (I18N["en"][key]) || key;
+}
+
+function toggleLang() {
+  LANG = LANG === "fr" ? "en" : "fr";
+  document.documentElement.setAttribute("lang", LANG);
+  if (typeof renderAll === "function") renderAll();
+}
+
+function pillarName(pillar) {
+  return LANG === "fr" ? pillar.name_fr : pillar.name_en;
+}
+
+function subName(pillar, subCode) {
+  const sub = pillar.subs[subCode];
+  if (!sub) return subCode;
+  return LANG === "fr" ? sub.fr : sub.en;
+}
+
+function axisName(axisCode, axes) {
+  const ax = axes[axisCode];
+  if (!ax) return axisCode;
+  return LANG === "fr" ? ax.fr : ax.en;
+}
+
+function maturityLabel(score) {
+  if (score === null || score === undefined) return "—";
+  if (score < 0.75) return t("mat_absent");
+  if (score < 1.50) return t("mat_adhoc");
+  if (score < 2.50) return t("mat_defined");
+  return t("mat_operated");
+}
+
+function levelName(n) {
+  return t(`level_${n}`);
+}
