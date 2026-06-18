@@ -64,8 +64,14 @@
       "name_en": "AI4Defense (Use AI to Defend)",
       "name_fr": "AI4Defense",
       "subs": {
-        "4.1": { "en": "AI on your code", "fr": "L'IA sur votre code" },
-        "4.2": { "en": "Accelerate the Defense Team", "fr": "Accélérer l'équipe défense" }
+        "4.1": {
+          "en": "AI on your code",
+          "fr": "L'IA sur votre code"
+        },
+        "4.2": {
+          "en": "Accelerate the Defense Team",
+          "fr": "Accélérer l'équipe de défense"
+        }
       }
     },
     {
