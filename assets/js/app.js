@@ -2,11 +2,16 @@
 // Loads questions.json, renders questionnaire + live dashboard, handles persistence.
 
 const STORAGE_KEY = "mythos_readiness_v1";
+const CONFIG_KEY = "mythos_llm_config_v1";
+const MAX_INGEST_CHARS = 24000;
 
 // ─── State ──────────────────────────────────────────────────────────────────
 let DATA = null;          // loaded from questions.json
 let SCORES = {};          // { Q1: 2, Q3: null, … }
 let NOTES  = {};          // { Q1: "text", … }
+let CONFIG = defaultConfig();
+let INGEST_RESULT = null;
+let INGEST_STATUS = "";
 let ACTIVE_PANEL = "dash";
 let radarChart = null;
 
@@ -14,6 +19,8 @@ let radarChart = null;
 document.addEventListener("DOMContentLoaded", async () => {
   await loadData();
   loadStorage();
+  loadConfig();
+  setupPdfWorker();
   buildNav();
   renderAll();
 });
@@ -50,11 +57,64 @@ function saveStorage() {
   } catch (e) { /* ignore */ }
 }
 
+function defaultConfig() {
+  return {
+    provider: "openai",
+    apiKey: "",
+    model: "gpt-4o-mini",
+    endpoint: "",
+    deployment: "",
+    apiVersion: "2024-02-15-preview"
+  };
+}
+
+function loadConfig() {
+  try {
+    const raw = localStorage.getItem(CONFIG_KEY);
+    CONFIG = raw ? { ...defaultConfig(), ...JSON.parse(raw) } : defaultConfig();
+  } catch (e) {
+    CONFIG = defaultConfig();
+  }
+}
+
+function saveConfig() {
+  const provider = document.getElementById("config-provider")?.value || "openai";
+  CONFIG = {
+    provider,
+    apiKey: document.getElementById("config-api-key")?.value.trim() || "",
+    model: document.getElementById("config-model")?.value.trim() || defaultModelFor(provider),
+    endpoint: document.getElementById("config-endpoint")?.value.trim().replace(/\/+$/, "") || "",
+    deployment: document.getElementById("config-deployment")?.value.trim() || "",
+    apiVersion: document.getElementById("config-api-version")?.value.trim() || "2024-02-15-preview"
+  };
+  localStorage.setItem(CONFIG_KEY, JSON.stringify(CONFIG));
+  const msg = document.getElementById("config-save-status");
+  if (msg) msg.textContent = t("config_saved");
+}
+
+function defaultModelFor(provider) {
+  return {
+    openai: "gpt-4o-mini",
+    azure: "gpt-4o-mini",
+    claude: "claude-3-5-sonnet-latest",
+    mistral: "mistral-small-latest"
+  }[provider] || "gpt-4o-mini";
+}
+
+function setupPdfWorker() {
+  if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+}
+
 // ─── Navigation ──────────────────────────────────────────────────────────────
 function buildNav() {
   const nav = document.getElementById("nav");
   nav.innerHTML = "";
   nav.appendChild(makeNavPill("dash", t("nav_dashboard"), ""));
+  nav.appendChild(makeNavPill("ingest", t("nav_ingest"), ""));
+  nav.appendChild(makeNavPill("config", t("nav_config"), ""));
   DATA.pillars.forEach(p => {
     const axLabel = axisName(p.axis, DATA.axes);
     nav.appendChild(makeNavPill(p.id.toLowerCase(), p.id + " · " + pillarName(p), axLabel));
@@ -78,6 +138,8 @@ function showPanel(id) {
   document.querySelectorAll(".nav-pill").forEach(b => b.classList.remove("active"));
   buildNav();
   if (id === "dash") renderDashboard();
+  else if (id === "ingest") renderIngest();
+  else if (id === "config") renderConfig();
   else renderPillar(id.toUpperCase());
 }
 
@@ -87,6 +149,10 @@ function renderAll() {
   updateLangBtn();
   if (ACTIVE_PANEL === "dash") {
     renderDashboard();
+  } else if (ACTIVE_PANEL === "ingest") {
+    renderIngest();
+  } else if (ACTIVE_PANEL === "config") {
+    renderConfig();
   } else {
     renderPillar(ACTIVE_PANEL.toUpperCase());
   }
@@ -95,6 +161,179 @@ function renderAll() {
 function updateLangBtn() {
   const btn = document.getElementById("btn-lang");
   if (btn) btn.textContent = t("nav_lang");
+}
+
+// ─── Configuration ───────────────────────────────────────────────────────────
+function renderConfig() {
+  const panel = document.getElementById("panel-config");
+  if (!panel) return;
+
+  panel.innerHTML = `
+    <section class="tool-panel">
+      <div class="tool-heading">
+        <span class="tool-eyebrow">${esc(t("nav_config"))}</span>
+        <h1>${esc(t("config_title"))}</h1>
+        <p>${esc(t("config_intro"))}</p>
+      </div>
+
+      <div class="config-grid">
+        <label class="field">
+          <span>${esc(t("config_provider"))}</span>
+          <select id="config-provider" class="field-control" onchange="onProviderChange()">
+            ${providerOption("openai", "OpenAI")}
+            ${providerOption("azure", "Azure OpenAI")}
+            ${providerOption("claude", "Claude")}
+            ${providerOption("mistral", "Mistral")}
+          </select>
+        </label>
+
+        <label class="field">
+          <span>${esc(t("config_api_key"))}</span>
+          <input id="config-api-key" class="field-control" type="password" autocomplete="off" value="${esc(CONFIG.apiKey)}">
+        </label>
+
+        <label class="field">
+          <span>${esc(t("config_model"))}</span>
+          <input id="config-model" class="field-control" type="text" value="${esc(CONFIG.model || defaultModelFor(CONFIG.provider))}">
+        </label>
+
+        <label class="field azure-field">
+          <span>${esc(t("config_endpoint"))}</span>
+          <input id="config-endpoint" class="field-control" type="url" placeholder="https://resource.openai.azure.com" value="${esc(CONFIG.endpoint)}">
+        </label>
+
+        <label class="field azure-field">
+          <span>${esc(t("config_deployment"))}</span>
+          <input id="config-deployment" class="field-control" type="text" value="${esc(CONFIG.deployment)}">
+        </label>
+
+        <label class="field azure-field">
+          <span>${esc(t("config_api_version"))}</span>
+          <input id="config-api-version" class="field-control" type="text" value="${esc(CONFIG.apiVersion)}">
+        </label>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn-export primary" onclick="saveConfig()">${esc(t("config_save"))}</button>
+        <span id="config-save-status" class="status-inline"></span>
+      </div>
+    </section>
+  `;
+  refreshProviderFields();
+}
+
+function providerOption(value, label) {
+  return `<option value="${esc(value)}"${CONFIG.provider === value ? " selected" : ""}>${esc(label)}</option>`;
+}
+
+function onProviderChange() {
+  const provider = document.getElementById("config-provider")?.value || "openai";
+  const model = document.getElementById("config-model");
+  if (model && (!model.value || model.value === CONFIG.model)) {
+    model.value = defaultModelFor(provider);
+  }
+  refreshProviderFields();
+}
+
+function refreshProviderFields() {
+  const provider = document.getElementById("config-provider")?.value || CONFIG.provider;
+  document.querySelectorAll(".azure-field").forEach(el => {
+    el.classList.toggle("hidden", provider !== "azure");
+  });
+}
+
+// ─── Ingest plan ─────────────────────────────────────────────────────────────
+function renderIngest() {
+  const panel = document.getElementById("panel-ingest");
+  if (!panel) return;
+
+  panel.innerHTML = `
+    <section class="tool-panel">
+      <div class="tool-heading">
+        <span class="tool-eyebrow">${esc(t("nav_ingest"))}</span>
+        <h1>${esc(t("ingest_title"))}</h1>
+        <p>${esc(t("ingest_intro"))}</p>
+      </div>
+
+      <div class="ingest-upload">
+        <label class="field">
+          <span>${esc(t("ingest_file_label"))}</span>
+          <input id="ingest-file" class="field-control file-control" type="file" accept=".xlsx,.pptx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+        </label>
+        <div class="tool-actions">
+          <button class="btn-export primary" onclick="runIngest()">${esc(t("ingest_run"))}</button>
+          <span class="status-inline">${esc(INGEST_STATUS || t("ingest_supported"))}</span>
+        </div>
+      </div>
+
+      <div id="ingest-result">
+        ${renderIngestResult()}
+      </div>
+    </section>
+  `;
+}
+
+function renderIngestResult() {
+  if (!INGEST_RESULT) {
+    return `<div class="empty-state">${esc(t("ingest_no_result"))}</div>`;
+  }
+
+  const answers = Array.isArray(INGEST_RESULT.answers) ? INGEST_RESULT.answers : [];
+  const planned = Array.isArray(INGEST_RESULT.planned) ? INGEST_RESULT.planned : [];
+  const missing = Array.isArray(INGEST_RESULT.missing) ? INGEST_RESULT.missing : [];
+
+  return `
+    <div class="result-grid">
+      <section class="result-card result-card-wide">
+        <h2>${esc(t("ingest_summary"))}</h2>
+        <p>${esc(INGEST_RESULT.summary || "")}</p>
+      </section>
+
+      <section class="result-card">
+        <h2>${esc(t("ingest_planned"))}</h2>
+        ${renderResultList(planned)}
+      </section>
+
+      <section class="result-card">
+        <h2>${esc(t("ingest_missing"))}</h2>
+        ${renderResultList(missing)}
+      </section>
+
+      <section class="result-card result-card-wide">
+        <div class="result-title-row">
+          <h2>${esc(t("ingest_prefill"))}</h2>
+          <button class="btn-export primary" onclick="applyIngestResult()">${esc(t("ingest_apply"))}</button>
+        </div>
+        <div class="answer-table">
+          ${answers.map(renderAnswerRow).join("") || `<div class="empty-state">${esc(t("ingest_no_result"))}</div>`}
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function renderResultList(items) {
+  if (!items.length) return `<div class="empty-state">${esc(t("ingest_no_result"))}</div>`;
+  return `<ul class="result-list">${items.slice(0, 12).map(item => `<li>${esc(item)}</li>`).join("")}</ul>`;
+}
+
+function renderAnswerRow(answer) {
+  const q = DATA.questions.find(item => item.id === answer.id);
+  const title = q ? q.en.q : answer.id;
+  const score = Number.isInteger(answer.score) ? answer.score : "—";
+  const confidence = answer.confidence ? `${Math.round(Number(answer.confidence) * 100)}%` : "—";
+
+  return `<article class="answer-row">
+    <div>
+      <strong>${esc(answer.id || "—")} · ${esc(title)}</strong>
+      <p>${esc(answer.rationale || "")}</p>
+      ${answer.evidence ? `<small>${esc(t("ingest_evidence"))}: ${esc(answer.evidence)}</small>` : ""}
+    </div>
+    <div class="answer-score">
+      <span class="metric-band ${Number.isInteger(answer.score) ? bandClass(answer.score) : ""}">${esc(score)}</span>
+      <small>${esc(t("ingest_confidence"))}: ${esc(confidence)}</small>
+    </div>
+  </article>`;
 }
 
 // ─── Dashboard ───────────────────────────────────────────────────────────────
@@ -444,6 +683,267 @@ function updatePillarProgress(pillarId) {
       }
     });
   });
+}
+
+// ─── Ingest logic ────────────────────────────────────────────────────────────
+async function runIngest() {
+  const file = document.getElementById("ingest-file")?.files?.[0];
+  if (!file) return;
+
+  try {
+    INGEST_STATUS = t("ingest_reading");
+    renderIngest();
+    const text = await extractFileText(file);
+    if (!text.trim()) throw new Error(t("ingest_empty_file"));
+
+    assertConfigReady();
+    INGEST_STATUS = t("ingest_calling");
+    renderIngest();
+
+    const prompt = buildIngestPrompt(text);
+    const responseText = await callLLM(prompt);
+    INGEST_RESULT = normalizeIngestResult(parseLLMJson(responseText));
+    INGEST_STATUS = t("ingest_done");
+    renderIngest();
+  } catch (err) {
+    INGEST_STATUS = t("ingest_error") + (err.message || err);
+    renderIngest();
+  }
+}
+
+async function extractFileText(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".xlsx")) return extractXlsxText(file);
+  if (name.endsWith(".pptx")) return extractPptxText(file);
+  if (name.endsWith(".pdf")) return extractPdfText(file);
+  throw new Error(t("ingest_supported"));
+}
+
+async function extractXlsxText(file) {
+  if (!window.XLSX) throw new Error("SheetJS is not loaded.");
+  const workbook = XLSX.read(await file.arrayBuffer(), { type: "array" });
+  return workbook.SheetNames.map(name => {
+    const csv = XLSX.utils.sheet_to_csv(workbook.Sheets[name], { blankrows: false });
+    return `# ${name}\n${csv}`;
+  }).join("\n\n").slice(0, MAX_INGEST_CHARS);
+}
+
+async function extractPptxText(file) {
+  if (!window.JSZip) throw new Error("JSZip is not loaded.");
+  const zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const slideNames = Object.keys(zip.files)
+    .filter(name => /^ppt\/slides\/slide\d+\.xml$/.test(name))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  const slides = [];
+  for (const name of slideNames) {
+    const xml = await zip.files[name].async("text");
+    const doc = new DOMParser().parseFromString(xml, "application/xml");
+    const textNodes = Array.from(doc.getElementsByTagName("a:t"));
+    const text = textNodes.map(node => node.textContent).filter(Boolean).join(" ");
+    slides.push(`# ${name.replace("ppt/slides/", "").replace(".xml", "")}\n${text}`);
+  }
+  return slides.join("\n\n").slice(0, MAX_INGEST_CHARS);
+}
+
+async function extractPdfText(file) {
+  if (!window.pdfjsLib) throw new Error("PDF.js is not loaded.");
+  const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+  const pages = [];
+  for (let i = 1; i <= pdf.numPages; i += 1) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    pages.push(`# Page ${i}\n${content.items.map(item => item.str).join(" ")}`);
+  }
+  return pages.join("\n\n").slice(0, MAX_INGEST_CHARS);
+}
+
+function assertConfigReady() {
+  if (!CONFIG.apiKey || !CONFIG.model) throw new Error(t("config_missing"));
+  if (CONFIG.provider === "azure" && (!CONFIG.endpoint || !CONFIG.deployment)) {
+    throw new Error(t("config_missing"));
+  }
+}
+
+function buildIngestPrompt(planText) {
+  const questions = DATA.questions.map(q => ({
+    id: q.id,
+    pillar: q.pillar,
+    sub: q.sub,
+    question: q.en.q,
+    levels: { 0: q.en.l0, 1: q.en.l1, 2: q.en.l2, 3: q.en.l3 }
+  }));
+
+  return `You are a cybersecurity readiness assessor. Analyze the client plan and map it to the Mythos Readiness questionnaire.
+
+Return JSON only, no markdown. Schema:
+{
+  "summary": "short executive summary",
+  "planned": ["concrete measures clearly planned"],
+  "missing": ["important expected measures not found"],
+  "answers": [
+    {
+      "id": "Q1",
+      "score": 0,
+      "confidence": 0.0,
+      "evidence": "short quote or reference from the plan",
+      "rationale": "why this score fits"
+    }
+  ]
+}
+
+Rules:
+- Score each question from 0 to 3 using the level descriptors.
+- Only score a question when the plan contains evidence. If evidence is weak, use a low confidence.
+- Keep evidence short.
+- Include all questions in answers if possible.
+
+Questionnaire:
+${JSON.stringify(questions)}
+
+Client plan text:
+${planText}`;
+}
+
+async function callLLM(prompt) {
+  const provider = CONFIG.provider;
+  if (provider === "openai") return callOpenAI(prompt);
+  if (provider === "azure") return callAzureOpenAI(prompt);
+  if (provider === "claude") return callClaude(prompt);
+  if (provider === "mistral") return callMistral(prompt);
+  throw new Error(`Unsupported provider: ${provider}`);
+}
+
+async function callOpenAI(prompt) {
+  const data = await postJson("https://api.openai.com/v1/chat/completions", {
+    headers: { Authorization: `Bearer ${CONFIG.apiKey}` },
+    body: {
+      model: CONFIG.model,
+      temperature: 0.1,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: "Return strict JSON only." },
+        { role: "user", content: prompt }
+      ]
+    }
+  });
+  return data.choices?.[0]?.message?.content || "";
+}
+
+async function callAzureOpenAI(prompt) {
+  const url = `${CONFIG.endpoint}/openai/deployments/${encodeURIComponent(CONFIG.deployment)}/chat/completions?api-version=${encodeURIComponent(CONFIG.apiVersion)}`;
+  const data = await postJson(url, {
+    headers: { "api-key": CONFIG.apiKey },
+    body: {
+      temperature: 0.1,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: "Return strict JSON only." },
+        { role: "user", content: prompt }
+      ]
+    }
+  });
+  return data.choices?.[0]?.message?.content || "";
+}
+
+async function callClaude(prompt) {
+  const data = await postJson("https://api.anthropic.com/v1/messages", {
+    headers: {
+      "x-api-key": CONFIG.apiKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: {
+      model: CONFIG.model,
+      max_tokens: 6000,
+      temperature: 0.1,
+      messages: [{ role: "user", content: prompt }]
+    }
+  });
+  return (data.content || []).map(part => part.text || "").join("\n");
+}
+
+async function callMistral(prompt) {
+  const data = await postJson("https://api.mistral.ai/v1/chat/completions", {
+    headers: { Authorization: `Bearer ${CONFIG.apiKey}` },
+    body: {
+      model: CONFIG.model,
+      temperature: 0.1,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: "Return strict JSON only." },
+        { role: "user", content: prompt }
+      ]
+    }
+  });
+  return data.choices?.[0]?.message?.content || "";
+}
+
+async function postJson(url, options) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers
+    },
+    body: JSON.stringify(options.body)
+  });
+  const text = await response.text();
+  if (!response.ok) throw new Error(text || response.statusText);
+  return JSON.parse(text);
+}
+
+function parseLLMJson(text) {
+  const trimmed = String(text || "").trim();
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const raw = fenced ? fenced[1].trim() : trimmed;
+  const start = raw.indexOf("{");
+  const end = raw.lastIndexOf("}");
+  if (start === -1 || end === -1) throw new Error("The LLM did not return JSON.");
+  return JSON.parse(raw.slice(start, end + 1));
+}
+
+function normalizeIngestResult(result) {
+  const knownIds = new Set(DATA.questions.map(q => q.id));
+  const answers = Array.isArray(result.answers) ? result.answers : [];
+  return {
+    summary: String(result.summary || ""),
+    planned: Array.isArray(result.planned) ? result.planned.map(String) : [],
+    missing: Array.isArray(result.missing) ? result.missing.map(String) : [],
+    answers: answers
+      .filter(a => knownIds.has(a.id))
+      .map(a => ({
+        id: a.id,
+        score: clampScore(a.score),
+        confidence: Math.max(0, Math.min(1, Number(a.confidence) || 0)),
+        evidence: String(a.evidence || ""),
+        rationale: String(a.rationale || "")
+      }))
+      .filter(a => Number.isInteger(a.score))
+  };
+}
+
+function clampScore(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return null;
+  return Math.max(0, Math.min(3, Math.round(n)));
+}
+
+function applyIngestResult() {
+  if (!INGEST_RESULT || !Array.isArray(INGEST_RESULT.answers)) return;
+  INGEST_RESULT.answers.forEach(answer => {
+    if (!Number.isInteger(answer.score)) return;
+    SCORES[answer.id] = answer.score;
+    const note = [
+      answer.evidence ? `${t("ingest_evidence")}: ${answer.evidence}` : "",
+      answer.rationale || "",
+      answer.confidence ? `${t("ingest_confidence")}: ${Math.round(answer.confidence * 100)}%` : ""
+    ].filter(Boolean).join("\n");
+    if (note) NOTES[answer.id] = note;
+  });
+  saveStorage();
+  INGEST_STATUS = t("ingest_applied");
+  renderIngest();
 }
 
 // ─── Reset ───────────────────────────────────────────────────────────────────
