@@ -9,9 +9,9 @@ const API_TIMEOUT_MS = 90000;
 const INGEST_OUTPUT_TOKENS = 16000;
 
 // ─── State ──────────────────────────────────────────────────────────────────
-let DATA = null;          // loaded from questions.json
-let SCORES = {};          // { Q1: 2, Q3: null, … }
-let NOTES  = {};          // { Q1: "text", … }
+let DATA = null;
+let SCORES = {};
+let NOTES  = {};
 let CONFIG = defaultConfig();
 let INGEST_RESULT = null;
 let INGEST_STATUS = "";
@@ -647,6 +647,9 @@ function renderPillar(pillarId) {
     <div class="pillar-progress-label">${scoredCount} / ${qs.length} ${t("sub_progress")}</div>
   </div>`;
 
+  if (LANG === "fr") {
+    html += `<div class="lang-notice">${t("q_lang_notice")}</div>`;
+  }
   Object.keys(pillar.subs).forEach(sc => {
     const subQs = qs.filter(q => q.sub === sc);
     const subScored = subQs.filter(q => SCORES[q.id] !== undefined && SCORES[q.id] !== null).length;
