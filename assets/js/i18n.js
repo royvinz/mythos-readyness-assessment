@@ -109,12 +109,18 @@ const I18N = {
     config_provider: "Fournisseur",
     config_api_key: "Clé API",
     config_model: "Modèle",
+    config_custom_model: "Modèle personnalisé",
     config_endpoint: "Endpoint Azure",
     config_deployment: "Déploiement Azure",
     config_api_version: "Version API Azure",
-    config_save: "Enregistrer",
+    config_save: "Enregistrer et tester",
     config_saved: "Configuration enregistrée localement.",
+    config_testing: "Test de la clé et du modèle…",
+    config_valid: "Configuration valide. Test API réussi.",
+    config_invalid: "Configuration enregistrée, mais test API en échec :",
+    config_invalid_shape: "La réponse de test n'a pas le format attendu.",
     config_missing: "Configurez d'abord une clé API et un modèle.",
+    api_network_failed: "Appel API impossible :",
 
     // Ingest plan
     ingest_title: "Ingest plan",
@@ -136,6 +142,8 @@ const I18N = {
     ingest_supported: "Formats acceptés : .xlsx, .pptx, .pdf",
     ingest_confidence: "Confiance",
     ingest_evidence: "Preuve",
+    ingest_debug_title: "Debug API — appel et retour",
+    ingest_debug_empty: "Aucun appel API d'ingestion pour le moment.",
   },
 
   en: {
@@ -245,12 +253,18 @@ const I18N = {
     config_provider: "Provider",
     config_api_key: "API key",
     config_model: "Model",
+    config_custom_model: "Custom model",
     config_endpoint: "Azure endpoint",
     config_deployment: "Azure deployment",
     config_api_version: "Azure API version",
-    config_save: "Save",
+    config_save: "Save and test",
     config_saved: "Configuration saved locally.",
+    config_testing: "Testing API key and model…",
+    config_valid: "Configuration valid. API test succeeded.",
+    config_invalid: "Configuration saved, but API test failed:",
+    config_invalid_shape: "The test response did not match the expected format.",
     config_missing: "Configure an API key and model first.",
+    api_network_failed: "API call failed:",
 
     // Ingest plan
     ingest_title: "Ingest plan",
@@ -272,6 +286,8 @@ const I18N = {
     ingest_supported: "Accepted formats: .xlsx, .pptx, .pdf",
     ingest_confidence: "Confidence",
     ingest_evidence: "Evidence",
+    ingest_debug_title: "API debug — request and response",
+    ingest_debug_empty: "No ingestion API call yet.",
   }
 };
 
