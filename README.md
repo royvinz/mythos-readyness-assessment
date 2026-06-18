@@ -1,1 +1,206 @@
-IyBNeXRob3MgUmVhZGluZXNzIOKAlCBXaGVyZSBEbyBZb3UgU3RhbmQ/CgoqKlBvc3QtTXl0aG9zIGVyYSDCtyBDSVNPIHJlYWRpbmVzcyBkaWFnbm9zdGljIMK3IDQwIHF1ZXN0aW9ucyBhY3Jvc3MgNSBwaWxsYXJzKioKCj4gKkEgV2F2ZXN0b25lIGluc3RydW1lbnQgZm9yIENJU08gYW5kIEV4Q29tIGF1ZGllbmNlcywgYW5jaG9yZWQgb24gdGhlIENTQSAiQUkgVnVsbmVyYWJpbGl0eSBTdG9ybSIgZnJhbWV3b3JrICh2MC45LCBBcHJpbCAyMDI2KS4qCgrwn4yQICoqTGl2ZSDihpIqKiBbcm95dmluei5naXRodWIuaW8vbXl0aG9zLXJlYWR5bmVzcy1hc3Nlc3NtZW50XShodHRwczovL3JveXZpbnouZ2l0aHViLmlvL215dGhvcy1yZWFkeW5lc3MtYXNzZXNzbWVudC8pCgotLS0KCiMjIFdoYXQgaXMgdGhpcz8KClRoaXMgaXMgYSAqKnN0cnVjdHVyZWQgbWF0dXJpdHkgc2VsZi1hc3Nlc3NtZW50KiogZGVzaWduZWQgZm9yIENJU09zIGFuZCBzZWN1cml0eSBsZWFkZXJzaGlwIHdobyBuZWVkIHRvIGFuc3dlciBvbmUgcXVlc3Rpb24gZmFzdDogKmlzIG91ciBjeWJlciBwcm9ncmFtIHJlYWR5IGZvciB0aGUgQUktYWNjZWxlcmF0aW9uIGVyYSDigJQgb3Igc3RpbGwgY2FsaWJyYXRlZCBmb3IgYSB3b3JsZCB3aGVyZSBhdHRhY2tlcnMgbW92ZSBhdCBodW1hbiBzcGVlZD8qCgpUaGUgQXByaWwgMjAyNiBpbmZsZWN0aW9uIHBvaW50IOKAlCBmcm9udGllciBBSSBtb2RlbHMgY2FwYWJsZSBvZiBkaXNjb3ZlcmluZyBhbmQgZXhwbG9pdGluZyB2dWxuZXJhYmlsaXRpZXMgaW4gYXV0b25vbW91cywgYmxhY2stYm94IGNvbmRpdGlvbnMgYXQgbWFjaGluZSBzcGVlZCDigJQgY29sbGFwc2VzIHRoZSBhc3N1bXB0aW9ucyBiZWhpbmQgbW9zdCBlbnRlcnByaXNlIHNlY3VyaXR5IHByb2dyYW1zLiBQYXRjaCB3aW5kb3dzLCBkZXRlY3Rpb24gdGltZWxpbmVzLCBhbmQgZXNjYWxhdGlvbiBtb2RlbHMgYnVpbHQgb24gaHVtYW4tc3BlZWQgdGhyZWF0IGFjdG9ycyBubyBsb25nZXIgaG9sZC4gVGhpcyBpbnN0cnVtZW50IG1lYXN1cmVzIHdoZXJlIHlvdXIgcHJvZ3JhbSBzdGFuZHMgYWdhaW5zdCB0aGF0IHJlYWxpdHkuCgpUaGUgNDAgcXVlc3Rpb25zIGFyZSBtYXBwZWQgdG8gdGhlICoqQ1NBICJBSSBWdWxuZXJhYmlsaXR5IFN0b3JtIiBQcmlvcml0eSBBY3Rpb25zIChQQTHigJNQQTExKSoqIGFuZCBjcm9zcy1yZWZlcmVuY2VkIGFnYWluc3QgTklTVCBDU0YgMi4wLCBNSVRSRSBBVExBUywgT1dBU1AgTExNICYgQWdlbnRpYyBUb3AgMTAsIGFuZCBDSVNBIEJPRCAyNi0wNC4KCi0tLQoKIyMgVGhlIFdhdmVzdG9uZSB0aHJlZS1heGlzIG1vZGVsCgpUaGUgaW5zdHJ1bWVudCBpcyBzdHJ1Y3R1cmVkIGFyb3VuZCB0aHJlZSBzdHJhdGVnaWMgYXhlcyB0aGF0IHJlZmxlY3QgaG93IGEgQ0lTTyBtdXN0IHJlc3BvbmQgdG8gdGhlIEFJLWFjY2VsZXJhdGlvbiBlcmE6Cgp8IEF4aXMgfCBTY29wZSB8IFBpbGxhcnMgfAp8LS0tLS0tfC0tLS0tLS18LS0tLS0tLS0tfAp8ICoqQSDigJQgQWRhcHQgdGhlIGN5YmVyIGZ1bmN0aW9uKiogfCBSZS1hcmNoaXRlY3QgeW91ciBwcm9ncmFtIGZvciBBSS1zcGVlZCB0aHJlYXRzIHwgVDEgwrcgVDIgwrcgVDMgfAp8ICoqQiDigJQgQUk0Q3liZXIqKiB8IFVzZSBBSSB0byBkZWZlbmQgYXQgbWFjaGluZSBzcGVlZCB8IFQ0IHwKfCAqKkMg4oCUIEN5YmVyNEFJKiogfCBTZWN1cmUgYW5kIGdvdmVybiB5b3VyIG93biBBSSBzeXN0ZW1zIHwgVDUgfAoKLS0tCgojIyBUaGUgNSBwaWxsYXJzCgojIyMgVDEg4oCUIEdvdmVybiB0aGUgQWNjZWxlcmF0aW9uICooNiBxdWVzdGlvbnMpKgpBeGlzIEEgwrcgQ29kZXMgY2FzY2FkZSBHLngKCkRvZXMgeW91ciBnb3Zlcm5hbmNlIGluZnJhc3RydWN0dXJlIHN1cHBvcnQgYSBwcm9ncmFtIG9wZXJhdGluZyBhdCBBSS1zcGVlZD8gVDEgcHJvYmVzIHdoZXRoZXIgdGhlIHJpc2sgbW9kZWwgaGFzIGJlZW4gcmUtYmFzZWxpbmVkIChub3QganVzdCB1cGRhdGVkKSwgd2hldGhlciB0aGUgYm9hcmQgaGFzIHJlY2VpdmVkIGEgTXl0aG9zLXNwZWNpZmljIGJyaWVmaW5nLCB3aGV0aGVyIHNlY3VyaXR5IGhhcyBzdGFuZGluZyBhdXRob3JpdHkgdG8gdHJhZGUgYXZhaWxhYmlsaXR5IGZvciBzZWN1cml0eSB3aXRob3V0IGFkIGhvYyBlc2NhbGF0aW9uLCBhbmQgd2hldGhlciB0aGUgb3BlcmF0aW5nIG1vZGVsIGNhbiBzdGFuZCB1cCBuZXcgY2FwYWJpbGl0aWVzIGluIGRheXMgcmF0aGVyIHRoYW4gdGhlIG5leHQgYnVkZ2V0IGN5Y2xlLgoKKipTdWItdGhlbWVzOioqCi0gKioxLjEg4oCUIFJpc2sgbW9kZWwgJiBib2FyZCBtYW5kYXRlKiogKFEx4oCTUTMpOiBSZS1iYXNlbGluZWQgcmlzayBhcHBldGl0ZSwgYm9hcmQgYnJpZWZpbmcsIG9wZXJhdGlvbmFsIGF1dGhvcml0eQotICoqMS4yIOKAlCBBY2NlbGVyYXRpb24gb3BlcmF0aW5nIG1vZGVsICYgcGVvcGxlKiogKFE04oCTUTYpOiBBZ2lsZSByZWRlcGxveW1lbnQsIFAwIGNhZGVuY2UsIHN0YWZmZWQgY2FwYWNpdHkgYW5kIGJ1cm5vdXQgc2FmZWd1YXJkcwoKLS0tCgojIyMgVDIg4oCUIEV4cG9zdXJlICYgVnVsbmVyYWJpbGl0eSBNYW5hZ2VtZW50ICooMTAgcXVlc3Rpb25zKSoKQXhpcyBBIMK3IENvZGVzIGNhc2NhZGUgTjEueAoKVGhlIG1vc3Qgb3BlcmF0aW9uYWxseSBsb2FkZWQgcGlsbGFyLiBBSS1wb3dlcmVkIHNjYW5uZXJzIGFuZCBleHBsb2l0IGdlbmVyYXRvcnMgbWVhbiB0aGF0IHZ1bG5lcmFiaWxpdGllcywgb25jZSBwdWJsaWMsIGFyZSB3ZWFwb25pemVkIGluIGhvdXJzIOKAlCBub3Qgd2Vla3MuIFQyIHRlc3RzIHdoZXRoZXIgeW91ciBhdHRhY2sgc3VyZmFjZSBpbnRlbGxpZ2VuY2UgaXMgY29udGludW91cyBhbmQgZXh0ZXJuYWwtaW4sIHdoZXRoZXIgY3Jvd24gamV3ZWxzIGFyZSBleHBsaWNpdGx5IG1hcHBlZCwgd2hldGhlciB0aGUgc29mdHdhcmUgc3VwcGx5IGNoYWluIChPU1MsIGRlcGVuZGVuY2llcywgdmVuZG9ycykgaXMgZ292ZXJuZWQsIGFuZCB3aGV0aGVyIHBhdGNoaW5nIGhhcyBtb3ZlZCBmcm9tIGNhbGVuZGFyLWRyaXZlbiB0byByaXNrLXRpZXJlZC4KCioqU3ViLXRoZW1lczoqKgotICoqMi4xIOKAlCBBdHRhY2sgc3VyZmFjZSwgY3Jvd24gamV3ZWxzLCBzdXBwbHkgY2hhaW4gJiBPU1MqKiAoUTfigJNRMTApOiBFQVNNLCBjcm93bi1qZXdlbHMgbWFwcGluZywgT1NTIGRlcGVuZGVuY3kgaW52ZW50b3J5LCBTTFNBL3Byb3ZlbmFuY2UKLSAqKjIuMiDigJQgUmVtZWRpYXRpb24gVG93ZXIgJiBWdWxuT3BzKiogKFExMeKAk1ExMyk6IEVuZC10by1lbmQgcmVtZWRpYXRpb24gb3duZXJzaGlwLCBDVEVNICsgTExNIHRyaWFnZSwgMjQvNyBWdWxuT3BzIGNlbGwKLSAqKjIuMyDigJQgQ29udGludW91cyBwYXRjaGluZyoqIChRMTTigJNRMTYpOiBDVC9DUiBwaXBlbGluZSwgcmlzay10aWVyZWQgdGltZWxpbmVzIChLRVYvRVBTUy9TU1ZDKSwgdmVuZG9yIHBhdGNoLVNMQSArIFNCT00gY2xhdXNlcwoKLS0tCgojIyMgVDMg4oCUIEZ1bmRhbWVudGFscyB2cyBBSS1kcml2ZW4gQXR0YWNrcyAqKDEyIHF1ZXN0aW9ucykqCkF4aXMgQSDCtyBDb2RlcyBjYXNjYWRlIE4yLngKClRoZSBsYXJnZXN0IHBpbGxhci4gQUktZHJpdmVuIGF0dGFja2VycyBjb21iaW5lIGhpZ2gtc3BlZWQgZXhwbG9pdGF0aW9uIHdpdGggQUktb3B0aW1pemVkIHNvY2lhbCBlbmdpbmVlcmluZywgYXV0b21hdGVkIGNyZWRlbnRpYWwgaGFydmVzdGluZywgYW5kIGFkYXB0aXZlIGV2YXNpb24uIFQzIHRlc3RzIHRoZSBjb250cm9scyB0aGF0IGNvbnRhaW4gYmxhc3QgcmFkaXVzIGFuZCBsaW1pdCBkd2VsbCB0aW1lOiBjb250YWlubWVudCBwcmUtYXV0aG9yaXphdGlvbiwgVUVCQSB0dW5lZCBmb3IgQUktZW11bGF0ZWQgYmVoYXZpb3IsIG5vbi1odW1hbiBpZGVudGl0eSBnb3Zlcm5hbmNlLCBzZWdtZW50YXRpb24sIGVncmVzcyBjb250cm9scywgYW5kIGhhcmRlbmVkIElSIHBsYXlib29rcyB0ZXN0ZWQgYWdhaW5zdCB6ZXJvLWRheSBzY2VuYXJpb3MuIEl0IGFsc28gY292ZXJzIHRoZSBlbWVyZ2luZyBjb3VudGVyLWF1dG9ub215IGxheWVyIOKAlCBkZWNlcHRpb24gYXQgbWFjaGluZSBzY2FsZS4KCioqU3ViLXRoZW1lczoqKgotICoqMy4xIOKAlCBEZXRlY3Rpb24gJiBhdXRvbWF0ZWQgcmVzcG9uc2UqKiAoUTE34oCTUTIwKTogUHJlLWF1dGhvcml6ZWQgY29udGFpbm1lbnQsIFVFQkEvYmVoYXZpb3JhbCBkZXRlY3Rpb24sIGV4ZmlsdHJhdGlvbiBtb25pdG9yaW5nLCBzZWN0b3IgSVNBQy9DRVJUIGludGVncmF0aW9uCi0gKiozLjIg4oCUIEhhcmRlbmluZyAmIGJsYXN0LXJhZGl1cyoqIChRMjHigJNRMjYpOiBQaGlzaGluZy1yZXNpc3RhbnQgTUZBLCBQQU0vSklULCBOSEkgZ292ZXJuYW5jZSwgbmV0d29yayBzZWdtZW50YXRpb24sIGVncmVzcyBkZWZhdWx0LWRlbnksIElSIHBsYXlib29rcyB3aXRoIDAtZGF5IGNyaXNpcyBleGVyY2lzZQotICoqMy4zIOKAlCBDb3VudGVyLWF1dG9ub215ICYgZGVjZXB0aW9uKiogKFEyN+KAk1EyOCk6IFRhcnBpdHMgYW5kIGNhbmFyaWVzIGZvciBodW1hbiBhdHRhY2tlcnMsIGFnZW50IGRlY295cyBhbmQgdHJpcHdpcmVzIGZvciBhdXRvbm9tb3VzIGF0dGFja2VycwoKLS0tCgojIyMgVDQg4oCUIEFJNERlZmVuc2UgKio1IHF1ZXN0aW9ucykqCkF4aXMgQiDCtyBDb2RlcyBjYXNjYWRlIE4zLngKCkFyZSB5b3UgdXNpbmcgQUkgdG8gbWF0Y2ggdGhlIGF0dGFja2VyJ3Mgc3BlZWQ/IFQ0IHByb2JlcyB3aGV0aGVyIEFJIGFnZW50cyBhcmUgdHVybmVkIGlud2FyZCBvbiB5b3VyIG93biBjb2RlIChhZ2VudGljIHNlY3VyaXR5IHJldmlldyksIHdoZXRoZXIgY29udGludW91cyBBSS1wb3dlcmVkIHJlZC10ZWFtaW5nIHJ1bnMgYWdhaW5zdCB5b3VyIGVzdGF0ZSwgYW5kIHdoZXRoZXIgdGhlIFNPQyBoYXMgZGVwbG95ZWQgQUkgdHJpYWdlL2NvcGlsb3RzLgoKLS0tCgojIyMgVDUg4oCUIEN5YmVyNEFJOiBTZWN1cmUgJiBHb3Zlcm4gWW91ciBPd24gQUkgKig3IHF1ZXN0aW9ucykqCkF4aXMgQyDCtyBDb2RlcyBjYXNjYWRlIE4zLnggLyBHLngKCi0tLQoKKipXYXZlc3RvbmUgLSBJbnRlcm5hbCB1c2Ugb25seSoqCg==
+# Mythos Readiness — Where Do You Stand?
+
+**Post-Mythos era · CISO readiness diagnostic · 40 questions across 5 pillars**
+
+> *A Wavestone instrument for CISO and ExCom audiences, anchored on the CSA "AI Vulnerability Storm" framework (v0.9, April 2026).*
+
+🌐 **Live →** [royvinz.github.io/mythos-readyness-assessment](https://royvinz.github.io/mythos-readyness-assessment/)
+
+---
+
+## What is this?
+
+This is a **structured maturity self-assessment** designed for CISOs and security leadership who need to answer one question fast: *is our cyber program ready for the AI-acceleration era — or still calibrated for a world where attackers move at human speed?*
+
+The April 2026 inflection point — frontier AI models capable of discovering and exploiting vulnerabilities in autonomous, black-box conditions at machine speed — collapses the assumptions behind most enterprise security programs. Patch windows, detection timelines, and escalation models built on human-speed threat actors no longer hold. This instrument measures where your program stands against that reality.
+
+The 40 questions are mapped to the **CSA "AI Vulnerability Storm" Priority Actions (PA1–PA11)** and cross-referenced against NIST CSF 2.0, MITRE ATLAS, OWASP LLM & Agentic Top 10, and CISA BOD 26-04.
+
+---
+
+## The Wavestone three-axis model
+
+The instrument is structured around three strategic axes that reflect how a CISO must respond to the AI-acceleration era:
+
+| Axis | Scope | Pillars |
+|------|-------|---------|
+| **A — Adapt the cyber function** | Re-architect your program for AI-speed threats | T1 · T2 · T3 |
+| **B — AI4Cyber** | Use AI to defend at machine speed | T4 |
+| **C — Cyber4AI** | Secure and govern your own AI systems | T5 |
+
+---
+
+## The 5 pillars
+
+### T1 — Govern the Acceleration *(6 questions)*
+Axis A · Codes cascade G.x
+
+Does your governance infrastructure support a program operating at AI-speed? T1 probes whether the risk model has been re-baselined (not just updated), whether the board has received a Mythos-specific briefing, whether security has standing authority to trade availability for security without ad hoc escalation, and whether the operating model can stand up new capabilities in days rather than the next budget cycle.
+
+**Sub-themes:**
+- **1.1 — Risk model & board mandate** (Q1–Q3): Re-baselined risk appetite, board briefing, operational authority
+- **1.2 — Acceleration operating model & people** (Q4–Q6): Agile redeployment, P0 cadence, staffed capacity and burnout safeguards
+
+---
+
+### T2 — Exposure & Vulnerability Management *(10 questions)*
+Axis A · Codes cascade N1.x
+
+The most operationally loaded pillar. AI-powered scanners and exploit generators mean that vulnerabilities, once public, are weaponized in hours — not weeks. T2 tests whether your attack surface intelligence is continuous and external-in, whether crown jewels are explicitly mapped, whether the software supply chain (OSS, dependencies, vendors) is governed, and whether patching has moved from calendar-driven to risk-tiered.
+
+**Sub-themes:**
+- **2.1 — Attack surface, crown jewels, supply chain & OSS** (Q7–Q10): EASM, crown-jewels mapping, OSS dependency inventory, SLSA/provenance
+- **2.2 — Remediation Tower & VulnOps** (Q11–Q13): End-to-end remediation ownership, CTEM + LLM triage, 24/7 VulnOps cell
+- **2.3 — Continuous patching** (Q14–Q16): CT/CR pipeline, risk-tiered timelines (KEV/EPSS/SSVC), vendor patch-SLA + SBOM clauses
+
+---
+
+### T3 — Fundamentals vs AI-driven Attacks *(12 questions)*
+Axis A · Codes cascade N2.x
+
+The largest pillar. AI-driven attackers combine high-speed exploitation with AI-optimized social engineering, automated credential harvesting, and adaptive evasion. T3 tests the controls that contain blast radius and limit dwell time: containment pre-authorization, UEBA tuned for AI-emulated behavior, non-human identity governance, segmentation, egress controls, and hardened IR playbooks tested against zero-day scenarios. It also covers the emerging counter-autonomy layer — deception at machine scale.
+
+**Sub-themes:**
+- **3.1 — Detection & automated response** (Q17–Q20): Pre-authorized containment, UEBA/behavioral detection, exfiltration monitoring, sector ISAC/CERT integration
+- **3.2 — Hardening & blast-radius** (Q21–Q26): Phishing-resistant MFA, PAM/JIT, NHI governance, network segmentation, egress default-deny, IR playbooks with 0-day crisis exercise
+- **3.3 — Counter-autonomy & deception** (Q27–Q28): Tarpits and canaries for human attackers, agent decoys and tripwires for autonomous attackers
+
+---
+
+### T4 — AI4Defense *(5 questions)*
+Axis B · Codes cascade N3.x
+
+Are you using AI to match the attacker's speed? T4 probes whether AI agents are turned inward on your own code (agentic security review), whether continuous AI-powered red-teaming runs against your estate, and whether the SOC has deployed AI triage/copilots — with a critical secondary question: when you mandate AI adoption in defensive workflows, do you validate that it actually delivers?
+
+**Sub-themes:**
+- **4.1 — AI on your code** (Q29–Q30): Agentic security review of code, continuous agentic pentest
+- **4.2 — Accelerate & trust the defense team** (Q31–Q33): AI triage/copilots in SOC, mandatory AI adoption, validation of AI defensive effectiveness
+
+---
+
+### T5 — Cyber4AI: Secure & Govern Your Own AI *(7 questions)*
+Axis C · Codes cascade N3.x / G.x
+
+The fastest-growing risk surface. T5 covers governance of your own AI adoption (explicit stance, agentic coding tool guardrails, EU AI Act / ISO 42001 obligations), the security of your production and defensive agents (runtime guardrails, scoped permissions, RAG/memory integrity), and your ability to maintain a governed inventory of all AI systems — including Shadow AI and agentic supply-chain provenance.
+
+**Sub-themes:**
+- **5.1 — Govern your AI use** (Q34–Q36): AI-use policy, agentic coding tool controls, regulatory obligations
+- **5.2 — Defend the agents** (Q37–Q38): Runtime guardrails, agent harness security (tool scoping, RAG integrity, memory isolation)
+- **5.3 — Inventory, Shadow AI & agentic supply chain** (Q39–Q40): Governed AI inventory, MCP/agentic supply-chain integrity
+
+---
+
+## The maturity scale (0–3)
+
+Each question is scored on a four-level behavioral scale:
+
+| Score | Level | Meaning |
+|-------|-------|---------|
+| **0** | Absent | Not addressed; not aware; no capability in place |
+| **1** | Ad hoc / pilot | Informal, manual, partial; depends on individuals |
+| **2** | Defined & in place | Documented process, deployed across main scope |
+| **3** | Operated, measured & improving | Continuous, automated where relevant, exercised, KPIs tracked |
+
+A blank score means "not assessed" and is **excluded from averages**. Partial results are valid — you do not need to complete all 40 questions to read meaningful output.
+
+**Maturity band thresholds:**
+
+| Average score | Band |
+|---------------|------|
+| < 0.75 | Absent |
+| 0.75 – 1.49 | Ad hoc |
+| 1.50 – 2.49 | Defined |
+| ≥ 2.50 | Operated |
+
+---
+
+## Framework references
+
+### Primary (severity-weighted in the instrument)
+
+| Framework | Use in this instrument | Link |
+|-----------|----------------------|------|
+| **CSA "AI Vulnerability Storm"** v0.9 · April 2026 | Anchor document: 11 Priority Actions (PA1–PA11), risk register, "10 Questions". PA1–PA6 + PA11 = CRITICAL; PA7–PA10 = HIGH | [cloudsecurityalliance.org/research](https://cloudsecurityalliance.org/research) |
+| **NIST CSF 2.0** | Security functions mapped per question (GV · ID · PR · DE · RS · RC) | [nist.gov/cyberframework](https://www.nist.gov/cyberframework) |
+| **MITRE ATLAS** | Adversarial techniques against AI/ML systems (AML.Txxxx) — Cyber4AI angle | [atlas.mitre.org](https://atlas.mitre.org/) |
+| **OWASP LLM Top 10 2025** | Applicative LLM risks (LLMxx) | [genai.owasp.org/llm-top-10](https://genai.owasp.org/llm-top-10/) |
+| **OWASP Agentic Top 10 2026** | Risks of agentic systems (ASIxx) | [genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) |
+| **CISA BOD 26-04** | Risk-based patch prioritization (exposure · KEV · automatable · impact); forensic triage; timelines | [cisa.gov/news-events/directives/bod-26-04](https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk) |
+
+### Secondary (cited per question in "Other refs")
+
+| Framework | Link |
+|-----------|------|
+| NIST AI RMF | [nist.gov/itl/ai-risk-management-framework](https://www.nist.gov/itl/ai-risk-management-framework) |
+| Google SAIF | [saif.google](https://saif.google/) |
+| SLSA (supply-chain integrity) | [slsa.dev](https://slsa.dev/) |
+| CISA SSVC | [cisa.gov/stakeholder-specific-vulnerability-categorization-ssvc](https://www.cisa.gov/stakeholder-specific-vulnerability-categorization-ssvc) |
+| CISA KEV Catalog | [cisa.gov/known-exploited-vulnerabilities-catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
+| FIRST EPSS | [first.org/epss](https://www.first.org/epss/) |
+| ISO/IEC 42001 | [iso.org/standard/42001](https://www.iso.org/standard/42001) |
+| OWASP NHI Top 10 | [owasp.org/www-project-non-human-identities-top-10](https://owasp.org/www-project-non-human-identities-top-10/) |
+| OWASP MCP guide (GenAI Security Project) | [genai.owasp.org/initiatives/agentic-security-initiative](https://genai.owasp.org/initiatives/agentic-security-initiative/) |
+| MITRE Engage (deception) | [engage.mitre.org](https://engage.mitre.org/) |
+| NIST SP 800-207 (Zero Trust) | [csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) |
+| NIST SP 800-218 (SSDF) | [csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) |
+| EU AI Act | [artificialintelligenceact.eu](https://artificialintelligenceact.eu/) |
+
+---
+
+## How to use
+
+### Online
+Open [royvinz.github.io/mythos-readyness-assessment](https://royvinz.github.io/mythos-readyness-assessment/) directly.
+
+### Local
+```bash
+git clone https://github.com/royvinz/mythos-readyness-assessment.git
+cd mythos-readyness-assessment
+python3 -m http.server 8080
+# Open http://localhost:8080
+```
+> The app **must be served** (not opened as a `file://` URL) because it loads `questions.json` via `fetch`.
+
+### Usage workflow
+1. Navigate to a pillar tab (T1–T5) and read each question in the context of your organization.
+2. Select a score 0–3 using the behavioral descriptors. Scores persist automatically in your browser (`localStorage`).
+3. Use the optional **note / evidence** field to record supporting observations.
+4. The **Dashboard** updates in real time as you score questions — no need to complete all 40.
+5. Use **Export CSV** to produce a structured output for reporting or archival.
+6. Use **Print / PDF** for a printable ExCom-ready summary.
+
+---
+
+## Scoring integrity rules
+
+- **No invented statistics.** Every claim in this instrument is sourced from the frameworks listed above.
+- **No Gartner, IBM, or McKinsey references.** Sources are limited to primary standards bodies (CSA, NIST, MITRE, OWASP, CISA) and Wavestone's own benchmark data.
+- **CSA severity fidelity.** PA1–PA6 and PA11 are CRITICAL; PA7–PA10 are HIGH. Badge coloring reflects this.
+- **Partial scoring is valid.** Unanswered questions are excluded from averages. You do not need a complete scorecard to get meaningful output.
+
+---
+
+## Repository structure
+
+```
+mythos-readyness-assessment/
+├── index.html                  # Single-page application shell
+├── assets/
+│   ├── css/styles.css          # Wavestone design system
+│   ├── js/app.js               # Scoring, dashboard, export, persistence
+│   ├── js/i18n.js              # Bilingual UI chrome (FR default / EN toggle)
+│   └── data/questions.json     # Source of truth — 40 questions, all refs, descriptors
+└── README.md
+```
+
+---
+
+## Version
+
+| Version | Date | Notes |
+|---------|------|-------|
+| 1.0 | June 2026 | Initial release · 40 questions · T1=6 · T2=10 · T3=12 · T4=5 · T5=7 |
+
+---
+
+*Wavestone — Internal use / Usage interne · Not for redistribution*
