@@ -774,6 +774,13 @@ a:hover { text-decoration: underline; }
   padding: 9px var(--gap-md);
 }
 
+.selected-file {
+  color: var(--ws-muted);
+  font-size: var(--ws-text-xs);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
 .tool-actions {
   display: flex;
   align-items: center;
@@ -809,6 +816,25 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--ws-line);
   border-radius: var(--radius);
   margin-bottom: var(--gap-lg);
+}
+
+.ingest-progress {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+.ingest-progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  color: var(--ws-muted);
+  font-size: var(--ws-text-xs);
+  font-weight: 600;
+}
+
+.ingest-progress-top strong {
+  color: var(--ws-deep);
 }
 
 .empty-state {

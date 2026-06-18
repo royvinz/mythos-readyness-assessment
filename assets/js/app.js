@@ -5,6 +5,8 @@ const STORAGE_KEY = "mythos_readiness_v1";
 const CONFIG_KEY = "mythos_llm_config_v1";
 const MAX_INGEST_CHARS = 24000;
 const DEBUG_TEXT_LIMIT = 16000;
+const API_TIMEOUT_MS = 90000;
+const INGEST_OUTPUT_TOKENS = 16000;
 
 // ─── State ──────────────────────────────────────────────────────────────────
 let DATA = null;          // loaded from questions.json
@@ -13,6 +15,9 @@ let NOTES  = {};          // { Q1: "text", … }
 let CONFIG = defaultConfig();
 let INGEST_RESULT = null;
 let INGEST_STATUS = "";
+let INGEST_FILE = null;
+let INGEST_BUSY = false;
+let INGEST_PROGRESS = 0;
 let API_DEBUG = null;
 let ACTIVE_PANEL = "dash";
 let radarChart = null;
@@ -346,12 +351,14 @@ function renderIngest() {
       <div class="ingest-upload">
         <label class="field">
           <span>${esc(t("ingest_file_label"))}</span>
-          <input id="ingest-file" class="field-control file-control" type="file" accept=".xlsx,.pptx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+          <input id="ingest-file" class="field-control file-control" type="file" onchange="setIngestFile(this.files[0])" accept=".xlsx,.pptx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+          <small id="ingest-selected-file" class="selected-file">${esc(selectedIngestFileLabel())}</small>
         </label>
         <div class="tool-actions">
-          <button class="btn-export primary" onclick="runIngest()">${esc(t("ingest_run"))}</button>
+          <button class="btn-export primary" onclick="runIngest()" ${INGEST_BUSY ? "disabled" : ""}>${esc(INGEST_BUSY ? t("ingest_running") : t("ingest_run"))}</button>
           <span class="status-inline">${esc(INGEST_STATUS || t("ingest_supported"))}</span>
         </div>
+        ${renderIngestProgress()}
       </div>
 
       <div id="ingest-result">
@@ -361,6 +368,33 @@ function renderIngest() {
       ${renderApiDebug()}
     </section>
   `;
+}
+
+function renderIngestProgress() {
+  if (!INGEST_BUSY && INGEST_PROGRESS === 0) return "";
+  return `<div class="ingest-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${INGEST_PROGRESS}">
+    <div class="ingest-progress-top">
+      <span>${esc(t("ingest_progress"))}</span>
+      <strong>${INGEST_PROGRESS}%</strong>
+    </div>
+    <div class="bar-track"><div class="bar-fill" style="width:${INGEST_PROGRESS}%;background:var(--ws-purple)"></div></div>
+  </div>`;
+}
+
+function setIngestFile(file) {
+  INGEST_FILE = file || null;
+  INGEST_STATUS = INGEST_FILE ? t("ingest_file_ready") : t("ingest_supported");
+  INGEST_PROGRESS = 0;
+  const label = document.getElementById("ingest-selected-file");
+  if (label) label.textContent = selectedIngestFileLabel();
+  const status = document.querySelector("#panel-ingest .status-inline");
+  if (status) status.textContent = INGEST_STATUS;
+}
+
+function selectedIngestFileLabel() {
+  if (!INGEST_FILE) return t("ingest_no_file");
+  const size = INGEST_FILE.size ? ` · ${Math.ceil(INGEST_FILE.size / 1024)} KB` : "";
+  return `${INGEST_FILE.name}${size}`;
 }
 
 function renderIngestResult() {
@@ -787,27 +821,44 @@ function updatePillarProgress(pillarId) {
 
 // ─── Ingest logic ────────────────────────────────────────────────────────────
 async function runIngest() {
-  const file = document.getElementById("ingest-file")?.files?.[0];
-  if (!file) return;
+  const file = INGEST_FILE || document.getElementById("ingest-file")?.files?.[0];
+  if (!file) {
+    INGEST_STATUS = t("ingest_select_file");
+    renderIngest();
+    return;
+  }
+  INGEST_FILE = file;
 
   try {
+    INGEST_BUSY = true;
+    INGEST_PROGRESS = 5;
     API_DEBUG = null;
     INGEST_STATUS = t("ingest_reading");
     renderIngest();
     const text = await extractFileText(file);
     if (!text.trim()) throw new Error(t("ingest_empty_file"));
 
+    INGEST_PROGRESS = 35;
     assertConfigReady();
     INGEST_STATUS = t("ingest_calling");
     renderIngest();
 
     const prompt = buildIngestPrompt(text);
-    const responseText = await callLLM(prompt);
+    INGEST_PROGRESS = 55;
+    const responseText = await callLLM(prompt, { maxTokens: INGEST_OUTPUT_TOKENS });
+    INGEST_PROGRESS = 85;
+    INGEST_STATUS = t("ingest_parsing");
+    renderIngest();
     INGEST_RESULT = normalizeIngestResult(parseLLMJson(responseText));
+    INGEST_PROGRESS = 100;
     INGEST_STATUS = t("ingest_done");
     renderIngest();
   } catch (err) {
+    INGEST_PROGRESS = 0;
     INGEST_STATUS = t("ingest_error") + (err.message || err);
+    renderIngest();
+  } finally {
+    INGEST_BUSY = false;
     renderIngest();
   }
 }
@@ -967,11 +1018,14 @@ async function callClaude(prompt, options = {}) {
     },
     body: {
       model: CONFIG.model,
-      max_tokens: options.maxTokens || 6000,
+      max_tokens: options.maxTokens || INGEST_OUTPUT_TOKENS,
       messages: [{ role: "user", content: prompt }]
     },
     debug: debugOptions(options)
   });
+  if (data.stop_reason === "max_tokens") {
+    throw new Error(t("ingest_response_truncated"));
+  }
   return (data.content || []).map(part => part.text || "").join("\n");
 }
 
@@ -1000,13 +1054,35 @@ async function postJson(url, options) {
   };
   const requestBody = JSON.stringify(options.body);
   let response;
+  let timeoutId = null;
+  const controller = new AbortController();
+  if (debug) {
+    API_DEBUG = {
+      at: new Date().toISOString(),
+      provider: CONFIG.provider,
+      model: CONFIG.model,
+      url,
+      status: "pending",
+      ok: false,
+      requestHeaders: sanitizeHeaders(headers),
+      requestBody: truncateDebug(requestBody),
+      responseBody: t("api_pending")
+    };
+    if (ACTIVE_PANEL === "ingest") renderIngest();
+  }
+
   try {
+    timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
     response = await fetch(url, {
       method: "POST",
       headers,
-      body: requestBody
+      body: requestBody,
+      signal: controller.signal
     });
   } catch (err) {
+    const message = err.name === "AbortError"
+      ? `${t("api_timeout")} ${Math.round(API_TIMEOUT_MS / 1000)}s`
+      : `${t("api_network_failed")} ${err.message || err}`;
     if (debug) {
       API_DEBUG = {
         at: new Date().toISOString(),
@@ -1018,10 +1094,13 @@ async function postJson(url, options) {
         requestHeaders: sanitizeHeaders(headers),
         requestBody: truncateDebug(requestBody),
         responseBody: "",
-        error: err.message || String(err)
+        error: message
       };
+      if (ACTIVE_PANEL === "ingest") renderIngest();
     }
-    throw new Error(`${t("api_network_failed")} ${err.message || err}`);
+    throw new Error(message);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
   }
   const text = await response.text();
 
@@ -1037,6 +1116,7 @@ async function postJson(url, options) {
       requestBody: truncateDebug(requestBody),
       responseBody: truncateDebug(text)
     };
+    if (ACTIVE_PANEL === "ingest") renderIngest();
   }
 
   if (!response.ok) throw new Error(text || response.statusText);
@@ -1068,8 +1148,13 @@ function parseLLMJson(text) {
   const raw = fenced ? fenced[1].trim() : trimmed;
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
-  if (start === -1 || end === -1) throw new Error("The LLM did not return JSON.");
-  return JSON.parse(raw.slice(start, end + 1));
+  if (start !== -1 && end === -1) throw new Error(t("ingest_response_truncated"));
+  if (start === -1 || end === -1) throw new Error(`${t("ingest_json_invalid")} ${t("ingest_no_json")}`);
+  try {
+    return JSON.parse(raw.slice(start, end + 1));
+  } catch (err) {
+    throw new Error(`${t("ingest_json_invalid")} ${err.message || err}`);
+  }
 }
 
 function normalizeIngestResult(result) {
