@@ -90,6 +90,16 @@ const I18N = {
 
     // Scored counter suffix
     scored_of: "notées sur 40",
+
+    // Export modal
+    export_title:       "Export des données",
+    export_notice:      "Laissez vide pour un CSV en clair. Avec phrase secrète : chiffrement AES-256-GCM (PBKDF2 · 200 000 itérations). Conservez la phrase secrète — sans elle le fichier est irrécupérable.",
+    export_pp_label:    "Phrase secrète (optionnel)",
+    export_pp_ph:       "Laisser vide → CSV non chiffré…",
+    export_plain_btn:   "Exporter CSV",
+    export_enc_btn:     "Exporter chiffré (AES-256)",
+    export_encrypting:  "Chiffrement…",
+    export_cancel:      "Annuler",
   },
 
   en: {
@@ -180,6 +190,16 @@ const I18N = {
 
     // Scored counter suffix
     scored_of: "scored out of 40",
+
+    // Export modal
+    export_title:       "Export data",
+    export_notice:      "Leave empty for a plain CSV. With passphrase: AES-256-GCM encryption (PBKDF2 · 200,000 iterations). Keep the passphrase — without it the file cannot be recovered.",
+    export_pp_label:    "Passphrase (optional)",
+    export_pp_ph:       "Leave empty → unencrypted CSV…",
+    export_plain_btn:   "Export CSV",
+    export_enc_btn:     "Export encrypted (AES-256)",
+    export_encrypting:  "Encrypting…",
+    export_cancel:      "Cancel",
   }
 };
 
