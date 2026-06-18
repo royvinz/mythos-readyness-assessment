@@ -12,120 +12,55 @@
       "T5": 7
     },
     "scale": {
-      "0": {
-        "en": "Absent",
-        "fr": "Absent"
-      },
-      "1": {
-        "en": "Ad hoc / pilot",
-        "fr": "Ad hoc / pilote"
-      },
-      "2": {
-        "en": "Defined & in place",
-        "fr": "Défini & en place"
-      },
-      "3": {
-        "en": "Operated, measured & improving",
-        "fr": "Opéré, mesuré & en amélioration"
-      }
+      "0": { "en": "Absent", "fr": "Absent" },
+      "1": { "en": "Ad hoc / pilot", "fr": "Ad hoc / pilote" },
+      "2": { "en": "Defined & in place", "fr": "Défini & en place" },
+      "3": { "en": "Operated, measured & improving", "fr": "Opéré, mesuré & en amélioration" }
     },
     "maturity_bands": [
-      {
-        "max": 0.74,
-        "en": "Absent",
-        "fr": "Absent"
-      },
-      {
-        "max": 1.49,
-        "en": "Ad hoc",
-        "fr": "Ad hoc"
-      },
-      {
-        "max": 2.49,
-        "en": "Defined",
-        "fr": "Défini"
-      },
-      {
-        "max": 3.0,
-        "en": "Operated",
-        "fr": "Opéré"
-      }
+      { "max": 0.74, "en": "Absent", "fr": "Absent" },
+      { "max": 1.49, "en": "Ad hoc", "fr": "Ad hoc" },
+      { "max": 2.49, "en": "Defined", "fr": "Défini" },
+      { "max": 3.0, "en": "Operated", "fr": "Opéré" }
     ]
   },
   "axes": {
-    "A": {
-      "en": "Adapt the cyber function",
-      "fr": "Adapter la fonction cyber"
-    },
-    "B": {
-      "en": "AI4Cyber — Use AI to defend",
-      "fr": "AI4Cyber — Utiliser l'IA pour défendre"
-    },
-    "C": {
-      "en": "Cyber4AI — Secure & govern your own AI",
-      "fr": "Cyber4AI — Sécuriser & gouverner votre IA"
-    }
+    "A": { "en": "Adapt the cyber function", "fr": "Adapter la fonction cyber" },
+    "B": { "en": "AI4Cyber — Use AI to defend", "fr": "AI4Cyber — Utiliser l'IA pour défendre" },
+    "C": { "en": "Cyber4AI — Secure & govern your own AI", "fr": "Cyber4AI — Sécuriser & gouverner votre IA" }
   },
   "pillars": [
     {
-      "id": "T1",
-      "axis": "A",
+      "id": "T1", "axis": "A",
       "name_en": "Govern the Acceleration",
       "name_fr": "Gouverner l'accélération",
       "subs": {
-        "1.1": {
-          "en": "Risk model & board mandate",
-          "fr": "Modèle de risque & mandat board"
-        },
-        "1.2": {
-          "en": "Acceleration operating model & people",
-          "fr": "Operating model d'accélération & personnes"
-        }
+        "1.1": { "en": "Risk model & board mandate", "fr": "Modèle de risque & mandat board" },
+        "1.2": { "en": "Acceleration operating model & people", "fr": "Operating model d'accélération & personnes" }
       }
     },
     {
-      "id": "T2",
-      "axis": "A",
+      "id": "T2", "axis": "A",
       "name_en": "Exposure & Vulnerability Management",
       "name_fr": "Exposition & gestion des vulnérabilités",
       "subs": {
-        "2.1": {
-          "en": "Attack surface, crown jewels, supply chain & OSS",
-          "fr": "Surface d'attaque, crown jewels, supply chain & OSS"
-        },
-        "2.2": {
-          "en": "Remediation Tower & VulnOps",
-          "fr": "Remediation Tower & VulnOps"
-        },
-        "2.3": {
-          "en": "Continuous patching",
-          "fr": "Patching continu"
-        }
+        "2.1": { "en": "Attack surface, crown jewels, supply chain & OSS", "fr": "Surface d'attaque, crown jewels, supply chain & OSS" },
+        "2.2": { "en": "Remediation Tower & VulnOps", "fr": "Remediation Tower & VulnOps" },
+        "2.3": { "en": "Continuous patching", "fr": "Patching continu" }
       }
     },
     {
-      "id": "T3",
-      "axis": "A",
+      "id": "T3", "axis": "A",
       "name_en": "Fundamentals vs AI-driven Attacks",
       "name_fr": "Fondamentaux face aux attaques pilotées par l'IA",
       "subs": {
-        "3.1": {
-          "en": "Detection & automated response",
-          "fr": "Détection & réponse automatisée"
-        },
-        "3.2": {
-          "en": "Hardening & blast-radius",
-          "fr": "Durcissement & blast-radius"
-        },
-        "3.3": {
-          "en": "Counter-autonomy & deception",
-          "fr": "Contre-autonomie & déception"
-        }
+        "3.1": { "en": "Detection & automated response", "fr": "Détection & réponse automatisée" },
+        "3.2": { "en": "Hardening & blast-radius", "fr": "Durcissement & blast-radius" },
+        "3.3": { "en": "Counter-autonomy & deception", "fr": "Contre-autonomie & déception" }
       }
     },
     {
-      "id": "T4",
-      "axis": "B",
+      "id": "T4", "axis": "B",
       "name_en": "AI4Defense (Use AI to Defend)",
       "name_fr": "AI4Defense",
       "subs": {
@@ -135,28 +70,18 @@
         },
         "4.2": {
           "en": "Accelerate the Defense Team",
-          "fr": "Accélérer l'équipe défense"
+          "fr": "Accélérer l'équipe de défense"
         }
       }
     },
     {
-      "id": "T5",
-      "axis": "C",
+      "id": "T5", "axis": "C",
       "name_en": "Cyber4AI: Secure & Govern Your Own AI",
       "name_fr": "Cyber4AI : sécuriser & gouverner votre IA",
       "subs": {
-        "5.1": {
-          "en": "Govern your AI use",
-          "fr": "Gouverner votre usage de l'IA"
-        },
-        "5.2": {
-          "en": "Defend the agents",
-          "fr": "Défendre les agents"
-        },
-        "5.3": {
-          "en": "Inventory, Shadow AI & agentic supply chain",
-          "fr": "Inventaire, Shadow AI & supply chain agentique"
-        }
+        "5.1": { "en": "Govern your AI use", "fr": "Gouverner votre usage de l'IA" },
+        "5.2": { "en": "Defend the agents", "fr": "Défendre les agents" },
+        "5.3": { "en": "Inventory, Shadow AI & agentic supply chain", "fr": "Inventaire, Shadow AI & supply chain agentique" }
       }
     }
   ],
