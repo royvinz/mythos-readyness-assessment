@@ -4,9 +4,9 @@
 const STORAGE_KEY = "mythos_readiness_v1";
 
 // ─── State ──────────────────────────────────────────────────────────────────
-let DATA = null;
-let SCORES = {};
-let NOTES  = {};
+let DATA = null;          // loaded from questions.json
+let SCORES = {};          // { Q1: 2, Q3: null, … }
+let NOTES  = {};          // { Q1: "text", … }
 let ACTIVE_PANEL = "dash";
 let radarChart = null;
 
@@ -292,7 +292,7 @@ function renderPillar(pillarId) {
 function renderQuestionCard(q, pillar) {
   const score = SCORES[q.id] !== undefined ? SCORES[q.id] : null;
   const note  = NOTES[q.id] || "";
-  const lang  = q[LANG] || q.en;
+  const lang  = q.en; // question text is EN only; UI chrome is bilingual
 
   const csaBadge = buildCSABadge(q.refs.csa);
   const nistBadge = q.refs.nist && q.refs.nist !== "—"
@@ -467,29 +467,122 @@ function confirmReset() {
 
 // ─── Export ──────────────────────────────────────────────────────────────────
 function exportCSV() {
+  openExportModal();
+}
+
+function openExportModal() {
+  document.getElementById("modal-export-title").textContent    = t("export_title");
+  document.getElementById("modal-export-notice").textContent   = t("export_notice");
+  document.getElementById("modal-export-pp-label").textContent = t("export_pp_label");
+  const pp = document.getElementById("export-passphrase");
+  pp.placeholder = t("export_pp_ph");
+  pp.value = "";
+  pp.type  = "password";
+  document.getElementById("btn-passphrase-toggle").textContent = "👁";
+  document.getElementById("modal-export-cancel").textContent   = t("export_cancel");
+  updateExportConfirmBtn();
+  document.getElementById("modal-export").classList.add("open");
+}
+
+function closeExportModal() {
+  document.getElementById("modal-export").classList.remove("open");
+}
+
+function updateExportConfirmBtn() {
+  const pp  = (document.getElementById("export-passphrase")?.value || "").trim();
+  const btn = document.getElementById("modal-export-confirm");
+  if (!btn) return;
+  btn.textContent      = pp ? t("export_enc_btn")  : t("export_plain_btn");
+  btn.style.background = pp ? "var(--ws-purple)"   : "var(--l2-color)";
+}
+
+function togglePassphrase() {
+  const input = document.getElementById("export-passphrase");
+  const btn   = document.getElementById("btn-passphrase-toggle");
+  const hidden = input.type === "password";
+  input.type      = hidden ? "text"     : "password";
+  btn.textContent = hidden ? "🔒" : "👁";
+  btn.setAttribute("aria-label", hidden ? "Hide passphrase" : "Show passphrase");
+}
+
+async function doExport() {
   if (!DATA) return;
+  const passphrase = (document.getElementById("export-passphrase").value || "").trim();
+  const confirmBtn = document.getElementById("modal-export-confirm");
+  const csv = generateCSV();
+
+  if (passphrase) {
+    const orig = confirmBtn.textContent;
+    confirmBtn.textContent = t("export_encrypting");
+    confirmBtn.disabled = true;
+    try {
+      const encrypted = await encryptCSV(csv, passphrase);
+      downloadFile(encrypted, "mythos-readiness-assessment.enc", "application/json;charset=utf-8;");
+    } catch (err) {
+      alert("Encryption failed: " + err.message);
+      confirmBtn.textContent = orig;
+      confirmBtn.disabled = false;
+      return;
+    }
+    confirmBtn.disabled = false;
+  } else {
+    downloadFile("\ufeff" + csv, "mythos-readiness-assessment.csv", "text/csv;charset=utf-8;");
+  }
+  closeExportModal();
+}
+
+function generateCSV() {
   const cols = [t("csv_id"),t("csv_pillar"),t("csv_axis"),t("csv_sub"),t("csv_q"),t("csv_score"),t("csv_level"),t("csv_note")];
   const rows = [cols];
-
   DATA.questions.forEach(q => {
     const pillar = DATA.pillars.find(p => p.id === q.pillar);
     const score  = SCORES[q.id] !== undefined ? SCORES[q.id] : "";
-    const lvl    = score !== "" ? t("level_"+score) : "";
-    const note   = NOTES[q.id]  || "";
+    const lvl    = score !== "" ? t("level_" + score) : "";
+    const note   = NOTES[q.id] || "";
     const subLbl = pillar ? subName(pillar, q.sub) : q.sub;
     const axLbl  = pillar ? axisName(pillar.axis, DATA.axes) : "";
-    const qText  = (q[LANG] || q.en).q;
-    rows.push([q.id, q.pillar, axLbl, subLbl, qText, score !== "" ? score : "", lvl, note]);
+    rows.push([q.id, q.pillar, axLbl, subLbl, q.en.q, score !== "" ? score : "", lvl, note]);
   });
+  return rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+}
 
-  const csv = rows.map(r => r.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(",")).join("\n");
-  const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+function downloadFile(content, filename, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
   const url  = URL.createObjectURL(blob);
-  const a    = document.createElement("a");
-  a.href = url;
-  a.download = "mythos-readiness-assessment.csv";
+  const a    = Object.assign(document.createElement("a"), { href: url, download: filename });
   a.click();
   URL.revokeObjectURL(url);
+}
+
+async function encryptCSV(plaintext, passphrase) {
+  const enc  = new TextEncoder();
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv   = crypto.getRandomValues(new Uint8Array(12));
+
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw", enc.encode(passphrase), "PBKDF2", false, ["deriveKey"]
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: 200000, hash: "SHA-256" },
+    keyMaterial,
+    { name: "AES-GCM", length: 256 },
+    false, ["encrypt"]
+  );
+  const ciphertext = await crypto.subtle.encrypt(
+    { name: "AES-GCM", iv }, key, enc.encode(plaintext)
+  );
+
+  const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+  return JSON.stringify({
+    _note: "Mythos Readiness encrypted export — AES-256-GCM / PBKDF2-SHA-256 · 200 000 iterations",
+    format: "mythos-v1",
+    alg: "AES-256-GCM",
+    kdf: "PBKDF2-SHA-256",
+    iterations: 200000,
+    salt: b64(salt.buffer),
+    iv:   b64(iv.buffer),
+    ciphertext: b64(ciphertext)
+  }, null, 2);
 }
 
 // ─── Scoring calculations ─────────────────────────────────────────────────────
