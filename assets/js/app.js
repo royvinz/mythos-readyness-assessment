@@ -89,9 +89,9 @@ function setupPdfWorker() { if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.wo
 function buildNav() {
   const nav = document.getElementById("nav"); nav.innerHTML = "";
   nav.appendChild(makeNavPill("dash", t("nav_dashboard"), ""));
+  DATA.pillars.forEach(p => nav.appendChild(makeNavPill(p.id.toLowerCase(), p.id + " · " + pillarName(p), axisName(p.axis, DATA.axes))));
   nav.appendChild(makeNavPill("ingest", t("nav_ingest"), ""));
   nav.appendChild(makeNavPill("config", t("nav_config"), ""));
-  DATA.pillars.forEach(p => nav.appendChild(makeNavPill(p.id.toLowerCase(), p.id + " · " + pillarName(p), axisName(p.axis, DATA.axes))));
 }
 function makeNavPill(id, label, sub) {
   const btn = document.createElement("button");
