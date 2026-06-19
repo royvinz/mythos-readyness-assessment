@@ -21,12 +21,16 @@ let INGEST_PROGRESS = 0;
 let API_DEBUG = null;
 let ACTIVE_PANEL = "dash";
 let radarChart = null;
+let EXPORT_PASSPHRASE = null;
+let COMPLETENESS_CALLBACK = null;
+let IMPORT_FILE = null;
 
 // ─── Boot ────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
   await loadData();
   loadStorage();
   loadConfig();
+  loadWeights();
   setupPdfWorker();
   buildNav();
   renderAll();
@@ -286,6 +290,10 @@ function renderConfig() {
   `;
   refreshProviderFields();
   refreshModelFields();
+  // Append weighting section
+  const wSection = document.createElement('div');
+  wSection.innerHTML = renderWeightingSection();
+  panel.appendChild(wSection.firstElementChild);
 }
 
 function providerOption(value, label) {
@@ -341,6 +349,7 @@ function renderIngest() {
   if (!panel) return;
 
   panel.innerHTML = `
+    ${renderImportSection()}
     <section class="tool-panel">
       <div class="tool-heading">
         <span class="tool-eyebrow">${esc(t("nav_ingest"))}</span>
@@ -483,8 +492,8 @@ function renderDashboard() {
           stats.global !== null ? stats.global.toFixed(1) : "—",
           stats.global !== null ? `<span class="metric-band ${bandClass(stats.global)}">${maturityLabel(stats.global)}</span>` : "")}
       ${metricCard(t("dash_questions"),
-          `${stats.totalScored}<span style="font-size:16px;font-weight:400;color:var(--ws-muted)">/40</span>`,
-          `${Math.round(stats.totalScored/40*100)}% ${LANG === "fr" ? "complété" : "complete"}`)}
+          `${stats.totalScored}<span style="font-size:16px;font-weight:400;color:var(--ws-muted)">/${DATA.questions.length}</span>`,
+          `${Math.round(stats.totalScored/DATA.questions.length*100)}% ${LANG === "fr" ? "complété" : "complete"}`)}
       ${progressCard(stats)}
       ${priorityCard(stats)}
     </div>
@@ -508,7 +517,7 @@ function renderDashboard() {
       <div class="dash-section-title">${t("dash_actions")}</div>
       <div class="dash-actions">
         <button class="btn-export primary" onclick="exportCSV()">${t("dash_export_csv")}</button>
-        <button class="btn-export" onclick="window.print()">${t("dash_print")}</button>
+        <button class="btn-export" onclick="handlePrint()">${t("dash_print")}</button>
       </div>
     </div>
   `;
@@ -525,14 +534,14 @@ function metricCard(label, value, sub) {
 }
 
 function progressCard(stats) {
-  const pct = Math.round(stats.totalScored / 40 * 100);
+  const pct = Math.round(stats.totalScored / DATA.questions.length * 100);
   return `<div class="metric-card">
     <div class="metric-label">${t("dash_progress")}</div>
     <div class="metric-value">${pct}<span style="font-size:16px;font-weight:400">%</span></div>
     <div style="margin-top:8px">
       <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:var(--ws-purple)"></div></div>
     </div>
-    <div class="metric-sub">${stats.totalScored} / 40</div>
+    <div class="metric-sub">${stats.totalScored} / ${DATA.questions.length}</div>
   </div>`;
 }
 
@@ -677,32 +686,21 @@ function renderQuestionCard(q, pillar) {
   const cascBadge = q.cascade && q.cascade !== "—"
     ? `<span class="badge badge-casc" title="${t("cascade_label")}">${esc(q.cascade)}</span>` : "";
 
-  const scoreButtons = [0,1,2,3].map(n => {
+  const descs = [lang.l0, lang.l1, lang.l2, lang.l3];
+  const scoreCards = [0,1,2,3].map(n => {
     const sel = score === n ? ` sel-${n}` : "";
-    return `<button class="score-btn${sel}"
+    return `<button class="score-card${sel}"
       onclick="setScore('${esc(q.id)}',${n},'${esc(pillar.id)}')"
       aria-label="${esc(t("level_"+n+"_full"))}"
       aria-pressed="${score === n}">
-      <span class="score-num">${n}</span>
-      <span>${esc(t("level_"+n))}</span>
+      <span class="score-card-num">${n}</span>
+      <span class="score-card-text">${esc(descs[n])}</span>
     </button>`;
   }).join("");
 
-  const descHtml = `
-    <div class="desc-row"><span class="desc-dot desc-dot-0"></span>
-      <span class="desc-level color-l0">0 — ${t("level_0")}</span>
-      <span class="desc-text">${esc(lang.l0)}</span></div>
-    <div class="desc-row"><span class="desc-dot desc-dot-1"></span>
-      <span class="desc-level color-l1">1 — ${t("level_1")}</span>
-      <span class="desc-text">${esc(lang.l1)}</span></div>
-    <div class="desc-row"><span class="desc-dot desc-dot-2"></span>
-      <span class="desc-level color-l2">2 — ${t("level_2")}</span>
-      <span class="desc-text">${esc(lang.l2)}</span></div>
-    <div class="desc-row"><span class="desc-dot desc-dot-3"></span>
-      <span class="desc-level color-l3">3 — ${t("level_3")}</span>
-      <span class="desc-text">${esc(lang.l3)}</span></div>
-    ${(q.refs.other && q.refs.other !== "—") ? `<div class="desc-other"><strong>${t("refs_other")} :</strong> ${esc(q.refs.other)}</div>` : ""}
-  `;
+  const otherRef = (q.refs.other && q.refs.other !== "—")
+    ? `<div class="q-refs-other"><strong>${t("refs_other")} :</strong> ${esc(q.refs.other)}</div>`
+    : "";
 
   return `<div class="q-card" id="card-${esc(q.id)}">
     <div class="q-meta">
@@ -710,14 +708,8 @@ function renderQuestionCard(q, pillar) {
       ${csaBadge}${nistBadge}${atlasBadge}${owaspBadge}${cascBadge}
     </div>
     <div class="q-text">${esc(lang.q)}</div>
-    <div class="score-row">${scoreButtons}</div>
-    <button class="desc-toggle"
-      onclick="toggleDesc('${esc(q.id)}')"
-      id="desc-btn-${esc(q.id)}"
-      aria-expanded="false">
-      ${t("q_descriptors")}
-    </button>
-    <div class="desc-panel" id="desc-${esc(q.id)}">${descHtml}</div>
+    ${otherRef}
+    <div class="score-cards-grid">${scoreCards}</div>
     <div class="q-note">
       <label class="q-note-label" for="note-${esc(q.id)}">${t("q_note_label")}</label>
       <textarea class="q-note-input"
@@ -761,27 +753,10 @@ function setScore(qId, score, pillarId) {
   if (card) {
     const newCard = document.createElement("div");
     newCard.innerHTML = renderQuestionCard(q, pillar);
-    const newCardEl = newCard.firstElementChild;
-    const descPanel = card.querySelector(".desc-panel");
-    card.replaceWith(newCardEl);
-    if (descPanel && descPanel.classList.contains("open")) {
-      const newDesc = document.getElementById("desc-" + qId);
-      const newBtn  = document.getElementById("desc-btn-" + qId);
-      if (newDesc) newDesc.classList.add("open");
-      if (newBtn)  { newBtn.textContent = t("q_hide_desc"); newBtn.setAttribute("aria-expanded","true"); }
-    }
+    card.replaceWith(newCard.firstElementChild);
   }
 
   updatePillarProgress(pillarId);
-}
-
-function toggleDesc(qId) {
-  const panel = document.getElementById("desc-" + qId);
-  const btn   = document.getElementById("desc-btn-" + qId);
-  if (!panel || !btn) return;
-  const open = panel.classList.toggle("open");
-  btn.textContent = open ? t("q_hide_desc") : t("q_descriptors");
-  btn.setAttribute("aria-expanded", open.toString());
 }
 
 function setNote(qId, value) {
@@ -1221,20 +1196,52 @@ function confirmReset() {
 
 // ─── Export ──────────────────────────────────────────────────────────────────
 function exportCSV() {
-  openExportModal();
+  const { complete, scored, total, pct } = getCompletion();
+  if (!complete) {
+    openCompletenessModal("export", scored, total, pct);
+  } else {
+    openExportModal();
+  }
+}
+
+function generatePassphrase() {
+  const bytes = crypto.getRandomValues(new Uint8Array(24));
+  const b64 = btoa(String.fromCharCode(...bytes)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  return b64.match(/.{1,6}/g).join("-");
+}
+
+function regenPassphrase() {
+  EXPORT_PASSPHRASE = generatePassphrase();
+  const el = document.getElementById("export-passphrase-code");
+  if (el) el.textContent = EXPORT_PASSPHRASE;
+  const btn = document.getElementById("btn-copy-passphrase");
+  if (btn) { btn.textContent = "📋"; btn.title = t("export_copy_btn"); }
+}
+
+async function copyPassphrase() {
+  if (!EXPORT_PASSPHRASE) return;
+  try {
+    await navigator.clipboard.writeText(EXPORT_PASSPHRASE);
+    const btn = document.getElementById("btn-copy-passphrase");
+    if (btn) { btn.textContent = "✅"; btn.title = t("export_copied"); }
+    setTimeout(() => { const b = document.getElementById("btn-copy-passphrase"); if (b) { b.textContent = "📋"; b.title = t("export_copy_btn"); }}, 2000);
+  } catch (e) { /* ignore */ }
 }
 
 function openExportModal() {
+  EXPORT_PASSPHRASE = generatePassphrase();
+  const codeEl = document.getElementById("export-passphrase-code");
+  if (codeEl) codeEl.textContent = EXPORT_PASSPHRASE;
+  const copyBtn = document.getElementById("btn-copy-passphrase");
+  if (copyBtn) { copyBtn.textContent = "📋"; copyBtn.title = t("export_copy_btn"); }
   document.getElementById("modal-export-title").textContent    = t("export_title");
   document.getElementById("modal-export-notice").textContent   = t("export_notice");
   document.getElementById("modal-export-pp-label").textContent = t("export_pp_label");
-  const pp = document.getElementById("export-passphrase");
-  pp.placeholder = t("export_pp_ph");
-  pp.value = "";
-  pp.type  = "password";
-  document.getElementById("btn-passphrase-toggle").textContent = "👁";
+  document.getElementById("modal-export-pp-warning").textContent = t("export_pp_warning");
   document.getElementById("modal-export-cancel").textContent   = t("export_cancel");
-  updateExportConfirmBtn();
+  document.getElementById("modal-export-confirm").textContent  = t("export_enc_btn");
+  const plainBtn = document.getElementById("modal-export-plain");
+  if (plainBtn) plainBtn.textContent = t("export_plain_btn");
   document.getElementById("modal-export").classList.add("open");
 }
 
@@ -1242,46 +1249,26 @@ function closeExportModal() {
   document.getElementById("modal-export").classList.remove("open");
 }
 
-function updateExportConfirmBtn() {
-  const pp  = (document.getElementById("export-passphrase")?.value || "").trim();
-  const btn = document.getElementById("modal-export-confirm");
-  if (!btn) return;
-  btn.textContent      = pp ? t("export_enc_btn")  : t("export_plain_btn");
-  btn.style.background = pp ? "var(--ws-purple)"   : "var(--l2-color)";
-}
-
-function togglePassphrase() {
-  const input = document.getElementById("export-passphrase");
-  const btn   = document.getElementById("btn-passphrase-toggle");
-  const hidden = input.type === "password";
-  input.type      = hidden ? "text"     : "password";
-  btn.textContent = hidden ? "🔒" : "👁";
-  btn.setAttribute("aria-label", hidden ? "Hide passphrase" : "Show passphrase");
-}
-
 async function doExport() {
-  if (!DATA) return;
-  const passphrase = (document.getElementById("export-passphrase").value || "").trim();
+  if (!DATA || !EXPORT_PASSPHRASE) return;
   const confirmBtn = document.getElementById("modal-export-confirm");
-  const csv = generateCSV();
-
-  if (passphrase) {
-    const orig = confirmBtn.textContent;
-    confirmBtn.textContent = t("export_encrypting");
-    confirmBtn.disabled = true;
-    try {
-      const encrypted = await encryptCSV(csv, passphrase);
-      downloadFile(encrypted, "mythos-readiness-assessment.enc", "application/json;charset=utf-8;");
-    } catch (err) {
-      alert("Encryption failed: " + err.message);
-      confirmBtn.textContent = orig;
-      confirmBtn.disabled = false;
-      return;
-    }
+  const orig = confirmBtn.textContent;
+  confirmBtn.textContent = t("export_encrypting");
+  confirmBtn.disabled = true;
+  try {
+    const encrypted = await encryptCSV(generateCSV(), EXPORT_PASSPHRASE);
+    downloadFile(encrypted, "mythos-readiness-assessment.enc", "application/json;charset=utf-8;");
+    closeExportModal();
+  } catch (err) {
+    alert("Encryption failed: " + err.message);
+    confirmBtn.textContent = orig;
     confirmBtn.disabled = false;
-  } else {
-    downloadFile("\ufeff" + csv, "mythos-readiness-assessment.csv", "text/csv;charset=utf-8;");
   }
+}
+
+async function doExportPlain() {
+  if (!DATA) return;
+  downloadFile("\ufeff" + generateCSV(), "mythos-readiness-assessment.csv", "text/csv;charset=utf-8;");
   closeExportModal();
 }
 
@@ -1340,6 +1327,248 @@ async function encryptCSV(plaintext, passphrase) {
   }, null, 2);
 }
 
+// ─── Completeness check ───────────────────────────────────────────────────────
+function getCompletion() {
+  if (!DATA) return { total: 0, scored: 0, pct: 0, complete: false };
+  const total = DATA.questions.length;
+  const scored = DATA.questions.filter(q => SCORES[q.id] !== undefined && SCORES[q.id] !== null).length;
+  return { total, scored, pct: total > 0 ? Math.round(scored / total * 100) : 0, complete: scored === total };
+}
+
+function handlePrint() {
+  const { complete, scored, total, pct } = getCompletion();
+  if (!complete) {
+    openCompletenessModal("pdf", scored, total, pct);
+  } else {
+    window.print();
+  }
+}
+
+function openCompletenessModal(context, scored, total, pct) {
+  COMPLETENESS_CALLBACK = context === "pdf" ? () => window.print() : () => openExportModal();
+  const title = document.getElementById("modal-completeness-title");
+  const body  = document.getElementById("modal-completeness-body");
+  const confirm = document.getElementById("modal-completeness-confirm");
+  const cancel  = document.getElementById("modal-completeness-cancel");
+  if (title)   title.textContent   = t("completeness_title");
+  if (body)    body.textContent    = t(context === "pdf" ? "completeness_body_pdf" : "completeness_body_export")
+    .replace("{n}", scored).replace("{total}", total).replace("{pct}", pct);
+  if (confirm) confirm.textContent = t(context === "pdf" ? "completeness_confirm_pdf" : "completeness_confirm_export");
+  if (cancel)  cancel.textContent  = t("completeness_cancel");
+  document.getElementById("modal-completeness").classList.add("open");
+}
+
+function closeCompletenessModal() {
+  document.getElementById("modal-completeness").classList.remove("open");
+  COMPLETENESS_CALLBACK = null;
+}
+
+function confirmCompleteness() {
+  closeCompletenessModal();
+  if (COMPLETENESS_CALLBACK) COMPLETENESS_CALLBACK();
+}
+
+// ─── Import assessment ────────────────────────────────────────────────────────
+function renderImportSection() {
+  return `<section class="import-section">
+    <div class="tool-heading-sm">
+      <span class="tool-eyebrow">${esc(t("import_title"))}</span>
+      <p>${esc(t("import_intro"))}</p>
+    </div>
+    <div class="import-controls">
+      <label class="field">
+        <span>${esc(t("import_file_label"))}</span>
+        <input id="import-file" class="field-control file-control" type="file"
+          accept=".csv,.enc,text/csv,application/json"
+          onchange="setImportFile(this.files[0])">
+        <small id="import-selected-file" class="selected-file">${esc(IMPORT_FILE ? IMPORT_FILE.name : t("import_no_file"))}</small>
+      </label>
+      <div class="tool-actions">
+        <button class="btn-export primary" onclick="importAssessment()">${esc(t("import_btn"))}</button>
+        <span id="import-status" class="status-inline">${esc(t("import_supported"))}</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+function setImportFile(file) {
+  IMPORT_FILE = file || null;
+  const label = document.getElementById("import-selected-file");
+  if (label) label.textContent = IMPORT_FILE ? IMPORT_FILE.name : t("import_no_file");
+}
+
+function importAssessment() {
+  const file = IMPORT_FILE || document.getElementById("import-file")?.files?.[0];
+  if (!file) {
+    const s = document.getElementById("import-status");
+    if (s) s.textContent = t("import_no_file");
+    return;
+  }
+  IMPORT_FILE = file;
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".enc")) {
+    openImportPpModal();
+  } else if (name.endsWith(".csv")) {
+    loadAndImportCSV(file);
+  } else {
+    const s = document.getElementById("import-status");
+    if (s) s.textContent = t("import_supported");
+  }
+}
+
+function openImportPpModal() {
+  document.getElementById("modal-import-pp-title").textContent = t("import_pp_title");
+  document.getElementById("modal-import-pp-label").textContent = t("import_pp_label");
+  const pp = document.getElementById("import-passphrase");
+  if (pp) { pp.value = ""; pp.placeholder = t("import_pp_ph"); pp.type = "password"; }
+  document.getElementById("modal-import-pp-confirm").textContent = t("import_confirm");
+  document.getElementById("modal-import-pp-cancel").textContent  = t("import_cancel");
+  document.getElementById("modal-import-pp").classList.add("open");
+}
+
+function closeImportPpModal() {
+  document.getElementById("modal-import-pp").classList.remove("open");
+}
+
+function toggleImportPassphrase() {
+  const input = document.getElementById("import-passphrase");
+  const btn   = document.getElementById("btn-import-pp-toggle");
+  if (!input || !btn) return;
+  const hidden = input.type === "password";
+  input.type = hidden ? "text" : "password";
+  btn.textContent = hidden ? "🔒" : "👁";
+}
+
+async function doImport() {
+  const pp = (document.getElementById("import-passphrase")?.value || "").trim();
+  if (!pp) return;
+  closeImportPpModal();
+  if (!IMPORT_FILE) return;
+  const statusEl = document.getElementById("import-status");
+  try {
+    await decryptAndImport(IMPORT_FILE, pp);
+    if (statusEl) statusEl.textContent = t("import_success");
+  } catch (err) {
+    if (statusEl) statusEl.textContent = t("import_wrong_pp");
+  }
+}
+
+async function loadAndImportCSV(file) {
+  const text = await file.text();
+  const count = parseAndImportCSV(text);
+  renderAll();
+  const s = document.getElementById("import-status");
+  if (s) s.textContent = t("import_success") + " (" + count + " questions)";
+}
+
+async function decryptAndImport(file, passphrase) {
+  const enc = new TextEncoder();
+  const text = await file.text();
+  const obj = JSON.parse(text);
+  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const salt = b64d(obj.salt), iv = b64d(obj.iv), ct = b64d(obj.ciphertext);
+  const km = await crypto.subtle.importKey("raw", enc.encode(passphrase), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey(
+    { name:"PBKDF2", salt, iterations:200000, hash:"SHA-256" }, km,
+    { name:"AES-GCM", length:256 }, false, ["decrypt"]
+  );
+  const plain = await crypto.subtle.decrypt({ name:"AES-GCM", iv }, key, ct);
+  const count = parseAndImportCSV(new TextDecoder().decode(plain));
+  renderAll();
+  const s = document.getElementById("import-status");
+  if (s) s.textContent = t("import_success") + " (" + count + " questions)";
+}
+
+function parseAndImportCSV(csvText) {
+  const text = csvText.replace(/^\uFEFF/, "");
+  const lines = text.split("\n").filter(l => l.trim());
+  if (lines.length < 2) return 0;
+  let count = 0;
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+    if (!cols || cols.length < 6) continue;
+    const id = cols[0], scoreStr = cols[5], note = cols[7] || "";
+    if (!id || scoreStr === "") continue;
+    const score = parseInt(scoreStr);
+    if (!isNaN(score) && score >= 0 && score <= 3) { SCORES[id] = score; count++; }
+    if (id && note) NOTES[id] = note;
+  }
+  saveStorage();
+  return count;
+}
+
+function parseCSVLine(line) {
+  const result = []; let cur = "", inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { result.push(cur); cur = ""; }
+    else cur += c;
+  }
+  result.push(cur);
+  return result;
+}
+
+// ─── Weighting ────────────────────────────────────────────────────────────────
+const WEIGHTS_KEY = "mythos_weights_v1";
+const WEIGHT_VALS = { low: 0.5, medium: 1.0, high: 1.5 };
+let WEIGHTS = {};
+
+function loadWeights() {
+  try { const r = localStorage.getItem(WEIGHTS_KEY); WEIGHTS = r ? JSON.parse(r) : {}; }
+  catch (e) { WEIGHTS = {}; }
+}
+
+function saveWeights() {
+  try { localStorage.setItem(WEIGHTS_KEY, JSON.stringify(WEIGHTS)); } catch (e) {}
+}
+
+function getWeight(subCode) {
+  return WEIGHT_VALS[WEIGHTS[subCode] || "medium"];
+}
+
+function setWeight(subCode, level) {
+  WEIGHTS[subCode] = level;
+  saveWeights();
+  document.querySelectorAll(`.weight-btn[data-sub="${subCode}"]`).forEach(b => {
+    b.classList.toggle("active", b.dataset.level === level);
+  });
+  if (ACTIVE_PANEL === "dash") renderDashboard();
+}
+
+function resetWeights() {
+  WEIGHTS = {};
+  saveWeights();
+  renderConfig();
+}
+
+function renderWeightingSection() {
+  if (!DATA) return "<div></div>";
+  const rows = DATA.pillars.flatMap(p =>
+    Object.entries(p.subs).map(([sc, sub]) => {
+      const cur = WEIGHTS[sc] || "medium";
+      const subLabel = LANG === "fr" ? sub.fr : sub.en;
+      return `<div class="weight-row">
+        <div class="weight-row-label">
+          <span class="weight-row-pillar">${esc(p.id)}</span>
+          <span class="weight-row-sub">${esc(sc)} — ${esc(subLabel)}</span>
+        </div>
+        <div class="weight-btns">
+          ${["low","medium","high"].map(lv => `<button class="weight-btn${cur===lv?" active":""}" data-sub="${esc(sc)}" data-level="${lv}" onclick="setWeight('${esc(sc)}','${lv}')">${esc(t("weight_"+lv))}</button>`).join("")}
+        </div>
+      </div>`;
+    })
+  ).join("");
+  return `<div class="weight-section">
+    <h2>${esc(t("weight_title"))}</h2>
+    <p>${esc(t("weight_intro"))}</p>
+    <div class="weight-table">${rows}</div>
+    <div class="tool-actions" style="margin-top:var(--gap-md)">
+      <button class="btn-export" onclick="resetWeights()">${esc(t("weight_reset"))}</button>
+    </div>
+  </div>`;
+}
+
 // ─── Scoring calculations ─────────────────────────────────────────────────────
 function computeStats() {
   const byPillar    = {};
@@ -1351,9 +1580,6 @@ function computeStats() {
     const qs = DATA.questions.filter(q => q.pillar === p.id);
     const scored = qs.filter(q => SCORES[q.id] !== undefined && SCORES[q.id] !== null);
     scoredByPillar[p.id] = scored.length;
-    byPillar[p.id] = scored.length > 0
-      ? scored.reduce((s, q) => s + SCORES[q.id], 0) / scored.length
-      : null;
 
     Object.keys(p.subs).forEach(sc => {
       const subQs = qs.filter(q => q.sub === sc);
@@ -1363,6 +1589,15 @@ function computeStats() {
         ? subScored.reduce((s, q) => s + SCORES[q.id], 0) / subScored.length
         : null;
     });
+
+    // Apply sub-theme weights for pillar score
+    const scoredSubs = Object.keys(p.subs)
+      .map(sc => ({ sc, s: bySub[sc], w: getWeight(sc) }))
+      .filter(x => x.s !== null);
+    byPillar[p.id] = scoredSubs.length > 0
+      ? scoredSubs.reduce((sum, x) => sum + x.s * x.w, 0) /
+        scoredSubs.reduce((sum, x) => sum + x.w, 0)
+      : null;
   });
 
   const allScored = DATA.questions.filter(q => SCORES[q.id] !== undefined && SCORES[q.id] !== null);
