@@ -1,1 +1,146 @@
-$(cat /tmp/index.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mythos Readiness — Where Do You Stand? · Diagnostic de maturité cyber post-Mythos · Wavestone">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Mythos Readiness — Where Do You Stand? · Wavestone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="header" role="banner">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="header-title">Mythos Readiness</span>
+        <span class="header-sub">Wavestone</span>
+      </div>
+      <nav id="nav" role="navigation" aria-label="Navigation"></nav>
+      <div class="header-controls">
+        <button id="btn-lang" class="btn-lang" onclick="toggleLang()" aria-label="Switch language">FR</button>
+        <button class="btn-reset" onclick="openReset()" aria-label="Reset scores">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" role="main">
+    <div id="panel-dash"   class="panel active" role="tabpanel" aria-label="Dashboard"></div>
+    <div id="panel-ingest" class="panel"        role="tabpanel" aria-label="Ingest plan"></div>
+    <div id="panel-config" class="panel"        role="tabpanel" aria-label="Configuration"></div>
+    <div id="panel-t1"     class="panel"        role="tabpanel" aria-label="T1"></div>
+    <div id="panel-t2"     class="panel"        role="tabpanel" aria-label="T2"></div>
+    <div id="panel-t3"     class="panel"        role="tabpanel" aria-label="T3"></div>
+    <div id="panel-t4"     class="panel"        role="tabpanel" aria-label="T4"></div>
+    <div id="panel-t5"     class="panel"        role="tabpanel" aria-label="T5"></div>
+  </main>
+
+  <footer id="footer" role="contentinfo">
+    <div><strong>Mythos Readiness Assessment</strong> — Wavestone post-Mythos era diagnostic</div>
+    <div style="margin-top:4px">
+      References:
+      <a href="https://cloudsecurityalliance.org/research" target="_blank" rel="noopener">CSA AI Vulnerability Storm v0.9</a> ·
+      <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">NIST CSF 2.0</a> ·
+      <a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS</a> ·
+      <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener">OWASP LLM Top 10</a> ·
+      <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" target="_blank" rel="noopener">OWASP Agentic Top 10</a> ·
+      <a href="https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk" target="_blank" rel="noopener">CISA BOD 26-04</a>
+    </div>
+    <div style="margin-top:4px">v1.1 · Wavestone · 2026 — Usage interne / Internal use only</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ RESET MODAL -->
+<div id="modal-reset" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title">Reset assessment?</div>
+    <div class="modal-body" id="modal-body">All scores and notes will be deleted. This action cannot be undone.</div>
+    <div class="modal-actions">
+      <button class="btn-cancel"  onclick="closeReset()"   id="modal-cancel">Cancel</button>
+      <button class="btn-confirm" onclick="confirmReset()" id="modal-confirm">Yes, reset</button>
+    </div>
+  </div>
+</div>
+<script>document.getElementById("modal-reset").addEventListener("click",function(e){if(e.target===this)closeReset();});</script>
+
+<!-- ════════════════════════════════════════════════════════ EXPORT MODAL -->
+<div id="modal-export" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-export-title">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-export-title">Export data</div>
+    <div class="modal-body"  id="modal-export-notice"></div>
+    <div class="export-pp-field">
+      <label class="q-note-label" id="modal-export-pp-label">Auto-generated passphrase</label>
+      <div class="passphrase-generated-wrap">
+        <code id="export-passphrase-code" class="passphrase-code">--</code>
+        <button type="button" id="btn-copy-passphrase"  class="btn-pp-action" onclick="copyPassphrase()"  title="Copy"       aria-label="Copy passphrase">📋</button>
+        <button type="button" id="btn-regen-passphrase" class="btn-pp-action" onclick="regenPassphrase()" title="Regenerate" aria-label="Regenerate passphrase">🔄</button>
+      </div>
+      <div class="passphrase-warning" id="modal-export-pp-warning">⚠ Save this passphrase — without it your encrypted file cannot be recovered.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel"       onclick="closeExportModal()" id="modal-export-cancel">Cancel</button>
+      <button class="btn-plain-export" onclick="doExportPlain()"    id="modal-export-plain">Export CSV (plain)</button>
+      <button class="btn-confirm"      onclick="doExport()"         id="modal-export-confirm" style="background:var(--ws-purple)">Export encrypted</button>
+    </div>
+  </div>
+</div>
+<script>document.getElementById("modal-export").addEventListener("click",function(e){if(e.target===this)closeExportModal();});</script>
+
+<!-- ════════════════════════════════════════════════════ COMPLETENESS MODAL -->
+<div id="modal-completeness" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-completeness-title">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-completeness-title">Assessment incomplete</div>
+    <div class="modal-body"  id="modal-completeness-body"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel"  onclick="closeCompletenessModal()" id="modal-completeness-cancel">Cancel</button>
+      <button class="btn-confirm" onclick="confirmCompleteness()"    id="modal-completeness-confirm" style="background:var(--l1-color)">Export anyway</button>
+    </div>
+  </div>
+</div>
+<script>document.getElementById("modal-completeness").addEventListener("click",function(e){if(e.target===this)closeCompletenessModal();});</script>
+
+<!-- ════════════════════════════════════════════════ IMPORT PASSPHRASE MODAL -->
+<div id="modal-import-pp" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-import-pp-title">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-import-pp-title">Passphrase required</div>
+    <div class="modal-body"  id="modal-import-pp-body"></div>
+    <div class="export-pp-field">
+      <label class="q-note-label" for="import-passphrase" id="modal-import-pp-label">Decryption passphrase</label>
+      <div class="passphrase-wrap">
+        <input type="password" id="import-passphrase" class="passphrase-input" autocomplete="off">
+        <button type="button" id="btn-import-pp-toggle" class="btn-passphrase-toggle" onclick="toggleImportPassphrase()" aria-label="Show passphrase">👁</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel"  onclick="closeImportPpModal()" id="modal-import-pp-cancel">Cancel</button>
+      <button class="btn-confirm" onclick="doImport()"           id="modal-import-pp-confirm" style="background:var(--ws-purple)">Decrypt &amp; import</button>
+    </div>
+  </div>
+</div>
+<script>document.getElementById("modal-import-pp").addEventListener("click",function(e){if(e.target===this)closeImportPpModal();});</script>
+
+<!-- App scripts -->
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/app.js"></script>
+
+<script>
+const _origToggle = toggleLang;
+toggleLang = function() {
+  _origToggle();
+  document.getElementById("modal-title").textContent   = t("reset_title");
+  document.getElementById("modal-body").textContent    = t("reset_body");
+  document.getElementById("modal-confirm").textContent = t("reset_confirm");
+  document.getElementById("modal-cancel").textContent  = t("reset_cancel");
+  const resetBtn = document.querySelector(".btn-reset");
+  if (resetBtn) resetBtn.setAttribute("aria-label", t("nav_reset"));
+};
+</script>
+</body>
+</html>
