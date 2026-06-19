@@ -1,1 +1,1 @@
-$(cat /tmp/questions.json)
+$(cat /tmp/pre_assets_data_questions_json)
