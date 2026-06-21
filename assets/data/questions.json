@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Mythos Readiness — Where Do You Stand?",
-    "version": "1.1",
+    "version": "1.2",
     "created": "2026-06-18",
     "total_questions": 44,
     "distribution": {
@@ -174,14 +174,16 @@
         "other": "NIST AI RMF (Govern / Measure); ISO 31000; CISA BOD 26-04"
       },
       "en": {
-        "q": "Has your cyber risk model itself been recalibrated for AI acceleration? (Note: Risk appetite, threat scenarios and acceptance criteria that no longer assume human-speed exploitation or “we'll patch during the maintenance window”; headline indicators shifted from prevention toward containment / recovery time.)",
+        "q": "Has your cyber risk model itself been recalibrated for AI acceleration?",
+        "note": "Risk appetite, threat scenarios and acceptance criteria that no longer assume human-speed exploitation or “we'll patch during the maintenance window”; headline indicators shifted from prevention toward containment / recovery time.",
         "l0": "Model, appetite and scenarios unchanged (human-speed exploitation still assumed).",
         "l1": "Aware the model is outdated, but not yet revisited.",
         "l2": "Scenarios and appetite partially updated; some indicators shifted toward containment / recovery.",
         "l3": "Model recalibrated for AI speed (no patch grace by default); KRIs = containment / recovery time, driving board risk decisions."
       },
       "fr": {
-        "q": "Votre modèle de risque cyber a-t-il été recalibré pour l'accélération IA ? (Note : Appétit, scénarios et critères d'acceptation qui ne supposent plus une exploitation à vitesse humaine ni le « patch pendant la fenêtre de maintenance » ; indicateurs phares déplacés vers le temps de confinement / reprise.)",
+        "q": "Votre modèle de risque cyber a-t-il été recalibré pour l'accélération IA ?",
+        "note": "Appétit, scénarios et critères d'acceptation qui ne supposent plus une exploitation à vitesse humaine ni le « patch pendant la fenêtre de maintenance » ; indicateurs phares déplacés vers le temps de confinement / reprise.",
         "l0": "Modèle, appétit et scénarios inchangés (exploitation à vitesse humaine encore supposée).",
         "l1": "Conscience que le modèle est obsolète, mais pas encore revisité.",
         "l2": "Scénarios et appétit partiellement mis à jour ; quelques indicateurs déplacés vers le confinement / reprise.",
@@ -202,6 +204,7 @@
       },
       "en": {
         "q": "Has the board been briefed specifically on the Mythos / AI-acceleration shift, with a re-scoped budget request explicitly tied to it (not folded into BAU)?",
+        "note": "",
         "l0": "The board has not been briefed on the AI-acceleration shift.",
         "l1": "Informal mention to leadership; no dedicated briefing or budget ask.",
         "l2": "A board briefing was held; budget implications raised but not yet approved.",
@@ -209,6 +212,7 @@
       },
       "fr": {
         "q": "Le board a-t-il été briefé spécifiquement sur le changement Mythos / accélération IA, avec une demande budgétaire redimensionnée et explicitement liée à ce changement ?",
+        "note": "",
         "l0": "Le board n'a pas été briefé sur le changement d'accélération IA.",
         "l1": "Mention informelle à la direction ; pas de briefing dédié ni de demande budgétaire.",
         "l2": "Un briefing au board a été réalisé ; les implications budgétaires ont été soulevées mais pas encore approuvées.",
@@ -228,14 +232,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Does security have the standing, pre-approved authority to mandate a patch or take an asset offline and to arbitrate availability vs. security — without case-by-case escalation? (Note: A real decision right (standing mandate), not an advisory function: thresholds and an owner defined.)",
+        "q": "Does security have the standing, pre-approved authority to mandate a patch or take an asset offline and to arbitrate availability vs. security — without case-by-case escalation?",
+        "note": "A real decision right (standing mandate), not an advisory function: thresholds and an owner defined.",
         "l0": "Security is advisory only; no authority to mandate a patch or take an asset offline.",
         "l1": "Security influences but depends on goodwill / escalation; availability-vs-security trade-offs decided case by case.",
         "l2": "Authority defined in some domains; some pre-approved criteria for trade-offs.",
         "l3": "Security mandates / executes changes within its authority; a standing security-vs-availability decision right, with thresholds and an owner."
       },
       "fr": {
-        "q": "La sécurité a-t-elle l'autorité, permanente et pré-approuvée, d'imposer un correctif ou de mettre un actif hors ligne et d'arbitrer disponibilité contre sécurité — sans escalade cas par cas ? (Note : Un droit de décision réel (mandat permanent), pas une fonction consultative : seuils et responsable définis.)",
+        "q": "La sécurité a-t-elle l'autorité, permanente et pré-approuvée, d'imposer un correctif ou de mettre un actif hors ligne et d'arbitrer disponibilité contre sécurité — sans escalade cas par cas ?",
+        "note": "Un droit de décision réel (mandat permanent), pas une fonction consultative : seuils et responsable définis.",
         "l0": "Sécurité consultative ; aucune autorité pour imposer un correctif ou mettre un actif hors ligne.",
         "l1": "La sécurité influence mais dépend de la bonne volonté / de l'escalade ; arbitrages dispo-vs-sécurité au cas par cas.",
         "l2": "Autorité définie dans certains domaines ; quelques critères pré-approuvés pour les arbitrages.",
@@ -255,14 +261,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Can your security operating model accelerate outside the annual budget cycle — fund, contract and deploy a new control within days, and reallocate budget and resources to the current priority? (Note: Operating-model acceleration capability (CSA PA4 — acceleration governance): decouple funding, procurement and deployment from annual planning, and reprioritize the security portfolio quickly.)",
+        "q": "Can your security operating model accelerate outside the annual budget cycle — fund, contract and deploy a new control within days, and reallocate budget and resources to the current priority?",
+        "note": "Operating-model acceleration capability (CSA PA4 — acceleration governance): decouple funding, procurement and deployment from annual planning, and reprioritize the security portfolio quickly.",
         "l0": "Operating model tied to the annual cycle; a new control takes quarters; no in-year reallocation.",
         "l1": "Some one-off accelerations (emergency procurement, informal reprioritizations); not repeatable.",
         "l2": "An acceleration lane (fast-track budget / procurement) and a portfolio review exist, but are slow or seldom used.",
         "l3": "Standing acceleration mechanism: fund, procure and deploy a control in days, reallocate resources on demand — used in practice."
       },
       "fr": {
-        "q": "Votre modèle opérationnel de sécurité est-il capable d'accélérer hors du cycle budgétaire annuel — financer, contractualiser et déployer un nouveau contrôle en quelques jours, et réallouer budget et ressources vers la priorité du moment ? (Note : Capacité d'accélération du modèle opérationnel (CSA PA4 — acceleration governance) : découpler financement, achats et déploiement de la planification annuelle, et reprioriser rapidement le portefeuille de sécurité.)",
+        "q": "Votre modèle opérationnel de sécurité est-il capable d'accélérer hors du cycle budgétaire annuel — financer, contractualiser et déployer un nouveau contrôle en quelques jours, et réallouer budget et ressources vers la priorité du moment ?",
+        "note": "Capacité d'accélération du modèle opérationnel (CSA PA4 — acceleration governance) : découpler financement, achats et déploiement de la planification annuelle, et reprioriser rapidement le portefeuille de sécurité.",
         "l0": "Modèle opérationnel lié au cycle annuel ; un nouveau contrôle prend des trimestres ; pas de réallocation en cours d'année.",
         "l1": "Quelques accélérations ponctuelles (achats d'urgence, repriorisations informelles) ; non reproductibles.",
         "l2": "Une voie d'accélération (budget / achats fast-track) et une revue de portefeuille existent, mais lentes ou peu utilisées.",
@@ -283,6 +291,7 @@
       },
       "en": {
         "q": "Is there a daily P0 cadence able to absorb several major critical disclosures published simultaneously?",
+        "note": "",
         "l0": "No P0 cadence able to handle concurrent critical disclosures.",
         "l1": "Ad hoc war rooms triggered reactively per incident.",
         "l2": "A defined critical-vulnerability process exists; not daily or without authority backing.",
@@ -290,6 +299,7 @@
       },
       "fr": {
         "q": "Existe-t-il une cadence P0 quotidienne capable d'absorber plusieurs divulgations critiques majeures publiées simultanément ?",
+        "note": "",
         "l0": "Pas de cadence P0 capable de gérer des divulgations critiques concurrentes.",
         "l1": "War-rooms ad hoc déclenchées réactivement à chaque incident.",
         "l2": "Un processus de vulnérabilité critique défini existe ; pas quotidien ou sans soutien d'autorité.",
@@ -310,6 +320,7 @@
       },
       "en": {
         "q": "Do you have the resources and skills to sustain this operating tempo — exposure, vulnerabilities, remediation, response — without over-reliance on a few key experts?",
+        "note": "",
         "l0": "Headcount and skills for VulnOps / remediation / response not assessed against tempo; no retention or burnout safeguards.",
         "l1": "Capacity gaps known anecdotally; dependence on a few key experts; no plan; retention not addressed.",
         "l2": "A capacity & skills plan exists for key operational functions; some retention / burnout measures; not sized for sustained surge.",
@@ -317,6 +328,7 @@
       },
       "fr": {
         "q": "Avez-vous les ressources et compétences nécessaires pour soutenir cette cadence opérationnelle — exposition, vulnérabilités, remédiation, réponse — sans dépendance excessive à quelques experts clés ?",
+        "note": "",
         "l0": "Effectifs et compétences pour VulnOps / remédiation / réponse non évalués par rapport à la cadence ; pas de garde-fous de fidélisation ni de prévention du burn-out.",
         "l1": "Lacunes de capacité connues anecdotiquement ; dépendance à quelques experts clés ; pas de plan ; fidélisation non abordée.",
         "l2": "Un plan de capacité & compétences existe pour les fonctions opérationnelles clés ; quelques mesures de fidélisation / burn-out ; pas dimensionné pour une montée en charge soutenue.",
@@ -337,6 +349,7 @@
       },
       "en": {
         "q": "Are your true crown jewels explicitly identified, tracked and current — with their key dependencies mapped?",
+        "note": "",
         "l0": "Crown jewels not explicitly identified.",
         "l1": "Informal / partial list, stale, no owner.",
         "l2": "A crown-jewels register exists with owners; dependencies partially mapped; periodic refresh.",
@@ -344,6 +357,7 @@
       },
       "fr": {
         "q": "Les véritables crown jewels sont-ils explicitement identifiés, suivis et à jour — avec leurs dépendances clés cartographiées ?",
+        "note": "",
         "l0": "Crown jewels non explicitement identifiés.",
         "l1": "Liste informelle / partielle, obsolète, sans propriétaire.",
         "l2": "Un registre des crown jewels existe avec des propriétaires ; dépendances partiellement cartographiées ; actualisation périodique.",
@@ -363,14 +377,16 @@
         "other": "CISA BOD 26-04"
       },
       "en": {
-        "q": "Do you maintain a continuous inventory of external (EASM) and cloud exposure that is exploitable at machine speed? (Note: The external-surface inventory (EASM) must keep pace with AI-speed enumeration; scope extends to cloud exposure exploitable without human interaction: exposed secrets or keys, over-permissioned identities, cloud escalation paths, forgotten or ungoverned services.)",
+        "q": "Do you maintain a continuous inventory of external (EASM) and cloud exposure that is exploitable at machine speed?",
+        "note": "The external-surface inventory (EASM) must keep pace with AI-speed enumeration; scope extends to cloud exposure exploitable without human interaction: exposed secrets or keys, over-permissioned identities, cloud escalation paths, forgotten or ungoverned services.",
         "l0": "No external-exposure inventory; cloud surface not mapped.",
         "l1": "Point-in-time scans, manual, incomplete; partial cloud inventory.",
         "l2": "Periodic inventory in place; cloud surface (keys, permissions, exposed services) covered; not yet the single source of truth.",
         "l3": "External and cloud exposure inventory is the source of truth, continuous and agent-assisted; machine-speed-exploitable paths detected and remediated; new exposures surfaced within hours."
       },
       "fr": {
-        "q": "Maintenez-vous un inventaire continu de l'exposition externe (EASM) et cloud exploitable à vitesse machine ? (Note : L'inventaire de la surface externe (EASM) doit suivre l'énumération à vitesse IA ; le périmètre s'étend à l'exposition cloud exploitable sans interaction humaine : secrets ou clés exposés, identités sur-permissionnées, chemins d'escalade cloud, services oubliés ou non gouvernés.)",
+        "q": "Maintenez-vous un inventaire continu de l'exposition externe (EASM) et cloud exploitable à vitesse machine ?",
+        "note": "L'inventaire de la surface externe (EASM) doit suivre l'énumération à vitesse IA ; le périmètre s'étend à l'exposition cloud exploitable sans interaction humaine : secrets ou clés exposés, identités sur-permissionnées, chemins d'escalade cloud, services oubliés ou non gouvernés.",
         "l0": "Pas d'inventaire de l'exposition externe ; surface cloud non cartographiée.",
         "l1": "Scans ponctuels, manuels, incomplets ; inventaire cloud partiel.",
         "l2": "Inventaire périodique en place ; surface cloud (clés, permissions, services exposés) couverte ; pas encore source de vérité unique.",
@@ -391,6 +407,7 @@
       },
       "en": {
         "q": "Do you know your transitive OSS / third-party dependencies (real SBOMs for crown-jewel systems, named OSS ownership, CVE watch) AND do you aggressively shut down EOL / legacy / unused software to minimize what cannot be patched?",
+        "note": "",
         "l0": "Dependencies unknown; no SBOMs; EOL / unused software persists, unmanaged.",
         "l1": "SBOMs for a few systems; occasional ad hoc decommissioning; no OSS ownership / CVE watch.",
         "l2": "SBOMs for critical systems with some OSS ownership / CVE monitoring; a periodic decommissioning process.",
@@ -398,6 +415,7 @@
       },
       "fr": {
         "q": "Connaissez-vous vos dépendances OSS / tierces transitives (SBOM réels pour les systèmes crown jewels, propriété OSS nommée, veille CVE) ET fermez-vous agressivement les logiciels EOL / legacy / inutiles pour minimiser ce qui ne peut pas être patché ?",
+        "note": "",
         "l0": "Dépendances inconnues ; pas de SBOM ; logiciels EOL / non utilisés persistants et non gérés.",
         "l1": "SBOM pour quelques systèmes ; décommissionnement ad hoc occasionnel ; pas de propriété OSS / veille CVE.",
         "l2": "SBOM pour les systèmes critiques avec quelques propriétés OSS / surveillance CVE ; un processus de décommissionnement périodique.",
@@ -418,6 +436,7 @@
       },
       "en": {
         "q": "Do you enforce dependency provenance and signing (e.g. SLSA) to detect tampered, substituted or automatically introduced components before delivery?",
+        "note": "",
         "l0": "No provenance / signing checks on dependencies.",
         "l1": "Some signing in place; not enforced in the pipeline.",
         "l2": "Provenance / signing verified for key pipelines; exceptions allowed.",
@@ -425,6 +444,7 @@
       },
       "fr": {
         "q": "Imposez-vous la traçabilité et la signature des dépendances (ex. SLSA) afin de détecter les composants falsifiés, substitués ou introduits automatiquement avant livraison ?",
+        "note": "",
         "l0": "Pas de vérifications de traçabilité / signature sur les dépendances.",
         "l1": "Quelques signatures en place ; pas imposées dans le pipeline.",
         "l2": "Traçabilité / signature vérifiée pour les pipelines clés ; exceptions autorisées.",
@@ -444,14 +464,16 @@
         "other": "VulnOps (CSA); CISA BOD 26-04"
       },
       "en": {
-        "q": "Is there a permanent Remediation Tower driving end-to-end orchestration of fixes (single backlog, SLAs), able to absorb a volume at least three times the historical baseline without backlog growth? (Note: Remediation Tower = centralized remediation-steering function (discovery→fix orchestration, single backlog, SLAs, sustained throughput).)",
+        "q": "Is there a permanent Remediation Tower driving end-to-end orchestration of fixes (single backlog, SLAs), able to absorb a volume at least three times the historical baseline without backlog growth?",
+        "note": "Remediation Tower = centralized remediation-steering function (discovery→fix orchestration, single backlog, SLAs, sustained throughput).",
         "l0": "Remediation is ad hoc / per team; the backlog grows; no capacity for increased volume.",
         "l1": "Some coordination but no single owner / backlog; falls behind during spikes.",
         "l2": "A remediation function with partial coverage / SLAs; keeps pace under normal conditions, struggles under surge.",
         "l3": "A named Remediation Tower coordinates discovery→fix (SLAs, single backlog); throughput exceeds inflow under surge conditions (backlog stable / shrinking)."
       },
       "fr": {
-        "q": "Existe-t-il une Remediation Tower permanente pilotant l'orchestration de bout en bout des corrections (backlog unique, SLAs), capable d'absorber un volume au moins trois fois supérieur à l'historique sans croissance du backlog ? (Note : Remediation Tower = fonction centralisée de pilotage de la remédiation (orchestration découverte→correction, backlog unique, SLAs, débit soutenu).)",
+        "q": "Existe-t-il une Remediation Tower permanente pilotant l'orchestration de bout en bout des corrections (backlog unique, SLAs), capable d'absorber un volume au moins trois fois supérieur à l'historique sans croissance du backlog ?",
+        "note": "Remediation Tower = fonction centralisée de pilotage de la remédiation (orchestration découverte→correction, backlog unique, SLAs, débit soutenu).",
         "l0": "La remédiation est ad hoc / par équipe ; le backlog croît ; pas de capacité pour un volume accru.",
         "l1": "Quelque coordination mais pas de propriétaire unique / backlog ; prend du retard lors des pics.",
         "l2": "Une fonction de remédiation avec couverture / SLAs partiels ; tient le rythme en conditions normales, peine lors des surcharges.",
@@ -471,14 +493,16 @@
         "other": "CISA BOD 26-04 (KEV); SSVC; FIRST CVSS SIG"
       },
       "en": {
-        "q": "Do you run a continuous CTEM loop with AI-assisted triage prioritized by real risk? (Note: Prioritization by public exposure, KEV status, automatable exploitability and post-exploitation impact (SSVC-style) — rather than flat CVSS or point-in-time pen tests. AI assistance covers LLMs, agentic reasoning and specialized models.)",
+        "q": "Do you run a continuous CTEM loop with AI-assisted triage prioritized by real risk?",
+        "note": "Prioritization by public exposure, KEV status, automatable exploitability and post-exploitation impact (SSVC-style) — rather than flat CVSS or point-in-time pen tests. AI assistance covers LLMs, agentic reasoning and specialized models.",
         "l0": "Point-in-time pen tests only; flat-CVSS triage.",
         "l1": "Some continuous scanning; manual CVSS triage; exposure / KEV / exploitability not systematic.",
         "l2": "CTEM in place; triage partly prioritized by exposure / exploitability; limited automation.",
         "l3": "Continuous CTEM; AI triage ranks by exposure · KEV · automatable exploitability · impact (SSVC-aligned), feeding remediation."
       },
       "fr": {
-        "q": "Faites-vous tourner une boucle CTEM continue avec un triage assisté par IA, priorisé selon le risque réel ? (Note : Priorisation par exposition publique, statut KEV, exploitabilité automatisable et impact post-exploitation (style SSVC) — plutôt que par un CVSS plat ou des pen tests ponctuels. L'assistance IA recouvre LLM, raisonnement agentique et modèles spécialisés.)",
+        "q": "Faites-vous tourner une boucle CTEM continue avec un triage assisté par IA, priorisé selon le risque réel ?",
+        "note": "Priorisation par exposition publique, statut KEV, exploitabilité automatisable et impact post-exploitation (style SSVC) — plutôt que par un CVSS plat ou des pen tests ponctuels. L'assistance IA recouvre LLM, raisonnement agentique et modèles spécialisés.",
         "l0": "Pen tests ponctuels uniquement ; triage par CVSS plat.",
         "l1": "Quelques scans continus ; triage CVSS manuel ; exposition / KEV / exploitabilité non systématiques.",
         "l2": "CTEM en place ; triage partiellement priorisé par exposition / exploitabilité ; automatisation limitée.",
@@ -498,14 +522,16 @@
         "other": "VulnOps (CSA); CISA BOD 26-04"
       },
       "en": {
-        "q": "Are you building a 24/7 VulnOps that fixes root causes, not just instances? (Note: VulnOps (operated as a VOC, Vulnerability Operations Center) = continuous vulnerability management modeled on DevOps (resourced + automated). Beyond zero-days: eliminating vulnerability classes and anti-regression / anti-drift (durably verified fixes, recurrence tracked).)",
+        "q": "Are you building a 24/7 VulnOps that fixes root causes, not just instances?",
+        "note": "VulnOps (operated as a VOC, Vulnerability Operations Center) = continuous vulnerability management modeled on DevOps (resourced + automated). Beyond zero-days: eliminating vulnerability classes and anti-regression / anti-drift (durably verified fixes, recurrence tracked).",
         "l0": "No VulnOps; reactive instance-by-instance patching.",
         "l1": "VulnOps piloted; point fixes; no systematic root cause or anti-drift.",
         "l2": "Partially automated VulnOps; some root-cause analysis; regressions occasionally verified.",
         "l3": "24/7 VulnOps, automated and resourced; root-cause remediation eliminating vulnerability classes; verified anti-regression; MTTR measured and falling."
       },
       "fr": {
-        "q": "Construisez-vous un VulnOps 24/7 qui corrige les causes racines, pas seulement les instances ? (Note : VulnOps (opéré comme un VOC, Vulnerability Operations Center) = gestion continue des vulnérabilités inspirée du DevOps (doté en ressources + automatisé). Au-delà du zero-day : élimination des classes de vulnérabilités et anti-régression / anti-dérive (corrections vérifiées durables, récurrence suivie).)",
+        "q": "Construisez-vous un VulnOps 24/7 qui corrige les causes racines, pas seulement les instances ?",
+        "note": "VulnOps (opéré comme un VOC, Vulnerability Operations Center) = gestion continue des vulnérabilités inspirée du DevOps (doté en ressources + automatisé). Au-delà du zero-day : élimination des classes de vulnérabilités et anti-régression / anti-dérive (corrections vérifiées durables, récurrence suivie).",
         "l0": "Pas de VulnOps ; patchs réactifs instance par instance.",
         "l1": "VulnOps en pilote ; corrections ponctuelles ; pas de cause racine ni d'anti-dérive.",
         "l2": "VulnOps partiellement automatisé ; quelques analyses de causes racines ; régressions vérifiées occasionnellement.",
@@ -526,6 +552,7 @@
       },
       "en": {
         "q": "Is vulnerability-backlog evolution managed as a maturity indicator — backlog burn-down rate, MTTR by severity, age of open vulnerabilities, regression rate — with these metrics driving the program and reported to the board?",
+        "note": "",
         "l0": "Backlog volume not measured; no metrics (burn-down, MTTR, age); no visibility on improvement.",
         "l1": "Raw count tracked periodically; no burn-down rate, MTTR by severity or cohort; no trend reporting.",
         "l2": "Backlog size and MTTR by severity tracked; some trend analysis; occasional reporting.",
@@ -533,6 +560,7 @@
       },
       "fr": {
         "q": "L'évolution du backlog de vulnérabilités est-elle pilotée comme indicateur de maturité — taux de résorption du backlog, MTTR par sévérité, ancienneté des vulnérabilités ouvertes, taux de régression — avec ces métriques qui orientent le programme et remontent au board ?",
+        "note": "",
         "l0": "Volume du backlog non mesuré ; pas de métriques (résorption, MTTR, ancienneté) ; pas de visibilité sur l'amélioration.",
         "l1": "Comptage brut suivi périodiquement ; pas de taux de résorption, MTTR par sévérité ni cohorte ; pas de reporting de tendance.",
         "l2": "Taille du backlog et MTTR par sévérité suivis ; quelques analyses de tendance ; reporting occasionnel.",
@@ -553,6 +581,7 @@
       },
       "en": {
         "q": "Do you have a continuous testing / remediation (CT/CR) pipeline that validates and deploys patches at machine speed and multiplied volume?",
+        "note": "",
         "l0": "Manual patching; no automated test / deploy pipeline.",
         "l1": "Some automation for specific stacks; manual bottlenecks remain.",
         "l2": "A test→deploy pipeline exists; handles normal volume.",
@@ -560,6 +589,7 @@
       },
       "fr": {
         "q": "Disposez-vous d'un pipeline test / remédiation continu (CT/CR) qui valide et déploie les correctifs (patches) à vitesse machine et volume multiplié ?",
+        "note": "",
         "l0": "Patchs manuels ; pas de pipeline test / déploiement automatisé.",
         "l1": "Quelques automatisations pour des stacks spécifiques ; des goulets d'étranglement manuels persistent.",
         "l2": "Un pipeline test→déploiement existe ; gère le volume normal.",
@@ -579,14 +609,16 @@
         "other": "CISA BOD 26-04 (risk-tiered timelines; forensic triage)"
       },
       "en": {
-        "q": "Does your patch policy apply risk-graded timelines, drawing on the logic of BOD 26-04? (Note: 3 days for the most critical combination (exposed + KEV + automatable + high impact) → deferral for the lowest risk; an emergency fast lane; a formalized trade-off between waiting for stabilization and patching immediately; forensic triage before closing high-risk items. Exposed / on-path assets carry no standing exception to the timelines (time-bound exceptions only, with owner and expiry). While no vendor patch exists, virtual patching (WAF / WAAP) can protect an exposed asset. Scored at the weakest link.)",
+        "q": "Does your patch policy apply risk-graded timelines, drawing on the logic of BOD 26-04?",
+        "note": "3 days for the most critical combination (exposed + KEV + automatable + high impact) → deferral for the lowest risk; an emergency fast lane; a formalized trade-off between waiting for stabilization and patching immediately; forensic triage before closing high-risk items. Exposed / on-path assets carry no standing exception to the timelines (time-bound exceptions only, with owner and expiry). While no vendor patch exists, virtual patching (WAF / WAAP) can protect an exposed asset. Scored at the weakest link.",
         "l0": "Calendar / CVSS-based policy; no graded timelines or emergency lane; standing exceptions granted freely.",
         "l1": "Some prioritization; ad hoc emergency patches; no forensic triage; exceptions untracked, no expiry.",
         "l2": "Some timelines graded by exposure / exploitability; fast lane rarely exercised; occasional forensic triage; exceptions tracked, but exposed assets still carry standing waivers.",
         "l3": "Risk-graded timelines, fast lane exercised, trade-off formalized, forensic triage before closure; no standing exception on exposed / on-path assets (time-bound exceptions only)."
       },
       "fr": {
-        "q": "Votre politique de patch applique-t-elle des délais gradués selon le risque, inspirés de la logique BOD 26-04 ? (Note : 3 jours pour la combinaison la plus critique (exposé + KEV + automatisable + impact élevé) → report pour le risque le plus faible ; voie rapide d'urgence ; arbitrage entre attente de stabilisation et correction immédiate formalisé ; triage forensique avant clôture des éléments à risque élevé. Les actifs exposés / sur le chemin d'attaque ne portent aucune dérogation permanente aux délais (exceptions à durée limitée, avec propriétaire et expiration). Tant qu'aucun patch éditeur n'existe, un correctif virtuel (WAF / WAAP) peut protéger un actif exposé. Évaluée au maillon faible.)",
+        "q": "Votre politique de patch applique-t-elle des délais gradués selon le risque, inspirés de la logique BOD 26-04 ?",
+        "note": "3 jours pour la combinaison la plus critique (exposé + KEV + automatisable + impact élevé) → report pour le risque le plus faible ; voie rapide d'urgence ; arbitrage entre attente de stabilisation et correction immédiate formalisé ; triage forensique avant clôture des éléments à risque élevé. Les actifs exposés / sur le chemin d'attaque ne portent aucune dérogation permanente aux délais (exceptions à durée limitée, avec propriétaire et expiration). Tant qu'aucun patch éditeur n'existe, un correctif virtuel (WAF / WAAP) peut protéger un actif exposé. Évaluée au maillon faible.",
         "l0": "Politique calendaire / CVSS ; pas de délais gradués ni de voie d'urgence ; dérogations permanentes accordées librement.",
         "l1": "Quelques priorisations ; patchs d'urgence ad hoc ; pas de triage forensique ; exceptions non suivies, sans expiration.",
         "l2": "Quelques délais gradués par exposition / exploitabilité ; voie rapide rarement exercée ; triage forensique occasionnel ; exceptions tracées, mais des actifs exposés portent encore des dérogations permanentes.",
@@ -607,6 +639,7 @@
       },
       "en": {
         "q": "Do contracts with critical suppliers include enforceable patch-SLA + SBOM clauses, and can you get urgent work prioritized by key third parties?",
+        "note": "",
         "l0": "No patch-SLA / SBOM clauses; no leverage over key suppliers.",
         "l1": "Informal expectations; no contractual clauses.",
         "l2": "SLA / SBOM clauses in some critical contracts; partial leverage.",
@@ -614,6 +647,7 @@
       },
       "fr": {
         "q": "Les contrats avec les fournisseurs critiques incluent-ils des clauses de SLA de correctifs (patch) + SBOM exécutoires, et pouvez-vous faire prioriser les travaux urgents par les tierces parties clés ?",
+        "note": "",
         "l0": "Pas de clauses SLA de correctifs / SBOM ; pas de levier sur les fournisseurs clés.",
         "l1": "Attentes informelles ; pas de clauses contractuelles.",
         "l2": "Clauses SLA / SBOM dans certains contrats critiques ; levier partiel.",
@@ -633,14 +667,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Is containment pre-authorized to run at machine speed — automatic isolation and a tested emergency kill switch? (Note: Response must not be gated by human-approval latency against machine-speed attacks. A tested emergency kill switch (“red button”) is part of the setup. (Relocated from the crisis question, now Q28.))",
+        "q": "Is containment pre-authorized to run at machine speed — automatic isolation and a tested emergency kill switch?",
+        "note": "Response must not be gated by human-approval latency against machine-speed attacks. A tested emergency kill switch (“red button”) is part of the setup. (Relocated from the crisis question, now Q28.)",
         "l0": "All containment requires manual human approval; no kill switch.",
         "l1": "Some runbooks; manual, slow approvals; kill switch ad hoc / untested.",
         "l2": "Pre-authorization defined for limited scenarios; partial automation; kill switch in place but lightly tested.",
         "l3": "Containment actions trigger automatically within policy; kill switch tested; no human delay for pre-approved scenarios."
       },
       "fr": {
-        "q": "Le confinement est-il pré-autorisé pour s'exécuter à vitesse machine — isolation automatique et dispositif d'arrêt d'urgence testé ? (Note : La réponse ne doit pas être conditionnée à la latence d'approbation humaine face à des attaques à vitesse machine. Un dispositif d'arrêt d'urgence (« bouton rouge ») testé fait partie du dispositif. (Rapatrié depuis la question de crise, désormais Q28.))",
+        "q": "Le confinement est-il pré-autorisé pour s'exécuter à vitesse machine — isolation automatique et dispositif d'arrêt d'urgence testé ?",
+        "note": "La réponse ne doit pas être conditionnée à la latence d'approbation humaine face à des attaques à vitesse machine. Un dispositif d'arrêt d'urgence (« bouton rouge ») testé fait partie du dispositif. (Rapatrié depuis la question de crise, désormais Q28.)",
         "l0": "Tout confinement nécessite une approbation humaine manuelle ; pas de dispositif d'arrêt d'urgence.",
         "l1": "Quelques runbooks ; approbations manuelles et lentes ; arrêt d'urgence ad hoc / non testé.",
         "l2": "Pré-autorisation définie pour des scénarios limités ; automatisation partielle ; arrêt d'urgence en place mais peu testé.",
@@ -660,14 +696,16 @@
         "other": "ITDR; SAIF"
       },
       "en": {
-        "q": "Do you have an ITDR capability (identity threat detection and response)? (Note: A priority target for an agentic attacker (Entra ID, Okta, Workspace). ITDR = detection of identity compromise + automated response (session revocation, account isolation) at machine speed. Level 3 = identity resilience, through the post-Mythos lens.)",
+        "q": "Do you have an ITDR capability (identity threat detection and response)?",
+        "note": "A priority target for an agentic attacker (Entra ID, Okta, Workspace). ITDR = detection of identity compromise + automated response (session revocation, account isolation) at machine speed. Level 3 = identity resilience, through the post-Mythos lens.",
         "l0": "No identity-specific detection.",
         "l1": "Log-based detection, manual response.",
         "l2": "Automated detection and response at machine speed.",
         "l3": "Demonstrated ability to contain a compromise of the identity authority and to restore operational trust in critical identities without losing control of the environment."
       },
       "fr": {
-        "q": "Disposez-vous d'une capacité ITDR (détection et réponse aux menaces sur l'identité) ? (Note : Cible prioritaire d'un attaquant agentique (Entra ID, Okta, Workspace). ITDR = détection des compromissions d'identité + réponse automatisée (révocation de session, isolation de compte) à vitesse machine. Niveau 3 = la résilience d'identité, sous l'angle post-Mythos.)",
+        "q": "Disposez-vous d'une capacité ITDR (détection et réponse aux menaces sur l'identité) ?",
+        "note": "Cible prioritaire d'un attaquant agentique (Entra ID, Okta, Workspace). ITDR = détection des compromissions d'identité + réponse automatisée (révocation de session, isolation de compte) à vitesse machine. Niveau 3 = la résilience d'identité, sous l'angle post-Mythos.",
         "l0": "Pas de détection spécifique sur l'identité.",
         "l1": "Détection basée logs, réponse manuelle.",
         "l2": "Détection et réponse automatisées à vitesse machine.",
@@ -687,14 +725,16 @@
         "other": "BAS; MITRE ATT&CK emulation"
       },
       "en": {
-        "q": "Is your behavioral detection / UEBA calibrated for AI-emulated activity, and validated by BAS? (Note: Detect “legitimate-looking” activity and novel TTPs — a zero-day discovered or exploited by AI may have no KEV signal at the moment defense must decide; validate that detections actually fire via BAS / adversary emulation.)",
+        "q": "Is your behavioral detection / UEBA calibrated for AI-emulated activity, and validated by BAS?",
+        "note": "Detect “legitimate-looking” activity and novel TTPs — a zero-day discovered or exploited by AI may have no KEV signal at the moment defense must decide; validate that detections actually fire via BAS / adversary emulation.",
         "l0": "Signature / IOC detection only; coverage assumed, never tested.",
         "l1": "Some behavioral analytics (known patterns / human pace); occasional manual red team.",
         "l2": "UEBA deployed, partly calibrated for agent-like anomalies; periodic BAS.",
         "l3": "UEBA flags behavior inconsistent with normal human activity — speed, volume, automated sequences — without IOC dependence; continuous BAS tests effectiveness, gaps closed."
       },
       "fr": {
-        "q": "Votre détection comportementale / UEBA est-elle calibrée pour l'activité émulée par IA, et validée par BAS ? (Note : Détecter les activités « à l'apparence légitime » et les modes opératoires (TTP) nouveaux — un zero-day découvert ou exploité par IA peut ne disposer d'aucun signal KEV au moment où la défense doit décider ; valider que les détections se déclenchent réellement via BAS / émulation adversariale.)",
+        "q": "Votre détection comportementale / UEBA est-elle calibrée pour l'activité émulée par IA, et validée par BAS ?",
+        "note": "Détecter les activités « à l'apparence légitime » et les modes opératoires (TTP) nouveaux — un zero-day découvert ou exploité par IA peut ne disposer d'aucun signal KEV au moment où la défense doit décider ; valider que les détections se déclenchent réellement via BAS / émulation adversariale.",
         "l0": "Détection signature / IOC uniquement ; couverture supposée, jamais testée.",
         "l1": "Quelques analyses comportementales (patterns connus / rythme humain) ; red team manuelle occasionnelle.",
         "l2": "UEBA déployé, partiellement calibré pour les anomalies de type agent ; BAS périodique.",
@@ -715,6 +755,7 @@
       },
       "en": {
         "q": "Do you have exfiltration monitoring + DLP sized for fast automated data theft, and east-west / NDR anomaly detection for automated lateral movement?",
+        "note": "",
         "l0": "No exfiltration monitoring or east-west visibility.",
         "l1": "Basic DLP / egress logging; no anomaly detection or automation.",
         "l2": "Exfil monitoring / DLP and some east-west controls in place; manual response.",
@@ -722,6 +763,7 @@
       },
       "fr": {
         "q": "Disposez-vous d'une surveillance de l'exfiltration + DLP dimensionnée pour le vol de données automatisé rapide, et d'une détection d'anomalies est-ouest / NDR pour les mouvements latéraux automatisés ?",
+        "note": "",
         "l0": "Pas de surveillance de l'exfiltration ni de visibilité est-ouest.",
         "l1": "DLP / journalisation des sorties basique ; pas de détection d'anomalies ni d'automatisation.",
         "l2": "Surveillance de l'exfil / DLP et quelques contrôles est-ouest en place ; réponse manuelle.",
@@ -742,6 +784,7 @@
       },
       "en": {
         "q": "Do you participate in threat-intelligence sharing (sector ISAC / CERT, standards bodies) — two-way exchange of indicators and TTPs on high-cadence AI threats?",
+        "note": "",
         "l0": "No participation in sector sharing / ISAC / CERT.",
         "l1": "Passive membership; occasional feed consumption.",
         "l2": "Active in a sector group; mainly an intelligence consumer.",
@@ -749,6 +792,7 @@
       },
       "fr": {
         "q": "Participez-vous à un partage de renseignement sur les menaces (ISAC / CERT sectoriel, organismes de normalisation) — échange bidirectionnel d'indicateurs et de TTP sur les menaces IA à haute cadence ?",
+        "note": "",
         "l0": "Pas de participation à un partage sectoriel / ISAC / CERT.",
         "l1": "Adhésion passive ; consommation de flux occasionnels.",
         "l2": "Actif dans un groupe sectoriel ; principalement consommateur de renseignements.",
@@ -768,14 +812,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Is robust, phishing- and MITM-resistant MFA enforced without gaps on all exposed and privileged access? (Note: Phishing/MITM-resistant MFA = FIDO2, passkeys, certificates or equivalent; SMS, OTP and simple push excluded.)",
+        "q": "Is robust, phishing- and MITM-resistant MFA enforced without gaps on all exposed and privileged access?",
+        "note": "Phishing/MITM-resistant MFA = FIDO2, passkeys, certificates or equivalent; SMS, OTP and simple push excluded.",
         "l0": "MFA absent or gapped on exposed / privileged access.",
         "l1": "MFA present but with gaps; not phishing/MITM-resistant.",
         "l2": "Phishing/MITM-resistant MFA on most privileged / exposed paths; some exceptions.",
         "l3": "Phishing/MITM-resistant MFA covers 100% of exposed / privileged paths without gaps."
       },
       "fr": {
-        "q": "Un MFA robuste, résistant à l'hameçonnage et au MITM (man-in-the-middle), est-il imposé sur tous les accès exposés et privilégiés ? (Note : MFA résistant à l'hameçonnage / MITM = FIDO2, passkeys, certificats ou mécanismes équivalents ; SMS, OTP et push simple exclus.)",
+        "q": "Un MFA robuste, résistant à l'hameçonnage et au MITM (man-in-the-middle), est-il imposé sur tous les accès exposés et privilégiés ?",
+        "note": "MFA résistant à l'hameçonnage / MITM = FIDO2, passkeys, certificats ou mécanismes équivalents ; SMS, OTP et push simple exclus.",
         "l0": "MFA absent ou lacunaire sur les accès exposés / privilégiés.",
         "l1": "MFA présent mais avec des lacunes ; non résistant à l'hameçonnage / MITM.",
         "l2": "MFA résistant à l'hameçonnage / MITM sur la plupart des chemins privilégiés / exposés ; quelques exceptions.",
@@ -796,6 +842,7 @@
       },
       "en": {
         "q": "Do you operate PAM with zero standing privilege / JIT and IGA / SSO governance enforcing least privilege, so that a fast compromise yields little?",
+        "note": "",
         "l0": "Standing privileged access is broad and persistent.",
         "l1": "Some PAM; standing privileges remain common.",
         "l2": "PAM deployed; JIT for some roles; partial least privilege.",
@@ -803,6 +850,7 @@
       },
       "fr": {
         "q": "Opérez-vous un PAM avec zéro privilège permanent / JIT et une gouvernance IGA / SSO appliquant le moindre privilège, de sorte qu'une compromission rapide rapporte peu ?",
+        "note": "",
         "l0": "Les accès privilégiés permanents sont larges et persistants.",
         "l1": "Quelques PAM ; les privilèges permanents restent courants.",
         "l2": "PAM déployé ; JIT pour certains rôles ; moindre privilège partiel.",
@@ -823,6 +871,7 @@
       },
       "en": {
         "q": "Are non-human / agent identities (NHI) inventoried and governed with the same rigor as human identities?",
+        "note": "",
         "l0": "Non-human / agent identities not tracked or governed.",
         "l1": "Some NHIs known; no ownership / rotation / least privilege.",
         "l2": "NHI inventory exists; partial ownership and rotation.",
@@ -830,6 +879,7 @@
       },
       "fr": {
         "q": "Les identités non-humaines / agents (NHI) sont-elles inventoriées et gouvernées avec la même rigueur que les identités humaines ?",
+        "note": "",
         "l0": "Les identités non-humaines / agents ne sont pas tracées ni gouvernées.",
         "l1": "Quelques NHI connues ; pas de propriété / rotation / moindre privilège.",
         "l2": "L'inventaire NHI existe ; propriété et rotation partielles.",
@@ -850,6 +900,7 @@
       },
       "en": {
         "q": "Is the network segmented (segmentation / DMZ, browser isolation, east-west API authorization) to limit the 1:N lateral leverage of a single AI-driven exploit?",
+        "note": "",
         "l0": "Flat network; any exploit spreads unimpeded.",
         "l1": "Minimal segmentation; coarse zones.",
         "l2": "Segmentation / DMZ in place; partial east-west authorization.",
@@ -857,6 +908,7 @@
       },
       "fr": {
         "q": "Le réseau est-il segmenté (segmentation / DMZ, isolation du navigateur, autorisation API est-ouest) pour limiter l'effet de levier latéral 1:N d'un seul exploit piloté par IA ?",
+        "note": "",
         "l0": "Réseau plat ; tout exploit se propage sans entrave.",
         "l1": "Segmentation minimale ; zones grossières.",
         "l2": "Segmentation / DMZ en place ; autorisation est-ouest partielle.",
@@ -876,14 +928,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Is outbound (egress) traffic control to the Internet enforced — across endpoints, servers and applications — with filtering proportionate to risk? (Note: Measure coverage (endpoints / servers / applications) and filtering granularity: at minimum category-based blocking (blacklist), ideally strict allow-listing of destinations for servers and sensitive workloads. Goal: cut automated command-and-control and exfiltration channels.)",
+        "q": "Is outbound (egress) traffic control to the Internet enforced — across endpoints, servers and applications — with filtering proportionate to risk?",
+        "note": "Measure coverage (endpoints / servers / applications) and filtering granularity: at minimum category-based blocking (blacklist), ideally strict allow-listing of destinations for servers and sensitive workloads. Goal: cut automated command-and-control and exfiltration channels.",
         "l0": "Outbound traffic open; no egress filtering.",
         "l1": "Partial filtering (browser proxy on endpoints); servers and applications not covered.",
         "l2": "Category-based blocking (blacklist) on endpoints and servers; no strict allow-listing for sensitive workloads.",
         "l3": "Egress controlled: strict destination allow-listing for servers / sensitive workloads, default-deny elsewhere; endpoints + servers + applications covered, tracked exceptions."
       },
       "fr": {
-        "q": "Le contrôle des flux sortants vers Internet (egress) est-il imposé — couverture des postes, serveurs et applications — avec un filtrage proportionné au risque ? (Note : On mesure la couverture (postes / serveurs / applications) et la granularité du filtrage : a minima blocage par catégories (blacklist), idéalement liste blanche stricte des destinations pour les serveurs et charges sensibles. Objectif : couper les canaux de command-and-control et d'exfiltration automatisés.)",
+        "q": "Le contrôle des flux sortants vers Internet (egress) est-il imposé — couverture des postes, serveurs et applications — avec un filtrage proportionné au risque ?",
+        "note": "On mesure la couverture (postes / serveurs / applications) et la granularité du filtrage : a minima blocage par catégories (blacklist), idéalement liste blanche stricte des destinations pour les serveurs et charges sensibles. Objectif : couper les canaux de command-and-control et d'exfiltration automatisés.",
         "l0": "Flux sortants ouverts ; pas de filtrage egress.",
         "l1": "Filtrage partiel (proxy navigateur sur les postes) ; serveurs et applications non couverts.",
         "l2": "Blocage par catégories (blacklist) sur postes et serveurs ; pas de liste blanche stricte sur les charges sensibles.",
@@ -903,14 +957,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Are your IR playbooks updated for AI speed and exercised through a zero-day crisis drill? (Note: Tabletop simulating simultaneous, chained zero-days. (Kill switch now in Q18; immutable backups in Q29.))",
+        "q": "Are your IR playbooks updated for AI speed and exercised through a zero-day crisis drill?",
+        "note": "Tabletop simulating simultaneous, chained zero-days. (Kill switch now in Q18; immutable backups in Q29.)",
         "l0": "Playbooks stale / absent; no crisis drill.",
         "l1": "Generic playbooks; no AI-speed / chained-zero-day drill.",
         "l2": "Playbooks updated for some scenarios; occasional crisis drill.",
         "l3": "Playbooks exercised via a simultaneous chained-zero-day crisis simulation."
       },
       "fr": {
-        "q": "Vos playbooks IR sont-ils actualisés pour la vitesse IA et éprouvés par un exercice de crise zero-day ? (Note : Exercice sur table (tabletop) simulant des zero-days simultanés et chaînés. (Bouton rouge désormais en Q18 ; sauvegardes immuables en Q29.))",
+        "q": "Vos playbooks IR sont-ils actualisés pour la vitesse IA et éprouvés par un exercice de crise zero-day ?",
+        "note": "Exercice sur table (tabletop) simulant des zero-days simultanés et chaînés. (Bouton rouge désormais en Q18 ; sauvegardes immuables en Q29.)",
         "l0": "Playbooks obsolètes / absents ; pas d'exercice de crise.",
         "l1": "Playbooks génériques ; pas d'exercice à vitesse IA / zero-day chaîné.",
         "l2": "Playbooks mis à jour pour certains scénarios ; exercice de crise occasionnel.",
@@ -930,14 +986,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Do you have immutable backups whose restoration is regularly tested? (Note: Verified restore capability, not just the existence of backups. (Split out from the crisis question, Q28.))",
+        "q": "Do you have immutable backups whose restoration is regularly tested?",
+        "note": "Verified restore capability, not just the existence of backups. (Split out from the crisis question, Q28.)",
         "l0": "Backups untested or nonexistent.",
         "l1": "Backups exist but unverified / not immutable.",
         "l2": "Immutable backups in place; restoration tested partially / occasionally.",
         "l3": "Immutable backups; restoration tested regularly, RTO / RPO demonstrated."
       },
       "fr": {
-        "q": "Disposez-vous de sauvegardes immuables dont la restauration est régulièrement testée ? (Note : Capacité de restauration vérifiée, pas seulement l'existence de sauvegardes. (Issu de la scission de la question de crise, Q28.))",
+        "q": "Disposez-vous de sauvegardes immuables dont la restauration est régulièrement testée ?",
+        "note": "Capacité de restauration vérifiée, pas seulement l'existence de sauvegardes. (Issu de la scission de la question de crise, Q28.)",
         "l0": "Sauvegardes non testées ou inexistantes.",
         "l1": "Sauvegardes existantes mais non vérifiées / non immuables.",
         "l2": "Sauvegardes immuables en place ; restauration testée partiellement / occasionnellement.",
@@ -957,14 +1015,16 @@
         "other": "CISA deepfake guidance; ENISA AI social engineering"
       },
       "en": {
-        "q": "Are AI-augmented social-engineering attacks — spear phishing, deepfakes, voice cloning — covered by broad awareness, verification procedures and technical controls? (Note: Human + process + technology triad: no single layer suffices. Scored at the weakest link — in social engineering the attacker exploits the weakest layer, so the capability is bounded by its weakest dimension.)",
+        "q": "Are AI-augmented social-engineering attacks — spear phishing, deepfakes, voice cloning — covered by broad awareness, verification procedures and technical controls?",
+        "note": "Human + process + technology triad: no single layer suffices. Scored at the weakest link — in social engineering the attacker exploits the weakest layer, so the capability is bounded by its weakest dimension.",
         "l0": "No awareness or technical controls specific to AI attacks; generic phishing training only or none.",
         "l1": "AI-specific awareness limited (IT, ExCom); no deepfake / voice-cloning countermeasures; standard email filtering.",
         "l2": "AI phishing / deepfake training covering the critical population; some technical controls (advanced filtering, call-back for transfers / sensitive access); occasional simulations.",
         "l3": "AI awareness covering all staff with regular deepfake / voice-cloning simulations; advanced email and voice filtering; mandatory call-back verification for high-risk actions; metrics tracked and improving."
       },
       "fr": {
-        "q": "Les attaques de social engineering augmentées par l'IA — spear phishing, deepfakes, clonage vocal — sont-elles couvertes par une sensibilisation large, des procédures de vérification et des contrôles techniques ? (Note : Triptyque humain + processus + technique : aucune couche ne suffit seule. Évaluée au maillon faible — en social engineering, l'attaquant exploite la couche la plus faible, donc la capacité est bornée par sa dimension la plus faible.)",
+        "q": "Les attaques de social engineering augmentées par l'IA — spear phishing, deepfakes, clonage vocal — sont-elles couvertes par une sensibilisation large, des procédures de vérification et des contrôles techniques ?",
+        "note": "Triptyque humain + processus + technique : aucune couche ne suffit seule. Évaluée au maillon faible — en social engineering, l'attaquant exploite la couche la plus faible, donc la capacité est bornée par sa dimension la plus faible.",
         "l0": "Pas de sensibilisation ni de contrôles techniques spécifiques aux attaques IA ; formation phishing générique uniquement ou absente.",
         "l1": "Sensibilisation spécifique IA limitée (IT, COMEX) ; pas de contre-mesures deepfake / clonage vocal ; filtrage email standard.",
         "l2": "Formation phishing IA / deepfake couvrant la population critique ; quelques contrôles techniques (filtrage avancé, rappel pour virements / accès sensibles) ; simulations occasionnelles.",
@@ -985,6 +1045,7 @@
       },
       "en": {
         "q": "Have you deployed deception — token-burning decoys (tarpits), canary / honey tokens — that catch attackers by their TTPs, regardless of the specific zero-day?",
+        "note": "",
         "l0": "No deception assets deployed.",
         "l1": "Some canary tokens; not systematic.",
         "l2": "Deception deployed in some segments; alerts handled manually.",
@@ -992,6 +1053,7 @@
       },
       "fr": {
         "q": "Avez-vous déployé des mécanismes de déception — leurres à consommation de jetons (tarpits), jetons canary / honey tokens — capables de détecter les attaquants par leurs TTP, indépendamment du zero-day utilisé ?",
+        "note": "",
         "l0": "Pas d'actifs de déception déployés.",
         "l1": "Quelques jetons canary ; pas systématique.",
         "l2": "Déception déployée dans certains segments ; alertes traitées manuellement.",
@@ -1011,14 +1073,16 @@
         "other": "MITRE Engage"
       },
       "en": {
-        "q": "Do you deploy agent-specific decoys / tripwires to detect and slow autonomous attackers (counter-autonomy)? (Note: Counter-autonomy = mechanisms to detect and slow malicious autonomous agents, not just humans. Counted in the main score, but interpreted as an emerging capability (market still immature) to avoid over-reading a low score.)",
+        "q": "Do you deploy agent-specific decoys / tripwires to detect and slow autonomous attackers (counter-autonomy)?",
+        "note": "Counter-autonomy = mechanisms to detect and slow malicious autonomous agents, not just humans. Counted in the main score, but interpreted as an emerging capability (market still immature) to avoid over-reading a low score.",
         "l0": "No counter-autonomy / agent-specific decoys.",
         "l1": "Generic deception only; not calibrated against autonomous attackers.",
         "l2": "Some agent-targeting decoys / tripwires deployed; not validated.",
         "l3": "Decoys / tripwires calibrated for autonomous-agent behavior; proven to fire or validated to do so."
       },
       "fr": {
-        "q": "Déployez-vous des leurres / tripwires spécifiques aux agents pour détecter et ralentir les attaquants autonomes (contre-autonomie) ? (Note : Contre-autonomie = mécanismes de détection et de ralentissement d'agents autonomes malveillants, pas seulement humains. Comptée dans le score principal, mais interprétée comme capacité émergente (marché encore peu mature) afin d'éviter une sur-interprétation d'un score faible.)",
+        "q": "Déployez-vous des leurres / tripwires spécifiques aux agents pour détecter et ralentir les attaquants autonomes (contre-autonomie) ?",
+        "note": "Contre-autonomie = mécanismes de détection et de ralentissement d'agents autonomes malveillants, pas seulement humains. Comptée dans le score principal, mais interprétée comme capacité émergente (marché encore peu mature) afin d'éviter une sur-interprétation d'un score faible.",
         "l0": "Pas de contre-autonomie / leurres spécifiques aux agents.",
         "l1": "Déception générique uniquement ; pas calibrée contre les attaquants autonomes.",
         "l2": "Quelques leurres / tripwires ciblant les agents déployés ; non validés.",
@@ -1039,6 +1103,7 @@
       },
       "en": {
         "q": "Have you turned agents back on your own code — agentic security review and fix proposal — with a blocking gate before production?",
+        "note": "",
         "l0": "No agentic / AI code review; no real gate between code change and production (or rubber-stamp).",
         "l1": "Occasional manual AI code review; a gate exists but is bypassable; not in the pipeline.",
         "l2": "Agentic review integrated for some repos with fix proposal; blocking gate enforced for part of the estate.",
@@ -1046,6 +1111,7 @@
       },
       "fr": {
         "q": "Avez-vous retourné des agents vers votre propre code — revue de sécurité agentique et proposition de correction — avec un contrôle bloquant avant mise en production ?",
+        "note": "",
         "l0": "Pas de revue de code agentique / IA ; pas de vrai contrôle entre le changement de code et la production (ou validation de pure forme).",
         "l1": "Revue de code IA manuelle occasionnelle ; un contrôle existe mais contournable ; pas dans le pipeline.",
         "l2": "Revue agentique intégrée pour certains dépôts avec proposition de correction ; contrôle bloquant imposé pour une partie du parc.",
@@ -1066,6 +1132,7 @@
       },
       "en": {
         "q": "Do you run agentic pentesting / autonomous red teaming continuously against your estate, beyond point-in-time campaigns?",
+        "note": "",
         "l0": "Annual / point-in-time pen tests only.",
         "l1": "Some occasional automated scans; no autonomous red teaming.",
         "l2": "Agentic pentesting running against some targets periodically.",
@@ -1073,6 +1140,7 @@
       },
       "fr": {
         "q": "Faites-vous tourner un pentest agentique / red teaming autonome en continu contre votre parc, au-delà des campagnes ponctuelles ?",
+        "note": "",
         "l0": "Uniquement des pen tests annuels / ponctuels.",
         "l1": "Quelques scans automatisés occasionnels ; pas de red teaming autonome.",
         "l2": "Pentest agentique tournant contre certaines cibles périodiquement.",
@@ -1093,6 +1161,7 @@
       },
       "en": {
         "q": "Have you deployed AI triage / SOC copilots to absorb alert volume and cut investigation times?",
+        "note": "",
         "l0": "No AI triage; analysts handle all alerts manually.",
         "l1": "Piloted AI assistance for some analysts.",
         "l2": "AI triage deployed for first-pass on some alert classes.",
@@ -1100,6 +1169,7 @@
       },
       "fr": {
         "q": "Avez-vous déployé du triage IA / des copilotes SOC pour absorber le volume d'alertes et réduire les temps d'investigation ?",
+        "note": "",
         "l0": "Pas de triage IA ; les analystes gèrent toutes les alertes manuellement.",
         "l1": "Assistance IA pilotée pour quelques analystes.",
         "l2": "Triage IA déployé pour le premier passage sur certaines classes d'alertes.",
@@ -1119,14 +1189,16 @@
         "other": "—"
       },
       "en": {
-        "q": "Is the use of defensive AI agents governed and encouraged across your security operations? (Note: We measure governed adoption, not a mandate. At advanced levels: incentives + a security framework, a managed use-case portfolio (FinOps), a hybrid model strategy: frontier and open-weight models.)",
+        "q": "Is the use of defensive AI agents governed and encouraged across your security operations?",
+        "note": "We measure governed adoption, not a mandate. At advanced levels: incentives + a security framework, a managed use-case portfolio (FinOps), a hybrid model strategy: frontier and open-weight models.",
         "l0": "No AI agents, or anecdotal, ungoverned use.",
         "l1": "Agents available, adoption left to individual initiative; no portfolio or model strategy.",
         "l2": "Adoption actively encouraged and tooled (workflow integration, training, usage metrics); emerging portfolio.",
         "l3": "Adoption widespread and governed (incentives + security framework); prioritized portfolio with cost controls + frontier and open-weight models; use demonstrated on critical operations."
       },
       "fr": {
-        "q": "L'usage des agents IA défensifs est-il encadré et encouragé dans vos opérations sécurité ? (Note : On mesure une adoption gouvernée, pas une obligation. Aux niveaux avancés : incitation + cadre de sécurité, portefeuille de cas d'usage géré (FinOps), stratégie de modèles hybride : modèles frontier et open-weight.)",
+        "q": "L'usage des agents IA défensifs est-il encadré et encouragé dans vos opérations sécurité ?",
+        "note": "On mesure une adoption gouvernée, pas une obligation. Aux niveaux avancés : incitation + cadre de sécurité, portefeuille de cas d'usage géré (FinOps), stratégie de modèles hybride : modèles frontier et open-weight.",
         "l0": "Pas d'agents IA, ou usage anecdotique non encadré.",
         "l1": "Agents disponibles, adoption laissée à l'initiative individuelle ; pas de portefeuille ni de stratégie de modèles.",
         "l2": "Adoption activement incitée et outillée (intégration aux workflows, formation, métriques d'usage) ; portefeuille émergent.",
@@ -1147,6 +1219,7 @@
       },
       "en": {
         "q": "When AI acts in your defensive workflows, are its outputs validated and supervised according to its level of autonomy (false-positive / hallucination rates tracked, drift monitored)?",
+        "note": "",
         "l0": "AI outputs are acted upon without validation; no FP / drift tracking or supervision calibration.",
         "l1": "Informal spot checks of AI outputs; no metrics.",
         "l2": "Human validation and supervision defined for key workflows; FP / drift partially tracked.",
@@ -1154,6 +1227,7 @@
       },
       "fr": {
         "q": "Lorsque l'IA agit dans vos workflows défensifs, ses sorties sont-elles validées et supervisées selon son niveau d'autonomie (taux de faux positifs / hallucinations suivis, surveillance de la dérive) ?",
+        "note": "",
         "l0": "Les sorties IA sont actionnées sans validation ; pas de suivi des faux positifs / dérives ni de calibration de supervision.",
         "l1": "Vérifications spot informelles des sorties IA ; pas de métriques.",
         "l2": "Validation et supervision humaine définies pour les workflows clés ; FP / dérives partiellement suivis.",
@@ -1174,6 +1248,7 @@
       },
       "en": {
         "q": "Is there an explicit, current stance on AI usage (allowed / tolerated / restricted), actually enforced rather than nominal?",
+        "note": "",
         "l0": "No defined stance on AI usage; usage is unknown / unmanaged.",
         "l1": "Informal or implicit stance; some guidance exists but is neither communicated nor enforced.",
         "l2": "A documented AI-usage policy (allowed / tolerated / restricted) is approved and communicated.",
@@ -1181,6 +1256,7 @@
       },
       "fr": {
         "q": "Existe-t-il une position explicite et actuelle sur l'usage de l'IA (autorisé / toléré / restreint), effectivement appliquée plutôt que nominale ?",
+        "note": "",
         "l0": "Pas de position définie sur l'usage de l'IA ; l'utilisation est inconnue / non gérée.",
         "l1": "Position informelle ou implicite ; quelques orientations existent mais ne sont ni communiquées ni appliquées.",
         "l2": "Une politique d'usage de l'IA documentée (autorisé / toléré / restreint) est approuvée et communiquée.",
@@ -1201,6 +1277,7 @@
       },
       "en": {
         "q": "Can employees use approved agentic coding tools today — agents that execute code, not just chatbots — with guardrails specific to those agents?",
+        "note": "",
         "l0": "Unknown whether agentic / coding agents are used; no guardrails.",
         "l1": "Used informally by some teams; no guardrails specific to coding agents.",
         "l2": "Coding-agent use is authorized and bounded by basic guardrails for known teams.",
@@ -1208,6 +1285,7 @@
       },
       "fr": {
         "q": "Les collaborateurs peuvent-ils utiliser des outils de codage agentiques homologués — agents exécutant du code, pas seulement des chatbots — avec des garde-fous spécifiques ?",
+        "note": "",
         "l0": "On ignore si des agents agentiques / de codage sont utilisés ; pas de garde-fous.",
         "l1": "Utilisés informellement par certaines équipes ; pas de garde-fous spécifiques aux agents de codage.",
         "l2": "L'usage d'agents de codage est autorisé et encadré par des garde-fous de base pour les équipes connues.",
@@ -1228,6 +1306,7 @@
       },
       "en": {
         "q": "Have you mapped the regulatory and due-diligence obligations applicable to deployed AI systems — the EU AI Act, progressively applicable with a major milestone on 2 August 2026 depending on system categories, ISO/IEC 42001 — and reflected them in controls and board reporting?",
+        "note": "",
         "l0": "No assessment of regulatory / due-diligence exposure for AI systems.",
         "l1": "Aware of the EU AI Act etc.; no mapping of obligations or controls.",
         "l2": "Legal + Security have begun mapping AI-system obligations; partially reflected in controls.",
@@ -1235,6 +1314,7 @@
       },
       "fr": {
         "q": "Avez-vous cartographié les obligations réglementaires et de diligence applicables aux systèmes IA déployés — EU AI Act, applicable progressivement avec une échéance majeure au 2 août 2026 selon les catégories de systèmes, ISO/IEC 42001 — et les avez-vous reflétées dans les contrôles et le reporting au board ?",
+        "note": "",
         "l0": "Pas d'évaluation de l'exposition réglementaire / devoir de diligence des systèmes IA.",
         "l1": "Conscient de l'EU AI Act etc. ; pas de cartographie des obligations ni des contrôles.",
         "l2": "Le Juridique + la Sécurité ont commencé à cartographier les obligations des systèmes IA ; réflexion partielle dans les contrôles.",
@@ -1254,14 +1334,16 @@
         "other": "SAIF"
       },
       "en": {
-        "q": "Are your defensive / production agents subject to enforced runtime controls — kill switch, action brokering, circuit breakers? (Note: Kill switch; runtime brokering that logs every action; circuit breakers that halt cascading failures. Scored at the weakest link.)",
+        "q": "Are your defensive / production agents subject to enforced runtime controls — kill switch, action brokering, circuit breakers?",
+        "note": "Kill switch; runtime brokering that logs every action; circuit breakers that halt cascading failures. Scored at the weakest link.",
         "l0": "Agents run with no kill switch, brokering or circuit breaker.",
         "l1": "Basic logging; no runtime brokering or kill switch.",
         "l2": "Kill switch and some runtime brokering; partial circuit breakers.",
         "l3": "Every action is brokered, logged and revocable; kill switch and circuit breakers tested in cascade scenarios."
       },
       "fr": {
-        "q": "Vos agents défensifs / en production sont-ils soumis à des contrôles d'exécution imposés — kill-switch, intermédiation des actions, disjoncteurs ? (Note : Kill-switch ; intermédiation à l'exécution journalisant chaque action ; disjoncteurs (circuit breakers) stoppant les défaillances en cascade. Évalué au maillon faible.)",
+        "q": "Vos agents défensifs / en production sont-ils soumis à des contrôles d'exécution imposés — kill-switch, intermédiation des actions, disjoncteurs ?",
+        "note": "Kill-switch ; intermédiation à l'exécution journalisant chaque action ; disjoncteurs (circuit breakers) stoppant les défaillances en cascade. Évalué au maillon faible.",
         "l0": "Agents sans kill-switch, intermédiation ni disjoncteur.",
         "l1": "Journalisation basique ; pas d'intermédiation à l'exécution ni de kill-switch.",
         "l2": "Kill-switch et quelques intermédiations à l'exécution ; disjoncteurs partiels.",
@@ -1282,6 +1364,7 @@
       },
       "en": {
         "q": "Is the agent execution environment (agent harness) secured — tool / permission scope, RAG poisoning and leak prevention, output controls, DLP and SSRF on agent traffic?",
+        "note": "",
         "l0": "Broad agent permissions; untrusted RAG inputs; unfiltered agent outputs.",
         "l1": "Some scoping defined; no RAG validation or output control.",
         "l2": "Least-privilege scope for key agents; RAG / outputs partially controlled.",
@@ -1289,6 +1372,7 @@
       },
       "fr": {
         "q": "L'environnement d'exécution de l'agent (agent harness) est-il sécurisé — périmètre des outils et permissions, prévention du RAG poisoning et des fuites, contrôles de sortie, DLP et SSRF sur le trafic agent ?",
+        "note": "",
         "l0": "Permissions des agents larges ; entrées RAG non fiables ; sorties agents non filtrées.",
         "l1": "Quelques périmètres définis ; pas de validation RAG ni de contrôle de sortie.",
         "l2": "Périmètre au moindre privilège pour les agents clés ; RAG / sorties partiellement contrôlés.",
@@ -1308,14 +1392,16 @@
         "other": "OWASP Enterprise Adoption Maturity Model; SAIF"
       },
       "en": {
-        "q": "Do you maintain a governed inventory of all production AI systems and agents — approved and shadow? (Note: Models, APIs, plugins, MCP servers (Model Context Protocol); with risk scoring; and each workflow positioned on the deployment × governance-maturity matrix (so you don't “operate in the red”).)",
+        "q": "Do you maintain a governed inventory of all production AI systems and agents — approved and shadow?",
+        "note": "Models, APIs, plugins, MCP servers (Model Context Protocol); with risk scoring; and each workflow positioned on the deployment × governance-maturity matrix (so you don't “operate in the red”).",
         "l0": "No inventory; shadow use invisible.",
         "l1": "Partial list of approved AI; ad hoc shadow discovery.",
         "l2": "Inventory of approved AI with first risk scoring; periodic shadow discovery.",
         "l3": "Single governed register — approved + shadow — with risk scoring; workflows positioned, critical gaps addressed."
       },
       "fr": {
-        "q": "Maintenez-vous un inventaire gouverné de tous les systèmes IA et agents en production — homologués et shadow ? (Note : Modèles, API, plugins, serveurs MCP (Model Context Protocol) ; avec notation du risque ; et positionnement de chaque workflow sur la matrice déploiement × maturité de gouvernance (pour ne pas « opérer dans le rouge »).)",
+        "q": "Maintenez-vous un inventaire gouverné de tous les systèmes IA et agents en production — homologués et shadow ?",
+        "note": "Modèles, API, plugins, serveurs MCP (Model Context Protocol) ; avec notation du risque ; et positionnement de chaque workflow sur la matrice déploiement × maturité de gouvernance (pour ne pas « opérer dans le rouge »).",
         "l0": "Pas d'inventaire ; usage shadow invisible.",
         "l1": "Liste partielle des IA homologuées ; découverte shadow ad hoc.",
         "l2": "Inventaire des IA homologuées avec premières notations de risque ; découverte shadow périodique.",
@@ -1335,14 +1421,16 @@
         "other": "OWASP MCP guide; SAIF"
       },
       "en": {
-        "q": "Do you enforce MCP / agentic supply-chain integrity and an approval gate before deploying agents? (Note: MCP: signed / verified servers, plugins and skills; AI data-flow governance; prior approval covering action scope, blast radius and human-override capability.)",
+        "q": "Do you enforce MCP / agentic supply-chain integrity and an approval gate before deploying agents?",
+        "note": "MCP: signed / verified servers, plugins and skills; AI data-flow governance; prior approval covering action scope, blast radius and human-override capability.",
         "l0": "No MCP integrity checks or approval gate.",
         "l1": "Some informal checks of MCP servers; no approval gate.",
         "l2": "Integrity / governance controls for some agents; approval gate defined but not enforced.",
         "l3": "Only signed / verified MCP servers and agentic components allowed; AI data flows governed; no agent reaches production without prior approval."
       },
       "fr": {
-        "q": "Imposez-vous l'intégrité de la supply chain MCP / agentique et un contrôle d'approbation avant déploiement des agents ? (Note : MCP : serveurs, plugins et skills signés / vérifiés ; gouvernance des flux de données IA ; approbation préalable couvrant le périmètre d'action, le blast-radius et la capacité d'intervention humaine.)",
+        "q": "Imposez-vous l'intégrité de la supply chain MCP / agentique et un contrôle d'approbation avant déploiement des agents ?",
+        "note": "MCP : serveurs, plugins et skills signés / vérifiés ; gouvernance des flux de données IA ; approbation préalable couvrant le périmètre d'action, le blast-radius et la capacité d'intervention humaine.",
         "l0": "Pas de contrôles d'intégrité MCP ni de contrôle d'approbation.",
         "l1": "Quelques vérifications informelles des serveurs MCP ; pas de contrôle d'approbation.",
         "l2": "Contrôles d'intégrité / gouvernance pour certains agents ; contrôle d'approbation défini mais non imposé.",
