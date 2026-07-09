@@ -40,6 +40,10 @@ async function loadData() {
   try {
     const resp = await fetch("./assets/data/questions.json");
     DATA = await resp.json();
+    // v1.3.2 — deprecated-status support: questions carrying status "deprecated" are
+    // excluded from rendering, scoring, CSV export, the ingest prompt and the import
+    // known-ids set (their imported answers count as skipped). Ids are never reused.
+    DATA.questions = (DATA.questions || []).filter(q => q.status !== "deprecated");
   } catch (e) {
     document.getElementById("main").innerHTML =
       `<div style="padding:2rem;color:#E24B4A">
