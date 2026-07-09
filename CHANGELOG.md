@@ -1,5 +1,13 @@
 # Changelog — Mythos Readiness Questionnaire
 
+## v1.3.1 (2026-07-09) — Import tolérant aux versions
+Durcissement de l'import d'évaluations (.csv / .enc) pour opérationnaliser la rétrocompatibilité formalisée en v1.3.
+
+### Application
+- `app.js` : `parseAndImportCSV` valide désormais chaque id contre le questionnaire courant — les réponses aux ids inconnus / retirés sont ignorées (plus de pollution du stockage local) et comptées
+- `app.js` : message de fin d'import enrichi — nombre de réponses importées, questions restant à compléter (ex. nouvelles questions de la version courante), réponses ignorées
+- `i18n.js` : libellés `import_remaining` / `import_skipped` (FR + EN) ; texte d'intro de l'import explicitant l'acceptation des exports de versions antérieures ; `footer_version` → v1.3 ; `scored_of` → 47
+
 ## v1.3 (2026-07-09) — Questions réseau (CSA AI-Storm Networks) & versioning
 Trois questions issues de la guidance réseau CSA/Cisco « Preparing Your Networks for the AI Storm », et formalisation du versioning pour la rétrocompatibilité des réponses.
 
