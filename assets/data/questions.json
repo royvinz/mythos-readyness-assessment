@@ -1,13 +1,18 @@
 {
   "meta": {
     "title": "Mythos Readiness — Where Do You Stand?",
-    "version": "1.2",
+    "version": "1.3",
     "created": "2026-06-18",
-    "total_questions": 44,
+    "total_questions": 46,
+    "versioning": {
+      "id_policy": "Question ids are immutable and never reused; display order = array position, independent of id. Any semantic change to a published question requires a new id.",
+      "compatibility": "Answer export/import is keyed by question id: an export from a previous version re-imports cleanly; questions introduced since remain unanswered.",
+      "introduced_in": "Each question carries introduced_in = questionnaire version that added it."
+    },
     "distribution": {
       "T1": 6,
-      "T2": 11,
-      "T3": 15,
+      "T2": 12,
+      "T3": 16,
       "T4": 5,
       "T5": 7
     },
@@ -163,6 +168,7 @@
   "questions": [
     {
       "id": "Q1",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.1",
       "cascade": "G.2",
@@ -192,6 +198,7 @@
     },
     {
       "id": "Q2",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.1",
       "cascade": "G.6",
@@ -221,6 +228,7 @@
     },
     {
       "id": "Q3",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.1",
       "cascade": "G.3",
@@ -250,6 +258,7 @@
     },
     {
       "id": "Q4",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.2",
       "cascade": "G.5, G.9",
@@ -279,6 +288,7 @@
     },
     {
       "id": "Q5",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.2",
       "cascade": "G.8",
@@ -308,6 +318,7 @@
     },
     {
       "id": "Q6",
+      "introduced_in": "1.0",
       "pillar": "T1",
       "sub": "1.2",
       "cascade": "G.7",
@@ -337,6 +348,7 @@
     },
     {
       "id": "Q7",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.1",
       "cascade": "N1.2",
@@ -366,6 +378,7 @@
     },
     {
       "id": "Q8",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.1",
       "cascade": "N1.1",
@@ -395,6 +408,7 @@
     },
     {
       "id": "Q9",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.1",
       "cascade": "N1.2, N1.3, N1.4",
@@ -424,6 +438,7 @@
     },
     {
       "id": "Q10",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.1",
       "cascade": "N1.5",
@@ -453,6 +468,7 @@
     },
     {
       "id": "Q11",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.2",
       "cascade": "N1.6, N1.9",
@@ -482,6 +498,7 @@
     },
     {
       "id": "Q12",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.2",
       "cascade": "N1.7",
@@ -511,6 +528,7 @@
     },
     {
       "id": "Q13",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.2",
       "cascade": "N1.8",
@@ -540,6 +558,7 @@
     },
     {
       "id": "Q42",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.2",
       "cascade": "N1.14",
@@ -569,6 +588,7 @@
     },
     {
       "id": "Q14",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.3",
       "cascade": "N1.10",
@@ -598,6 +618,7 @@
     },
     {
       "id": "Q15",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.3",
       "cascade": "N1.11, N1.12, N2.14, G.4",
@@ -627,6 +648,7 @@
     },
     {
       "id": "Q16",
+      "introduced_in": "1.0",
       "pillar": "T2",
       "sub": "2.3",
       "cascade": "N1.13",
@@ -655,7 +677,38 @@
       }
     },
     {
+      "id": "Q45",
+      "introduced_in": "1.3",
+      "pillar": "T2",
+      "sub": "2.3",
+      "cascade": "N1.3, N1.10",
+      "refs": {
+        "csa": "PA5, PA7 · Risk 1, 6",
+        "nist": "ID.AM, PR.PS, PR.IR",
+        "atlas": "—",
+        "owasp": "—",
+        "other": "CSA/Cisco \"Preparing Your Networks for the AI Storm\""
+      },
+      "en": {
+        "q": "Is your network & security equipment fleet (firewalls, VPN, routers, SDN controllers, virtual appliances) held to a day-of-release patchability standard — EoL refreshed, HA pairs enabling zero-downtime patching, and integrated into VulnOps?",
+        "note": "The network itself is a prime target. Decision rule per the CSA AI-Storm network guidance: EoL → rip and replace; extended support → replace as soon as feasible; no HA → add a pair to patch without downtime; cannot patch on day of release → refresh or onboard into the VulnOps program.",
+        "l0": "Fleet not inventoried against lifecycle; EoL / extended-support devices persist; patching in weeks or months.",
+        "l1": "Lifecycle known for part of the fleet; some refresh under way; no day-of-release capability or HA strategy.",
+        "l2": "EoL refresh driven for exposed devices; HA on critical paths; day-of-release patching achieved on part of the fleet.",
+        "l3": "Fleet current and patchable day-of-release (HA-enabled, VulnOps-integrated); non-compliant devices replaced by policy, tracked as a metric."
+      },
+      "fr": {
+        "q": "Votre parc d'équipements réseau & sécurité (firewalls, VPN, routeurs, contrôleurs SDN, appliances virtuelles) est-il tenu à un standard de patchabilité le jour de la release — EoL remplacés, paires HA permettant le patch sans interruption, et intégration au VulnOps ?",
+        "note": "Le réseau est lui-même une cible de choix. Règle de décision selon la guidance réseau CSA AI-Storm : EoL → rip and replace ; support étendu → remplacer dès que possible ; pas de HA → ajouter une paire pour patcher sans downtime ; incapable de patcher le jour de la release → remplacer ou intégrer au programme VulnOps.",
+        "l0": "Parc non inventorié au regard du cycle de vie ; équipements EoL / support étendu persistants ; patching en semaines ou mois.",
+        "l1": "Cycle de vie connu pour une partie du parc ; quelques remplacements en cours ; pas de capacité day-of-release ni de stratégie HA.",
+        "l2": "Refresh EoL piloté pour les équipements exposés ; HA sur les chemins critiques ; patching day-of-release atteint sur une partie du parc.",
+        "l3": "Parc à jour et patchable le jour de la release (HA, intégré VulnOps) ; équipements non conformes remplacés par politique, suivi comme métrique."
+      }
+    },
+    {
       "id": "Q17",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.1",
       "cascade": "N2.1, N2.19",
@@ -685,6 +738,7 @@
     },
     {
       "id": "Q43",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.1",
       "cascade": "—",
@@ -714,6 +768,7 @@
     },
     {
       "id": "Q18",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.1",
       "cascade": "N2.2, N2.4",
@@ -743,6 +798,7 @@
     },
     {
       "id": "Q19",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.1",
       "cascade": "N2.5, N2.6",
@@ -772,6 +828,7 @@
     },
     {
       "id": "Q20",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.1",
       "cascade": "N2.3",
@@ -801,6 +858,7 @@
     },
     {
       "id": "Q21",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.7, N2.8",
@@ -830,6 +888,7 @@
     },
     {
       "id": "Q22",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.9, N2.10",
@@ -859,6 +918,7 @@
     },
     {
       "id": "Q23",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.11",
@@ -888,6 +948,7 @@
     },
     {
       "id": "Q24",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.12, N2.13, N2.16",
@@ -916,7 +977,38 @@
       }
     },
     {
+      "id": "Q46",
+      "introduced_in": "1.3",
+      "pillar": "T3",
+      "sub": "3.2",
+      "cascade": "N2.12, N2.16",
+      "refs": {
+        "csa": "PA8 · Risk 8",
+        "nist": "PR.IR, PR.PS, ID.IM",
+        "atlas": "—",
+        "owasp": "—",
+        "other": "CSA/Cisco \"Preparing Your Networks for the AI Storm\"; Zero Trust (NIST SP 800-207)"
+      },
+      "en": {
+        "q": "Is segmentation operated as a continuous process — serial inline boundaries added and maintained as applications evolve (every new app born with its boundaries), with SDN enabling changes in hours rather than weeks?",
+        "note": "Complements Q24 (segmentation state) with the operating dimension: serial (not parallel) boundaries force an attacker to consume one exploit per layer; segmentation is maintained as applications change, not as a one-and-done architecture. For OT / unpatchable networks: Internet disconnection, or data diodes, or ≥2 inline NGFWs from different vendors.",
+        "l0": "Segmentation is a past project; boundaries erode as applications change; firewall changes take weeks.",
+        "l1": "Boundaries added reactively after incidents or audits; no by-design process; changes slow.",
+        "l2": "New critical applications are deployed with their boundaries; serial inline boundaries on priority stacks; SDN partially adopted.",
+        "l3": "Segmentation runs as a continuous loop: every new app ships with its boundaries, serial layers maintained, SDN-enabled changes in hours; OT isolated per the disconnection / diode / dual-vendor NGFW ladder."
+      },
+      "fr": {
+        "q": "La segmentation est-elle opérée comme un processus continu — barrières inline en série ajoutées et maintenues au fil des évolutions applicatives (chaque nouvelle app naît avec ses barrières), avec le SDN permettant des changements en heures plutôt qu'en semaines ?",
+        "note": "Complète Q24 (état de la segmentation) par la dimension opératoire : des barrières en série (pas en parallèle) forcent l'attaquant à consommer un exploit par couche ; la segmentation est maintenue au fil des évolutions applicatives, pas une architecture one-and-done. Pour l'OT / les réseaux non patchables : déconnexion Internet, sinon data diodes, sinon ≥2 NGFW inline de vendeurs différents.",
+        "l0": "La segmentation est un projet passé ; les barrières s'érodent au fil des évolutions applicatives ; un changement firewall prend des semaines.",
+        "l1": "Barrières ajoutées réactivement après incidents ou audits ; pas de processus by-design ; changements lents.",
+        "l2": "Les nouvelles applications critiques sont déployées avec leurs barrières ; barrières inline en série sur les stacks prioritaires ; SDN partiellement adopté.",
+        "l3": "La segmentation tourne en boucle continue : chaque nouvelle app naît avec ses barrières, couches en série maintenues, changements SDN en heures ; OT isolé selon l'échelle déconnexion / diode / NGFW dual-vendor."
+      }
+    },
+    {
       "id": "Q25",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.15",
@@ -946,6 +1038,7 @@
     },
     {
       "id": "Q26",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.17, N2.18",
@@ -975,6 +1068,7 @@
     },
     {
       "id": "Q44",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.20",
@@ -1004,6 +1098,7 @@
     },
     {
       "id": "Q41",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.2",
       "cascade": "N2.23, G.10",
@@ -1033,6 +1128,7 @@
     },
     {
       "id": "Q27",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.3",
       "cascade": "N2.21",
@@ -1062,6 +1158,7 @@
     },
     {
       "id": "Q28",
+      "introduced_in": "1.0",
       "pillar": "T3",
       "sub": "3.3",
       "cascade": "N2.22",
@@ -1091,6 +1188,7 @@
     },
     {
       "id": "Q29",
+      "introduced_in": "1.0",
       "pillar": "T4",
       "sub": "4.1",
       "cascade": "N3.1",
@@ -1120,6 +1218,7 @@
     },
     {
       "id": "Q30",
+      "introduced_in": "1.0",
       "pillar": "T4",
       "sub": "4.1",
       "cascade": "N3.2",
@@ -1149,6 +1248,7 @@
     },
     {
       "id": "Q31",
+      "introduced_in": "1.0",
       "pillar": "T4",
       "sub": "4.2",
       "cascade": "N3.3",
@@ -1178,6 +1278,7 @@
     },
     {
       "id": "Q32",
+      "introduced_in": "1.0",
       "pillar": "T4",
       "sub": "4.2",
       "cascade": "N3.4, N3.5, N3.6",
@@ -1207,6 +1308,7 @@
     },
     {
       "id": "Q33",
+      "introduced_in": "1.0",
       "pillar": "T4",
       "sub": "4.2",
       "cascade": "N3.6, N3.9",
@@ -1236,6 +1338,7 @@
     },
     {
       "id": "Q34",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.1",
       "cascade": "—",
@@ -1265,6 +1368,7 @@
     },
     {
       "id": "Q35",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.1",
       "cascade": "N3.4, N3.11",
@@ -1294,6 +1398,7 @@
     },
     {
       "id": "Q36",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.1",
       "cascade": "G.6, N3.14",
@@ -1323,6 +1428,7 @@
     },
     {
       "id": "Q37",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.2",
       "cascade": "N3.7, N3.8, N3.9",
@@ -1352,6 +1458,7 @@
     },
     {
       "id": "Q38",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.2",
       "cascade": "N3.10, N3.13",
@@ -1381,6 +1488,7 @@
     },
     {
       "id": "Q39",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.3",
       "cascade": "N3.11",
@@ -1410,6 +1518,7 @@
     },
     {
       "id": "Q40",
+      "introduced_in": "1.0",
       "pillar": "T5",
       "sub": "5.3",
       "cascade": "N3.12, N3.14, G.11",
