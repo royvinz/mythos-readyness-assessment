@@ -1,5 +1,17 @@
 # Changelog — Mythos Readiness Questionnaire
 
+## v1.3.2 (2026-07-09) — Support du statut `deprecated`
+Implémentation du mécanisme de dépréciation préparé en v1.3. **Aucune question n'est dépréciée à ce jour** ; le questionnaire validé (47 questions) est inchangé.
+
+### Application
+- `app.js` : filtrage des questions portant `"status": "deprecated"` au chargement (`loadData`) — point de passage unique couvrant automatiquement rendu, scoring, export CSV, prompt d'ingest LLM et set d'ids connus de l'import (les réponses importées d'une question dépréciée comptent dans les réponses ignorées, sans code additionnel)
+
+### Contrat de dépréciation (champs réservés, à poser dans `questions.json` le moment venu)
+- `"status": "deprecated"` — la question disparaît de toute la chaîne ; l'absence du champ vaut `active`
+- `"deprecated_in": "1.x"` — version du questionnaire qui retire la question
+- `"superseded_by": "Qxx"` — optionnel, question remplaçante
+- Les ids restent immuables et ne sont jamais réutilisés (règle v1.3) ; le bloc `meta.versioning` sera enrichi atomiquement dans le commit de la première dépréciation
+
 ## v1.3.1 (2026-07-09) — Import tolérant aux versions
 Durcissement de l'import d'évaluations (.csv / .enc) pour opérationnaliser la rétrocompatibilité formalisée en v1.3.
 
