@@ -76,11 +76,11 @@ const I18N = {
     priority_none:  "—",
 
     footer_refs:    "Référentiels : CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
-    footer_version: "v1.1 · Wavestone · 2026",
+    footer_version: "v1.3 · Wavestone · 2026",
 
     q_lang_notice: "📖 Questions et descripteurs affichés en anglais (langue source de l'instrument)",
 
-    scored_of: "notées sur 42",
+    scored_of: "notées sur 47",
 
     export_title:       "Export des données",
     export_notice:      "Chiffrement AES-256-GCM (PBKDF2 · 200 000 itérations). Conservez la passphrase générée — sans elle le fichier est irrécupérable.",
@@ -121,7 +121,7 @@ const I18N = {
 
     // Import section
     import_title:      "Importer une évaluation",
-    import_intro:      "Chargez une évaluation exportée (.csv ou .enc) pour reprendre là où vous vous étiez arrêté.",
+    import_intro:      "Chargez une évaluation exportée (.csv ou .enc) pour reprendre là où vous vous étiez arrêté. Les exports d'une version antérieure du questionnaire sont acceptés : les questions ajoutées depuis restent simplement à compléter.",
     import_file_label: "Fichier à importer",
     import_btn:        "Importer",
     import_pp_title:   "Passphrase requise",
@@ -134,6 +134,8 @@ const I18N = {
     import_wrong_pp:   "Passphrase incorrecte ou fichier corrompu.",
     import_supported:  "Formats acceptés : .csv, .enc",
     import_no_file:    "Aucun fichier sélectionné",
+    import_remaining:  "question(s) à compléter",
+    import_skipped:    "réponse(s) ignorée(s) — ids absents du questionnaire courant",
 
     // Weighting
     weight_title:   "Pondération des sous-thèmes",
@@ -236,11 +238,11 @@ const I18N = {
     priority_none:  "—",
 
     footer_refs:    "References: CSA AI Vulnerability Storm v0.9 · NIST CSF 2.0 · MITRE ATLAS · OWASP LLM & Agentic Top 10 · CISA BOD 26-04",
-    footer_version: "v1.1 · Wavestone · 2026",
+    footer_version: "v1.3 · Wavestone · 2026",
 
     q_lang_notice: "📖 Questions and descriptors displayed in English (instrument source language)",
 
-    scored_of: "scored out of 42",
+    scored_of: "scored out of 47",
 
     export_title:       "Export data",
     export_notice:      "AES-256-GCM encryption (PBKDF2 · 200,000 iterations). Save the generated passphrase — without it the file cannot be recovered.",
@@ -281,7 +283,7 @@ const I18N = {
 
     // Import section
     import_title:      "Import an assessment",
-    import_intro:      "Load a previously exported assessment (.csv or .enc) to resume where you left off.",
+    import_intro:      "Load a previously exported assessment (.csv or .enc) to resume where you left off. Exports from an earlier questionnaire version are accepted: questions added since simply remain to be answered.",
     import_file_label: "File to import",
     import_btn:        "Import",
     import_pp_title:   "Passphrase required",
@@ -294,6 +296,8 @@ const I18N = {
     import_wrong_pp:   "Wrong passphrase or corrupted file.",
     import_supported:  "Accepted formats: .csv, .enc",
     import_no_file:    "No file selected",
+    import_remaining:  "question(s) left to answer",
+    import_skipped:    "answer(s) skipped — ids not in the current questionnaire",
 
     // Weighting
     weight_title:   "Sub-theme weighting",
