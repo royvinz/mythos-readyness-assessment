@@ -1,5 +1,20 @@
 # Changelog — Mythos Readiness Questionnaire
 
+## v1.3 (2026-07-09) — Questions réseau (CSA AI-Storm Networks) & versioning
+Deux questions issues de la guidance réseau CSA/Cisco « Preparing Your Networks for the AI Storm », et formalisation du versioning pour la rétrocompatibilité des réponses.
+
+### Ajouts
+- **Q45** (T2 · 2.3) — Parc d'équipements réseau & sécurité : patchabilité day-of-release, refresh EoL, HA sans downtime, intégration VulnOps
+- **Q46** (T3 · 3.2) — Segmentation opérée comme processus continu : barrières inline en série, segmentation by-design des nouvelles apps, SDN, échelle d'isolation OT (déconnexion / diode / NGFW dual-vendor). Complète Q24 (état) par la dimension opératoire — Q24 inchangée pour préserver la comparabilité des réponses.
+
+### Schéma (`questions.json`)
+- Champ **`introduced_in`** sur chaque question (existantes = `1.0`, nouvelles = `1.3`)
+- `meta.versioning` : ids immuables et jamais réutilisés ; ordre d'affichage = position dans le tableau ; import de réponses keyé par id (un export d'une version antérieure se réimporte proprement, les questions ajoutées depuis restent vides)
+- `meta.version` → `1.3` · `total_questions` → 46
+
+### Distribution
+T1 : 6 · T2 : 12 · T3 : 16 · T4 : 5 · T5 : 7 — total **46**
+
 ## v1.2 (2026-06-21) — Note de cadrage en champ dédié
 Séparation de la note de cadrage : champ `note` distinct (FR + EN) à côté de `q`, au lieu d'être replié dans l'énoncé.
 
